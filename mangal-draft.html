@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Timothée Poisot" />
+  <title>A data specification for efficient archival of ecological networks</title>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+</head>
+<body>
+<div id="header">
+<h1 class="title">A data specification for efficient archival of ecological networks</h1>
+<h2 class="author">Timothée Poisot</h2>
+<h3 class="date">Feb. 2013</h3>
+</div>
+<blockquote>
+<p>This is a <em>working document</em> describing <code>mangal</code>, a set of <code>JSON</code> objects templates to encode ecological networks of virtually any complexity. There are plans to host a pilot database.</p>
+</blockquote>
+<h1 id="the-need-for-a-data-specification">The need for a data specification</h1>
+<p>Ecological networks enable ecologists to accommodate the complexity of natural communities, and to discover mechanisms contributing to their persistence, stability, resilience, and functioning.</p>
+<h1 id="the-elements-of-a-network">The elements of a network</h1>
+<h1 id="proposed-implementation">Proposed implementation</h1>
+<pre class="sourceCode json"><code class="sourceCode json">{
+    <span class="dt">&quot;ID&quot;</span>: <span class="st">&quot;MyDB_I_00001&quot;</span>,
+    <span class="dt">&quot;from&quot;</span>: <span class="st">&quot;MyDB_P_00001&quot;</span>,
+    <span class="dt">&quot;to&quot;</span>: <span class="st">&quot;MyDB_P_00002&quot;</span>,
+    <span class="dt">&quot;info&quot;</span>: {
+        <span class="dt">&quot;binary&quot;</span>: <span class="dv">true</span>,
+        <span class="dt">&quot;directional&quot;</span>: <span class="dv">false</span>,
+        <span class="dt">&quot;strength&quot;</span>: <span class="dv">1</span>,
+        },
+    <span class="dt">&quot;type&quot;</span>: <span class="st">&quot;predation&quot;</span>,
+    <span class="dt">&quot;notes&quot;</span>: <span class="st">&quot;none&quot;</span>
+}</code></pre>
+<h1 id="conclusion-and-future-directions">Conclusion and future directions</h1>
+</body>
+</html>
