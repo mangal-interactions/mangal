@@ -37,8 +37,34 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </blockquote>
 <h1 id="the-need-for-a-data-specification">The need for a data specification</h1>
 <p>Ecological networks enable ecologists to accommodate the complexity of natural communities, and to discover mechanisms contributing to their persistence, stability, resilience, and functioning.</p>
+<ul>
+<li>we need <em>a lot</em> of information to make inference and train predictive models</li>
+<li>networks are <em>hard</em> to get in nature</li>
+<li>need to compare several datasets to start working on the biogeography of webs</li>
+</ul>
 <h1 id="the-elements-of-a-network">The elements of a network</h1>
+<p>Basic idea is to have <em>layers</em> in the data specification, each corresponding to one layer of organization in the networks. What I see currently is</p>
+<ul>
+<li>nodes</li>
+<li>edges</li>
+<li>networks</li>
+</ul>
+<p>This will require some <em>glue</em> objects, but it should be simple enough.</p>
+<h2 id="the-properties-of-nodes">The properties of nodes</h2>
+<ul>
+<li>scale of organization</li>
+<li>biodiversity descriptors</li>
+</ul>
+<h2 id="the-properties-of-edges">The properties of edges</h2>
+<h2 id="the-properties-of-networks">The properties of networks</h2>
+<ul>
+<li>sample location</li>
+<li>sample date</li>
+<li>methodology</li>
+<li>associated references</li>
+</ul>
 <h1 id="proposed-implementation">Proposed implementation</h1>
+<p>This will mostly describe several data templates for each of the scales in the previous section.</p>
 <pre class="sourceCode json"><code class="sourceCode json">{
     <span class="dt">&quot;ID&quot;</span>: <span class="st">&quot;MyDB_I_00001&quot;</span>,
     <span class="dt">&quot;from&quot;</span>: <span class="st">&quot;MyDB_P_00001&quot;</span>,
