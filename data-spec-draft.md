@@ -10,7 +10,9 @@ Ecological networks enable ecologists to accommodate the complexity of natural c
 
 - we need *a lot* of information to make inference and train predictive models
 - networks are *hard* to get in nature
-- need to compare several datasets to start working on the biogeography of webs
+- need to compare several datasets to start working on the biogeography of web
+
+A short paragraph describing the type of data we need and relating them to outstanding questions, ref from the recent literature. Space, evolution, gradients, prediction.
 
 # The elements of a network
 
