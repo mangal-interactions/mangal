@@ -1,47 +1,16 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="Content-Style-Type" content="text/css" />
-  <meta name="generator" content="pandoc" />
-  <meta name="author" content="Timothée Poisot" />
-  <title>A data specification for efficient archival of ecological networks</title>
-  <style type="text/css">
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
-  </style>
-</head>
-<body>
-<div id="header">
-<h1 class="title">A data specification for efficient archival of ecological networks</h1>
-<h2 class="author">Timothée Poisot</h2>
-<h3 class="date">Feb. 2013</h3>
-</div>
 <blockquote>
 <p>This is a <em>working document</em> describing <code>mangal</code>, a set of <code>JSON</code> objects templates to encode ecological networks of virtually any complexity. There are plans to host a pilot database.</p>
 </blockquote>
+<p>I (<strong>TP</strong>) would target <a href="http://www.scfbm.org/"><em>Source Code for Biology and Medicine</em></a>.</p>
 <h1 id="the-need-for-a-data-specification">The need for a data specification</h1>
-<p>Ecological networks enable ecologists to accommodate the complexity of natural communities, and to discover mechanisms contributing to their persistence, stability, resilience, and functioning.</p>
+<p>Ecological networks enable ecologists to accommodate the complexity of natural communities, and to discover mechanisms contributing to their persistence, stability, resilience, and functioning <span class="citation">[1, 2]</span>. Yet, meta-analyses of a large number of ecological networks are still extremely rare, and most of the studies comparing sveeral networks <span class="citation">[3, 4]</span> do so within the limit of particular systems. Networks, as they encode the structure of complex ecological interactions, have been time and egain presented as useful tools to understand ecosystem properties and dynamics <span class="citation">[5–9]</span>. Coming up with a clear conceptual and mechanistic understanding of the relationships between the structure of ecological networks and ecosystem properties require to pool a large quantity of data.</p>
+<p>On the other hand, the recent years saw the development of the idea that network structure is itself a dynamical object, which will change as a function of environmental conditions and as a result of meta-community processes <span class="citation">[10–13]</span>. Although the <em>existence</em> of this variation has been demonstrated, the reasons for which it happens are much less clearly understood, and will probably require extensive data mining to be figured out. Beyond just describing the structure of interactions, these data will need to include informations about environmental context, population characteristics, and other relevant additional explanatory variables.</p>
 <ul>
 <li>we need <em>a lot</em> of information to make inference and train predictive models</li>
 <li>networks are <em>hard</em> to get in nature</li>
-<li>need to compare several datasets to start working on the biogeography of webs</li>
+<li>need to compare several datasets to start working on the biogeography of web</li>
 </ul>
+<p>A short paragraph describing the type of data we need and relating them to outstanding questions, ref from the recent literature. Space, evolution, gradients, prediction.</p>
 <h1 id="the-elements-of-a-network">The elements of a network</h1>
 <p>Basic idea is to have <em>layers</em> in the data specification, each corresponding to one layer of organization in the networks. What I see currently is</p>
 <ul>
@@ -66,17 +35,28 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h1 id="proposed-implementation">Proposed implementation</h1>
 <p>This will mostly describe several data templates for each of the scales in the previous section.</p>
 <pre class="sourceCode json"><code class="sourceCode json">{
-    <span class="dt">&quot;ID&quot;</span>: <span class="st">&quot;MyDB_I_00001&quot;</span>,
-    <span class="dt">&quot;from&quot;</span>: <span class="st">&quot;MyDB_P_00001&quot;</span>,
-    <span class="dt">&quot;to&quot;</span>: <span class="st">&quot;MyDB_P_00002&quot;</span>,
-    <span class="dt">&quot;info&quot;</span>: {
-        <span class="dt">&quot;binary&quot;</span>: <span class="dv">true</span>,
-        <span class="dt">&quot;directional&quot;</span>: <span class="dv">false</span>,
-        <span class="dt">&quot;strength&quot;</span>: <span class="dv">1</span>,
-        },
-    <span class="dt">&quot;type&quot;</span>: <span class="st">&quot;predation&quot;</span>,
-    <span class="dt">&quot;notes&quot;</span>: <span class="st">&quot;none&quot;</span>
+<span class="dt">&quot;ID&quot;</span>: <span class="st">&quot;MyDB_I_00001&quot;</span>,
+<span class="dt">&quot;from&quot;</span>: <span class="st">&quot;MyDB_P_00001&quot;</span>,
+<span class="dt">&quot;to&quot;</span>: <span class="st">&quot;MyDB_P_00002&quot;</span>,
+<span class="dt">&quot;info&quot;</span>: {
+<span class="dt">&quot;binary&quot;</span>: <span class="dv">true</span>,
+<span class="dt">&quot;directional&quot;</span>: <span class="dv">false</span>,
+<span class="dt">&quot;strength&quot;</span>: <span class="dv">1</span>,
+},
+<span class="dt">&quot;type&quot;</span>: <span class="st">&quot;predation&quot;</span>,
+<span class="dt">&quot;notes&quot;</span>: <span class="st">&quot;none&quot;</span>
 }</code></pre>
 <h1 id="conclusion-and-future-directions">Conclusion and future directions</h1>
-</body>
-</html>
+<p>1. Dunne JA: <strong>The Network Structure of Food Webs</strong>. In <a href="baseline" title="baseline"><em>Ecological networks: Linking structure and dynamics</em></a>. edited by Dunne JA, Pascual M Oxford University Press; 2006:27–86.</p>
+<p>2. Blüthgen N, Fründ J, Vázquez DP, Menzel F: <strong>What do interaction network metrics tell us about specialization and biological traits?</strong> <a href="baseline" title="baseline"><em>Ecology</em></a> 2008, <strong>89</strong>:3387–99.</p>
+<p>3. Schleuning M, Blüthgen N, Flörchinger M, Braun J, Schaefer HM, Böhning-Gaese K: <strong>Specialization and interaction strength in a tropical plant-frugivore network differ among forest strata</strong>. <a href="baseline" title="baseline"><em>Ecology</em></a> 2011, <strong>92</strong>:26–36.</p>
+<p>4. Dalsgaard B, Trøjelsgaard K, González AMM, Nogués-Bravo D, Ollerton J, Petanidou T, Sandel B, Schleuning M, Wang Z, Rahbek C, Sutherland WJ, Svenning J-C, Olesen JM: <strong>Historical climate-change influences modularity and nestedness of pollination networks</strong>. <a href="baseline" title="baseline"><em>Ecography</em></a> 2013.</p>
+<p>5. Kéfi S, Berlow EL, Wieters EA, Navarrete SA, Petchey OL, Wood SA, Boit A, Joppa LN, Lafferty KD, Williams RJ, Martinez ND, Menge BA, Blanchette CA, Iles AC, Brose U: <strong>More than a meal\textbackslashldots integrating non-feeding interactions into food webs.</strong> <a href="baseline" title="baseline"><em>Ecology letters</em></a> 2012, <strong>15</strong>:291–300.</p>
+<p>6. Saavedra S, Stouffer DB, Uzzi B, Bascompte J: <strong>Strong contributors to network persistence are the most vulnerable to extinction</strong>. <a href="baseline" title="baseline"><em>Nature</em></a> 2011, <strong>478</strong>:233–235.</p>
+<p>7. Bascompte J, Jordano P, Olesen JM: <strong>Asymmetric coevolutionary networks facilitate biodiversity maintenance.</strong> <a href="baseline" title="baseline"><em>Science</em></a> 2006, <strong>312</strong>:431–3.</p>
+<p>8. Poisot T, Mouquet N, Gravel D: <strong>Trophic complementarity drives the biodiversity–ecosystem functioning relationship in food webs</strong>. <a href="baseline" title="baseline"><em>Ecology Letters</em></a> 2013.</p>
+<p>9. Thompson RM, Brose U, Dunne JA, Jr ROH, Hladyz S, Kitching RL, Martinez ND, Rantala H, Romanuk TN, Stouffer DB, Tylianakis JM: <strong>Food webs: reconciling the structure and function of biodiversity</strong>. <a href="baseline" title="baseline"><em>Trends in Ecology &amp; Evolution</em></a> 2012:1–9.</p>
+<p>10. Poisot T, Canard E, Mouillot D, Mouquet N, Gravel D: <strong>The dissimilarity of species interaction networks.</strong> <a href="baseline" title="baseline"><em>Ecology Letters</em></a> 2012, <strong>15</strong>:1353–1361.</p>
+<p>11. Gravel D, Massol F, Canard E, Mouillot D, Mouquet N: <strong>Trophic theory of island biogeography.</strong> <a href="baseline" title="baseline"><em>Ecology Letters</em></a> 2011, <strong>14</strong>:1010–1016.</p>
+<p>12. Calcagno V, Massol F, Mouquet N, Jarne P, David P: <strong>Constraints on food chain length arising from regional metacommunity dynamics.</strong> <a href="baseline" title="baseline"><em>Proceedings of the Royal Society B: Biological Sciences</em></a> 2011, <strong>278</strong>:3042–3049.</p>
+<p>13. Massol F, Gravel D, Mouquet N, Cadotte MW, Fukami T, Leibold MA: <strong>Linking community and ecosystem dynamics through spatial ecology.</strong> <a href="baseline" title="baseline"><em>Ecology Letters</em></a> 2011, <strong>14</strong>:313–323.</p>
