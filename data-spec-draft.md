@@ -23,20 +23,23 @@ Coming up with a clear conceptual and mechanistic understanding of the
 relationships between the structure of ecological networks and ecosystem
 properties require to pool a large quantity of data.
 
-On the other hand, the recent years saw the development of the idea that network
-structure is itself a dynamical object, which will change as a function of
-environmental conditions and as a result of meta-community processes
+On the other hand, the recent years saw the development of the idea that
+network structure is itself a dynamical object, which will change as a function
+of environmental conditions and as a result of meta-community processes
 [@poisot_dissimilarity_2012;@gravel_trophic_2011;@calcagno_constraints_2011;@massol_linking_2011].
 Although the *existence* of this variation has been demonstrated, the reasons
-for which it happens are much less clearly understood, and will probably require
-extensive data mining to be figured out. Beyond just describing the structure of
-interactions, these data will need to include informations about environmental
-context, population characteristics, and other relevant additional explanatory
-variables.
+for which it happens are much less clearly understood, and will probably
+require extensive data mining to be figured out. Notably, new approaches based
+on the replication of networks over temporal, spatial, and environmental
+gradients are required, and these in turn ask for new data types.  Beyond just
+describing the structure of interactions, these data will need to include
+informations about environmental context, population characteristics, and other
+relevant additional explanatory variables.
 
-A short paragraph describing the type of data we need and relating them to
-outstanding questions, ref from the recent literature. Space, evolution,
-gradients, prediction. **Questions for the gang:** Can you each list one outstanding network question?
+Theoretical and empirical literature provide guidance about what data need be
+collected, which is important to design the data structure. First, it is well
+estblished that interactions rely on some degree of trait matching or
+complementarity. For example, food web structure is contingent upon body-size of species [@gravel_inferring_2013;@brose_consumerresource_2006].
 
 This paper pursues a double goal. First, we outline the different data needed to
 effectively conduct meta-analyses of ecological networks. Second, we propose an
