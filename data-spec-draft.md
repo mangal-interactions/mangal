@@ -4,6 +4,26 @@
 
 > This is a *working document* describing `mangal`, a set of `JSON` objects templates to encode ecological networks of virtually any complexity. There are plans to host a pilot database.
 
+
+```
+## Installing github repo rmangal/master from mangal-wg
+## Downloading rmangal.zip from https://github.com/mangal-wg/rmangal/archive/master.zip
+## Installing package from /tmp/Rtmp23czAo/rmangal.zip
+## arguments 'minimized' and 'invisible' are for Windows only
+## Installing rmangal
+## '/usr/lib/R/bin/R' --vanilla CMD INSTALL  \
+##   '/tmp/Rtmp23czAo/devtools3084155ba448/rmangal-master'  \
+##   --library='/home/tpoisot/R/i686-pc-linux-gnu-library/3.0'  \
+##   --install-tests 
+## 
+## Loading required package: rjson
+## Loading required package: httr
+## Loading required package: plyr
+## Loading required package: igraph
+```
+
+
+
 # Introduction
 
 {edit}Ecological networks enable ecologists to accommodate the complexity
@@ -74,9 +94,12 @@ each element having particular meta-data associated. In this section,
 we detail {complete}. An interactive webpage with the elements of the data
 specification can be found online at `http://mangal.uqar.ca./doc/spec/`. The
 data specification is implemented as a series of `JSON` schemes,
-*i.e.* documents describing how the data should be formatted, and
-what each element represent. The schemes can be downloaded from
-`https://github.com/mangal-wg/mangal-schemes/releases/tag/1.0`. Rather than giving an exhaustive list of the data specification (which is available online at the aforementionned URL), this section will propose an overview of each element, and of how they interact.
+*i.e.* documents describing how the data should be formatted,
+and what each element represent. The schemes can be downloaded from
+`https://github.com/mangal-wg/mangal-schemes/releases/tag/1.0`. Rather than
+giving an exhaustive list of the data specification (which is available
+online at the aforementionned URL), this section will propose an overview
+of each element, and of how they interact.
 
 ![An overview of the data specification, and the hierarchy between objects. Each box correspond to a level of the data specification. Grey boxes are nodes, blue boxes are interactions and networks, and green boxes are metadata. The **bold** boxes (`dataset`, `network`, `interaction`, `taxa`) are the minimal elements needed to represent a network.](figure-dataspec.pdf)
 
@@ -98,7 +121,8 @@ that it is correctly formatted. Finally, `JSON` objects are easily and cheaply
 Taxa are a taxonomic entity of any level, identified by their name, vernacular
 name, and their identifiers in a variety of taxonomic services. Associating
 the identifiers of each taxa is important to leverage the power of the new
-generation of open data tools, such as `taxize` {ref}. For example, a taxa with an associated *NCBI Taxonomy* identifier can be represented this way:
+generation of open data tools, such as `taxize` {ref}. For example, a taxa
+with an associated *NCBI Taxonomy* identifier can be represented this way:
 
 ```json
 {
@@ -108,7 +132,9 @@ generation of open data tools, such as `taxize` {ref}. For example, a taxa with 
 }
 ```
 
-The data specification currently accomodates `ncbi`, `gbif`, `itis` and `bold` identifiers. Correspondances between these and other services can be made through other tools, such as *e.g.* `taxize`.
+The data specification currently accomodates `ncbi`, `gbif`, `itis` and
+`bold` identifiers. Correspondances between these and other services can be
+made through other tools, such as *e.g.* `taxize`.
 
 ### Population
 
@@ -142,7 +168,23 @@ serving data through a `REST`ful API (`http://mangal.uqar.ca/api/v1/`). It
 is possible for users to deposit data into this database, through the `R`
 package. Data are made available under a *CC-0 Waiver*.
 
-## ...?
+
+```r
+library(rmangal)
+api <- mangalapi()
+```
+
+
+## Plotting a network
+
+
+```r
+graph <- network_as_graph(api, 1)
+plot(graph)
+```
+
+![plot of chunk getPlotWeb](figure/getPlotWeb.png) 
+
 
 ## Network beta-diversity
 
