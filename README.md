@@ -1,5 +1,3 @@
 # A data specification for ecological interaction networks
 
-`data-spec-draft.md`: main file
-
-`compile.sh`: generates a `html` and a `pdf` file for viewing. Requires `pandoc`, `pygments`, and `LaTeX`.
+`data-spec-draft.Rmd`: main file -- this is a *R markdown* file, so that the paper is 100% reproducible. **DO NOT** edit the `*.md` file.

@@ -5,24 +5,15 @@
 > This is a *working document* describing `mangal`, a set of `JSON` objects templates to encode ecological networks of virtually any complexity. There are plans to host a pilot database.
 
 
-
+```{r, echo=FALSE}
+# Prepare the environment
+library(devtools)
+if(getOption('unzip')=='') options('unzip' = 'unzip')
+devtools::install_github(repo='rmangal',username='mangal-wg')
+library(rmangal)
+mangal_url <- 'http://mangal.uqar.ca/'
+api <- mangalapi(mangal_url)
 ```
-## Installing github repo rmangal/master from mangal-wg
-## Downloading rmangal.zip from https://github.com/mangal-wg/rmangal/archive/master.zip
-## Installing package from /tmp/RtmpPYoF1o/rmangal.zip
-## arguments 'minimized' and 'invisible' are for Windows only
-## Installing rmangal
-## '/usr/lib/R/bin/R' --vanilla CMD INSTALL  \
-##   '/tmp/RtmpPYoF1o/devtools2aed6c2f8f0/rmangal-master'  \
-##   --library='/home/tpoisot/R/i686-pc-linux-gnu-library/3.0'  \
-##   --install-tests 
-## 
-## Loading required package: rjson
-## Loading required package: httr
-## Loading required package: plyr
-## Loading required package: igraph
-```
-
 
 
 # Introduction
@@ -118,14 +109,15 @@ name, and their identifiers in a variety of taxonomic services. Associating
 the identifiers of each taxa is important to leverage the power of the new
 generation of open data tools, such as `taxize` {ref}.
 
-
-
+```{r, echo=FALSE}
+tax = getTaxa(api,'1')
+```
 
 ```json
 {
-	"name": "Alces americanus",
-	"vernacular": "American moose",
-	"ncbi": "999462"
+	"name": "`r tax$name`",
+	"vernacular": "`r tax$vernacular`",
+	"ncbi": "`r as.character(tax$ncbi)`"
 }
 ```
 
