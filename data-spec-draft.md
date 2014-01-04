@@ -4,27 +4,6 @@
 
 > This is a *working document* describing `mangal`, a set of `JSON` objects templates to encode ecological networks of virtually any complexity. There are plans to host a pilot database.
 
-
-
-```
-## Installing github repo rmangal/master from mangal-wg
-## Downloading rmangal.zip from https://github.com/mangal-wg/rmangal/archive/master.zip
-## Installing package from /tmp/RtmpPYoF1o/rmangal.zip
-## arguments 'minimized' and 'invisible' are for Windows only
-## Installing rmangal
-## '/usr/lib/R/bin/R' --vanilla CMD INSTALL  \
-##   '/tmp/RtmpPYoF1o/devtools2aed6c2f8f0/rmangal-master'  \
-##   --library='/home/tpoisot/R/i686-pc-linux-gnu-library/3.0'  \
-##   --install-tests 
-## 
-## Loading required package: rjson
-## Loading required package: httr
-## Loading required package: plyr
-## Loading required package: igraph
-```
-
-
-
 # Introduction
 
 {edit}Ecological networks enable ecologists to accommodate the complexity
@@ -73,7 +52,7 @@ but is extremely inefficient at storing *meta-data*. In most cases, an
 adjacency matrix will inform on the identity of species (in cases where
 rows and columns headers are present), and the presence or absence of
 interactions. If other data about the environment (*e.g.* where the network
-was sampled) or the species (*e.g.* the population size, trait distribution,
+wassampled) or the species (*e.g.* the population size, trait distribution,
 or other observations) are available, they are most either given in other
 files, or as accompanying text. In both cases, making a programmatic link
 between interaction data and relevant meta-data is difficult and error-prone.
@@ -97,7 +76,7 @@ specification can be found online at `http://mangal.uqar.ca./doc/spec/`. The
 data specification is implemented as a series of `JSON` schemes,
 *i.e.* documents describing how the data should be formatted, and
 what each element represent. The schemes can be downloaded from
-`https://github.com/mangal-wg/mangal-schemes/releases/tag/1.0`.
+`https://github.com/mangal-wg/mangal-schemes/releases/tag/1.0`. Rather than giving an exhaustive list of the data specification (which is available online at the aforementionned URL), this section will propose an overview of each element, and of how they interact.
 
 ![An overview of the data specification, and the hierarchy between objects. Each box correspond to a level of the data specification. Grey boxes are nodes, blue boxes are interactions and networks, and green boxes are metadata. The **bold** boxes (`dataset`, `network`, `interaction`, `taxa`) are the minimal elements needed to represent a network.](figure-dataspec.pdf)
 
@@ -113,13 +92,13 @@ that it is correctly formatted. Finally, `JSON` objects are easily and cheaply
 
 ### Taxa
 
+
+
+
 Taxa are a taxonomic entity of any level, identified by their name, vernacular
 name, and their identifiers in a variety of taxonomic services. Associating
 the identifiers of each taxa is important to leverage the power of the new
-generation of open data tools, such as `taxize` {ref}.
-
-
-
+generation of open data tools, such as `taxize` {ref}. For example, a taxa with an associated *NCBI Taxonomy* identifier can be represented this way:
 
 ```json
 {
@@ -128,6 +107,8 @@ generation of open data tools, such as `taxize` {ref}.
 	"ncbi": "999462"
 }
 ```
+
+The data specification currently accomodates `ncbi`, `gbif`, `itis` and `bold` identifiers. Correspondances between these and other services can be made through other tools, such as *e.g.* `taxize`.
 
 ### Population
 

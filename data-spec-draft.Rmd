@@ -64,7 +64,7 @@ but is extremely inefficient at storing *meta-data*. In most cases, an
 adjacency matrix will inform on the identity of species (in cases where
 rows and columns headers are present), and the presence or absence of
 interactions. If other data about the environment (*e.g.* where the network
-was sampled) or the species (*e.g.* the population size, trait distribution,
+wassampled) or the species (*e.g.* the population size, trait distribution,
 or other observations) are available, they are most either given in other
 files, or as accompanying text. In both cases, making a programmatic link
 between interaction data and relevant meta-data is difficult and error-prone.
@@ -88,7 +88,7 @@ specification can be found online at `http://mangal.uqar.ca./doc/spec/`. The
 data specification is implemented as a series of `JSON` schemes,
 *i.e.* documents describing how the data should be formatted, and
 what each element represent. The schemes can be downloaded from
-`https://github.com/mangal-wg/mangal-schemes/releases/tag/1.0`.
+`https://github.com/mangal-wg/mangal-schemes/releases/tag/1.0`. Rather than giving an exhaustive list of the data specification (which is available online at the aforementionned URL), this section will propose an overview of each element, and of how they interact.
 
 ![An overview of the data specification, and the hierarchy between objects. Each box correspond to a level of the data specification. Grey boxes are nodes, blue boxes are interactions and networks, and green boxes are metadata. The **bold** boxes (`dataset`, `network`, `interaction`, `taxa`) are the minimal elements needed to represent a network.](figure-dataspec.pdf)
 
@@ -104,14 +104,14 @@ that it is correctly formatted. Finally, `JSON` objects are easily and cheaply
 
 ### Taxa
 
+```{r exTaxa, echo=FALSE}
+tax = getTaxa(api,'1')
+```
+
 Taxa are a taxonomic entity of any level, identified by their name, vernacular
 name, and their identifiers in a variety of taxonomic services. Associating
 the identifiers of each taxa is important to leverage the power of the new
-generation of open data tools, such as `taxize` {ref}.
-
-```{r, echo=FALSE}
-tax = getTaxa(api,'1')
-```
+generation of open data tools, such as `taxize` {ref}. For example, a taxa with an associated *NCBI Taxonomy* identifier can be represented this way:
 
 ```json
 {
@@ -120,6 +120,8 @@ tax = getTaxa(api,'1')
 	"ncbi": "`r as.character(tax$ncbi)`"
 }
 ```
+
+The data specification currently accomodates `ncbi`, `gbif`, `itis` and `bold` identifiers. Correspondances between these and other services can be made through other tools, such as *e.g.* `taxize`.
 
 ### Population
 
