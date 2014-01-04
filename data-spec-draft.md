@@ -1,89 +1,107 @@
-% `mangal` -- a public database and data format for species interactions
-% T. Poisot, the WOL consortium, SFI Working Group (?) & D. Gravel
+% `mangal` -- making ecological network analysis simple
+% T. Poisot
 % Feb. 2013
 
 > This is a *working document* describing `mangal`, a set of `JSON` objects templates to encode ecological networks of virtually any complexity. There are plans to host a pilot database.
 
-I (**TP**) would target [*Source Code for Biology and Medicine*](http://www.scfbm.org/).
 
-# The need for a data specification
+# Introduction
 
 Ecological networks enable ecologists to accommodate the complexity
 of natural communities, and to discover mechanisms contributing
 to their persistence, stability, resilience, and functioning
-[@dunne_network_2006;@bluthgen_what_2008]. Yet, meta-analyses
-of a large number of ecological networks are still extremely
-rare, and most of the studies comparing sveeral networks [*e.g.*
-@schleuning_specialization_2011;@dalsgaard_historical_2013] do so
-within the limit of particular systems. Networks, as they encode
-the structure of complex ecological interactions, have been time and
-egain presented as useful tools to understand ecosystem properties and dynamics
-[@kefi_more_2012;@saavedra_strong_2011;@bascompte_asymmetric_2006;@poisot_trophic_2013;@thompson_food_2012].
-Coming up with a clear conceptual and mechanistic understanding of the
-relationships between the structure of ecological networks and ecosystem
-properties require to pool a large quantity of data.
+[@dunne_network_2006;@bluthgen_what_2008]. Yet, meta-analyses of a
+large number of ecological networks are still extremely rare, and most
+of the studies comparing several networks {ref} do so within the limit
+of particular systems. Networks, as they encode the structure of complex
+ecological interactions, have been time and again presented as useful tools
+to understand ecosystem properties and dynamics {ref}.  Coming up with a
+clear conceptual and mechanistic understanding of the relationships between
+the structure of ecological networks and ecosystem properties require to
+pool a large quantity of data.
 
 On the other hand, the recent years saw the development of the idea that
 network structure is itself a dynamical object, which will change as a function
 of environmental conditions and as a result of meta-community processes
-[@poisot_dissimilarity_2012;@gravel_trophic_2011;@calcagno_constraints_2011;@massol_linking_2011].
-Although the *existence* of this variation has been demonstrated, the
-reasons for which it happens are much less clearly understood, and will
-probably require extensive data mining to be figured out. Notably, new
-approaches based on the replication of networks over temporal, spatial, and
-environmental gradients are required, and these in turn ask for new data types.
+{ref}.  Although the *existence* of this variation has been demonstrated,
+the reasons for which it happens are much less clearly understood, and
+will require a change in focus, from species to populations {ref}. Because
+the variability of interactions involve a host of ecological mechanisms,
+it is likely that important data mining efforts will be required to fully
+understand it. Notably, new approaches based on the replication of networks
+over temporal, spatial, and environmental gradients are promising, but require
+to have a data structure ready to accomodate the results they will produce.
 Beyond just describing the structure of interactions, these data will need to
 include informations about environmental context, population characteristics,
 and other relevant additional explanatory variables.
 
-Theoretical and empirical literature provide guidance about what data need
-be collected, which is important to design the data structure. First, it is
-well estblished that interactions rely on some degree of trait matching or
-complementarity. For example, food web structure is contingent upon body-size
-of species [@gravel_inferring_2013;@brose_consumerresource_2006].
+In this paper, we (i) establish the need of a data specification serving
+as a *lingua franca* among network ecologists, (ii) describe this data
+specification. Finally, we (iii) describe `mangal`, a `R` package and
+compagnon database, relying on this data specification. We provide some
+use cases showing how this new approach makes complex analyzes simpler, and
+allows for the integration of new tools to manipulate biodiversity resources.
 
-This paper pursues a double goal. First, we outline the different data needed to
-effectively conduct meta-analyses of ecological networks. Second, we propose an
-architecture to store these data, which can easily be implemented as a database,
-allowing for the efficient sharing of large quantities of data
-between groups. We then discuss the possibility to develop an API
-surrounding different databases, so that different sources of
-informations can be seemlessly integrated.
+# Why do we need a data specification?
 
-# The elements of a network
+Ecological networks are (often) stored as their *adjacency matrix* (or as
+the quantitative link matrix), that is a series of `0` and `1` indicating,
+respectively, the absence and presence of an interaction. This format is
+extremely convenient for *use* (as most network analysis packages, *e.g.*
+`bipartite`, `betalink`, `foodweb`) require data to be presented this way,
+but is extremely inefficient at storing *meta-data*. In most cases, an
+adjacency matrix will inform on the identity of species (in cases where
+rows and columns headers are present), and the presence or absence of
+interactions. If other data about the environment (*e.g.* where the network
+was sampled) or the species (*e.g.* the population size, trait distribution,
+or other observations) are available, they are most either given in other
+files, or as accompanying text. In both cases, making a programmatic link
+between interaction data and relevant meta-data is difficult and error-prone.
 
-Basic idea is to have *layers* in the data specification, each corresponding to one layer of organization in the networks. What I see currently is
+By contrast, a data specification provides a common language for network
+ecologists to interact, and ensure that, regardless of their source, data
+can be used in a shared workflow.
 
-- nodes
-- edges
-- networks
+# Elements of the data specification
 
-This will require some *glue* objects, but it should be simple enough.
+{complete}The data specification is built around the idea that (ecological)
+networks are collections of relationships between ecological objects, each
+element having particular meta-data associated.
 
-## The properties of nodes
+## Node informations
 
-- scale of organization
-- biodiversity descriptors
+### Taxa
 
-## The properties of edges
+### Population
 
-## The properties of networks
+### Item
 
-- sample location
-- sample date
-- methodology
-- associated references
+## Network informations
 
-# Current implementation
+### Interaction
 
-## The data format
+### Network
 
-This will mostly describe several data templates for each of the scales in the previous section.
+### Dataset
 
-## The `mangal` database
+## Meta-data
 
-# `R` interface
+### Trait value
 
-# Conclusion and future directions
+### Environmental condition
+
+### User
+
+paternity {ref}
+
+### References
+
+# Use cases
+
+## Network centroid
+
+## Network beta-diversity
+
+## Connectance and richness relationships
 
 # References
