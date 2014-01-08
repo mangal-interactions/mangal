@@ -6,22 +6,8 @@
 
 
 ```
-## Installing github repo rmangal/master from mangal-wg
-## Downloading rmangal.zip from https://github.com/mangal-wg/rmangal/archive/master.zip
-## Installing package from /tmp/Rtmp23czAo/rmangal.zip
-## arguments 'minimized' and 'invisible' are for Windows only
-## Installing rmangal
-## '/usr/lib/R/bin/R' --vanilla CMD INSTALL  \
-##   '/tmp/Rtmp23czAo/devtools3084155ba448/rmangal-master'  \
-##   --library='/home/tpoisot/R/i686-pc-linux-gnu-library/3.0'  \
-##   --install-tests 
-## 
-## Loading required package: rjson
-## Loading required package: httr
-## Loading required package: plyr
-## Loading required package: igraph
+## Error: impossible de trouver la fonction "as"
 ```
-
 
 
 # Introduction
@@ -84,7 +70,7 @@ describes how data are *exchanged*. Each group retains the ability to store
 the data in the format that is most convenient for in-house use, and only
 needs to provide export options (*e.g.* through an API) respecting the
 data specification. This approach ensures that *all* data can be used in
-meta-analyses, and will in term increase the impact of data {ref}.
+meta-analyses, and will in time increase the impact of data {ref}.
 
 # Elements of the data specification
 
@@ -98,8 +84,11 @@ data specification is implemented as a series of `JSON` schemes,
 and what each element represent. The schemes can be downloaded from
 `https://github.com/mangal-wg/mangal-schemes/releases/tag/1.0`. Rather than
 giving an exhaustive list of the data specification (which is available
-online at the aforementionned URL), this section will propose an overview
-of each element, and of how they interact.
+online at the aforementionned URL), this section will propose an overview of
+each element, and of how they interact. Within the `R` package, information
+about the data format can be viewed using the `whatIs` function (*e.g.*
+`whatIs(api, 'taxa')` will return a table with information about how `taxa`
+objects are formated.
 
 ![An overview of the data specification, and the hierarchy between objects. Each box correspond to a level of the data specification. Grey boxes are nodes, blue boxes are interactions and networks, and green boxes are metadata. The **bold** boxes (`dataset`, `network`, `interaction`, `taxa`) are the minimal elements needed to represent a network.](figure-dataspec.pdf)
 
@@ -126,9 +115,9 @@ with an associated *NCBI Taxonomy* identifier can be represented this way:
 
 ```json
 {
-	"name": "Alces americanus",
-	"vernacular": "American moose",
-	"ncbi": "999462"
+	"name": "Lamellodiscus ignoratus",
+	"vernacular": "Lamellodiscus ignoratus",
+	"ncbi": "142934"
 }
 ```
 
@@ -163,7 +152,7 @@ paternity {ref}
 # Use cases
 
 {edit}In this section, we present use cases using the `rmangal` package for
-R, to interact with a database implementing this data specification, and
+`R`, to interact with a database implementing this data specification, and
 serving data through a `REST`ful API (`http://mangal.uqar.ca/api/v1/`). It
 is possible for users to deposit data into this database, through the `R`
 package. Data are made available under a *CC-0 Waiver*.
@@ -179,11 +168,11 @@ api <- mangalapi()
 
 
 ```r
-graph <- network_as_graph(api, 1)
+graph <- network_as_graph(api, 2)
 plot(graph)
 ```
 
-![plot of chunk getPlotWeb](figure/getPlotWeb.png) 
+![Example of network plotting, using the `network_as_graph` function.](figure/getPlotWeb.png) 
 
 
 ## Network beta-diversity

@@ -4,16 +4,15 @@
 
 > This is a *working document* describing `mangal`, a set of `JSON` objects templates to encode ecological networks of virtually any complexity. There are plans to host a pilot database.
 
-```{r, echo=FALSE}
+```{r loadStuff, echo=FALSE, message=FALSE}
 # Prepare the environment
 library(devtools)
 if(getOption('unzip')=='') options('unzip' = 'unzip')
-devtools::install_github(repo='rmangal',username='mangal-wg')
+install_github(repo='rmangal',username='mangal-wg')
 library(rmangal)
-mangal_url <- 'http://mangal.uqar.ca/'
+mangal_url <- 'http://mangal.uqar.ca'
 api <- mangalapi(mangal_url)
 ```
-
 
 # Introduction
 
@@ -75,7 +74,7 @@ describes how data are *exchanged*. Each group retains the ability to store
 the data in the format that is most convenient for in-house use, and only
 needs to provide export options (*e.g.* through an API) respecting the
 data specification. This approach ensures that *all* data can be used in
-meta-analyses, and will in term increase the impact of data {ref}.
+meta-analyses, and will in time increase the impact of data {ref}.
 
 # Elements of the data specification
 
@@ -89,8 +88,11 @@ data specification is implemented as a series of `JSON` schemes,
 and what each element represent. The schemes can be downloaded from
 `https://github.com/mangal-wg/mangal-schemes/releases/tag/1.0`. Rather than
 giving an exhaustive list of the data specification (which is available
-online at the aforementionned URL), this section will propose an overview
-of each element, and of how they interact.
+online at the aforementionned URL), this section will propose an overview of
+each element, and of how they interact. Within the `R` package, information
+about the data format can be viewed using the `whatIs` function (*e.g.*
+`whatIs(api, 'taxa')` will return a table with information about how `taxa`
+objects are formated.
 
 ![An overview of the data specification, and the hierarchy between objects. Each box correspond to a level of the data specification. Grey boxes are nodes, blue boxes are interactions and networks, and green boxes are metadata. The **bold** boxes (`dataset`, `network`, `interaction`, `taxa`) are the minimal elements needed to represent a network.](figure-dataspec.pdf)
 
@@ -107,7 +109,7 @@ that it is correctly formatted. Finally, `JSON` objects are easily and cheaply
 ### Taxa
 
 ```{r exTaxa, echo=FALSE}
-tax = getTaxa(api,'1')
+tax = getTaxa(api,'9')
 ```
 
 Taxa are a taxonomic entity of any level, identified by their name, vernacular
@@ -155,7 +157,7 @@ paternity {ref}
 # Use cases
 
 {edit}In this section, we present use cases using the `rmangal` package for
-R, to interact with a database implementing this data specification, and
+`R`, to interact with a database implementing this data specification, and
 serving data through a `REST`ful API (`http://mangal.uqar.ca/api/v1/`). It
 is possible for users to deposit data into this database, through the `R`
 package. Data are made available under a *CC-0 Waiver*.
@@ -167,8 +169,8 @@ api <- mangalapi()
 
 ## Plotting a network
 
-```{r getPlotWeb}
-graph <- network_as_graph(api, 1)
+```{r getPlotWeb, fig.cap = "Example of network plotting, using the `network_as_graph` function."}
+graph <- network_as_graph(api, 2)
 plot(graph)
 ```
 
