@@ -10,7 +10,7 @@ all: $(pdf)
 	rm ms.ps
 
 $(pdf): $(md) $(refs)
-	pandoc $(md) -o $(pdf) --bibliography=$(refs) --csl=mee.csl
+	pandoc $(md) -o $(pdf) --bibliography=$(refs) --csl=mee.csl --template=paper.latex
 
 $(md): $(rmd)
 	Rscript -e "library(knitr); knit(input='$(rmd)', output='$(md)');"
