@@ -1,5 +1,4 @@
 library(rmangal)
-library(knitr)
 
 url <- "http://localhost:8000"
 DAT_ID <- 1

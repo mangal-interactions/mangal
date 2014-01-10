@@ -169,10 +169,15 @@ upload data are given in the vignettes and manual of the `rmangal` package. So
 as to save room in the manuscript, we source each example. The complete `r`
 files to reproduce the examples of this section are attached as *Suppl. Mat.*.
 
+The data we use for this example come from {ref}. They were previously
+available on the *InteractionWeb DataBase* as a single `xls` file. We uploaded
+them in the `mangal` database at `http://mangal.uqar.ca/api/v1/dataset/{todo}`.
+
 ## Link-species relationships
 
 In the first example, we visualize the relationship between the number of
-species and the number of interactions [@martinez_constant_1992]. 
+species and the number of interactions, which @martinez_constant_1992 propose
+to be linear (in food webs).
 
 
 ```r
@@ -182,8 +187,60 @@ source("usecases/1_ls.r")
 ![Relationship between the number of species and number of interactions in the anemonefish-fish dataset.](figure/getLS.pdf) 
 
 
+Producing this figure requires less than 10 lines of code. The only information
+needed is the identifier of the network or dataset, which we suggest should
+be reported in publications as: "These data were deposited in the `mangal`
+format at `<URL>/api/v1/dataset/<ID>`". This will encourage re-use of the data.
+
 ## Network beta-diversity
 
-## Connectance and richness relationships
+In the second example, we use the framework of network $\beta$-diversity
+[@poisot_dissimilarity_2012] to measure the extent to which networks that are
+far apart in space have different interactions. Each network in the dataset
+has a latitude and longitude, meaning that it is possible to measure the
+geographic distance between two networks.
+
+For each pair of network, we measure the geographic distance (in km.),
+the species dissimilarity ($\beta_S$), the network dissimilarity when all
+species are present ($\beta_{WN}$), and finally, the network dissimilarity
+when only shared species are considered ($\beta_{OS}$).
+
+
+```r
+source("usecases/2_beta.r")
+```
+
+```
+## Installing github repo betalink/master from tpoisot
+## Downloading betalink.zip from https://github.com/tpoisot/betalink/archive/master.zip
+## Installing package from /tmp/Rtmp91U4kX/betalink.zip
+## arguments 'minimized' and 'invisible' are for Windows only
+## Installing betalink
+## '/usr/lib/R/bin/R' --vanilla CMD INSTALL  \
+##   '/tmp/Rtmp91U4kX/devtools50a3776d264/betalink-master'  \
+##   --library='/home/tpoisot/R/i686-pc-linux-gnu-library/3.0'  \
+##   --install-tests
+```
+
+![Relationships between the geographic distance between two sites, and the species dissimiliarity, network dissimilarity with all, and only shared, species.](figure/useBeta.pdf) 
+
+
+As shown in *Fig. XX*, while species dissimilarity and overall network
+dissimilarity increase when two networks are far apart, this is not the case
+for the way common species interact. This suggests that in this system, network
+dissimilarity over space is primarily driven by species turnover. The ease
+to gather both raw interaction data and associated meta-data make producing
+this analysis extremely straigthforward. We foresse that with an increase
+in the number of deposited datasets, new properties of ecological networks
+will be uncovered.
+
+## Spatial visualisation of networks
+
+@bascompte_disentangling_2009 proposes an interesting visualisation for
+spatialized networks, in which each species is laid out on a map at the
+center of mass of its area of occurence; interactions are then drawn between
+species, to show how species distribution determines biotic interactions. In
+this final use case, we propose to reproduce a similar figure, using the
+`RgoogleMaps` package.
 
 # References
