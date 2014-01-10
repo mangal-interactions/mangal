@@ -160,28 +160,26 @@ paternity {ref}
 
 # Use cases
 
-{edit}In this section, we present use cases using the `rmangal` package for
-`R`, to interact with a database implementing this data specification, and
-serving data through a `REST`ful API (`http://mangal.uqar.ca/api/v1/`). It
-is possible for users to deposit data into this database, through the `R`
-package. Data are made available under a *CC-0 Waiver*.
+In this section, we present use cases using the `rmangal` package for `R`,
+to interact with a database implementing this data specification, and serving
+data through a `REST`ful API (`http://mangal.uqar.ca/api/v1/`). It is possible
+for users to deposit data into this database, through the `R` package. Data
+are made available under a *CC-0 Waiver*. Detailed informations about how to
+upload data are given in the vignettes and manual of the `rmangal` package. So
+as to save room in the manuscript, we source each example. The complete `r`
+files to reproduce the examples of this section are attached as *Suppl. Mat.*.
+
+## Link-species relationships
+
+In the first example, we visualize the relationship between the number of
+species and the number of interactions [@martinez_constant_1992]. 
 
 
 ```r
-library(rmangal)
-api <- mangalapi()
+source("usecases/1_ls.r")
 ```
 
-
-## Plotting a network
-
-
-```r
-graph <- network_as_graph(api, 2)
-plot(graph, layout = layout.circle)
-```
-
-![Example of network plotting, using the `network_as_graph` function.](figure/getPlotWeb.pdf) 
+![Relationship between the number of species and number of interactions in the anemonefish-fish dataset.](figure/getLS.pdf) 
 
 
 ## Network beta-diversity
