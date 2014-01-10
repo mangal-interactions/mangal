@@ -1,0 +1,77 @@
+% Data specification
+%
+%
+
+```{r getApi}
+library(rmangal)
+options('width' = 150)
+url = "http://localhost:8000"
+api = mangalapi(url)
+print(api$resources)
+```
+
+# Node level
+
+## Taxa
+
+```{r taxa, results='asis'}
+kable(whatIs(api, 'taxa'), format="markdown")
+```
+
+## Population
+
+```{r pop, results='asis'}
+kable(whatIs(api, 'population'), format="markdown")
+```
+
+## Item
+
+```{r item, results='asis'}
+kable(whatIs(api, 'item'), format="markdown")
+```
+
+# Interaction level
+
+## Interaction
+
+```{r interaction, results='asis'}
+kable(whatIs(api, 'interaction'), format="markdown")
+```
+
+## Network
+
+```{r network, results='asis'}
+kable(whatIs(api, 'network'), format="markdown")
+```
+
+## Dataset
+
+```{r dataset, results='asis'}
+kable(whatIs(api, 'dataset'), format="markdown")
+```
+
+# Meta-data
+
+## Trait value
+
+```{r trait, results='asis'}
+kable(whatIs(api, 'trait'), format="markdown")
+```
+
+## Environmental value
+
+```{r environment, results='asis'}
+kable(whatIs(api, 'environment'), format="markdown")
+```
+
+## Reference
+
+```{r reference, results='asis'}
+kable(whatIs(api, 'reference'), format="markdown")
+```
+
+## User
+
+```{r user, results='asis'}
+kable(whatIs(api, 'user'), format='markdown')
+```
