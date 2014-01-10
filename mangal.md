@@ -89,12 +89,11 @@ section, we detail highlight the way networks are represented in the
 `mangal` specification. An interactive webpage with the elements of the data
 specification can be found online at `http://mangal.uqar.ca./doc/spec/`. The
 data specification is available either at the API root (*e.g.*
-`http://mangal.uqar.ca/api/v1/taxa/schema?format=JSON` for `taxa` objects),
-or can be viewed using the `whatIs` function form the `R` package (*e.g.*
-`whatIs(api, 'taxa')` will return a table with information about how `taxa`
-objects are formated). Rather than giving an exhaustive list of the data
-specification (which is available online at the aforementionned URL), this
-section will propose an overview of each element, and of how they interact.
+`http://mangal.uqar.ca/api/v1/?format=json`), or can be viewed using the
+`whatIs` function from the `R` package (see *Supp. Mat. 1*). Rather than
+giving an exhaustive list of the data specification (which is available
+online at the aforementionned URL), this section will propose an overview
+of each element, and of how they interact.
 
 ![An overview of the data specification, and the hierarchy between objects. Each box correspond to a level of the data specification. Grey boxes are nodes, blue boxes are interactions and networks, and green boxes are metadata. The **bold** boxes (`dataset`, `network`, `interaction`, `taxa`) are the minimal elements needed to represent a network.](figure-dataspec.pdf)
 
@@ -104,56 +103,28 @@ serving data, and accepting data from users. Second, it allows *validation*
 of the data: a `JSON` file can be matched against a scheme, and one can verify
 that it is correctly formatted. Finally, `JSON` objects are easily and cheaply
 (memory-wise) parsed in the most common programming languages, notably `R`
-(equivalent to `list`) and `python` (equivalent to `dict`).
+(equivalent to `list`) and `python` (equivalent to `dict`). For most users,
+the format in which data are transmitted will be entirely transparent,
+as the interaction will happen within `R`.
 
 ## Node informations
 
 ### Taxa
 
-
-
-
 Taxa are a taxonomic entity of any level, identified by their name, vernacular
 name, and their identifiers in a variety of taxonomic services. Associating
-the identifiers of each taxa is important to leverage the power of the new
-generation of open data tools, such as `taxize` {ref}. For example, a taxa
-with an associated *NCBI Taxonomy* identifier can be represented this way:
-
-```json
-{
-	"name": "Lamellodiscus ignoratus",
-	"vernacular": "Lamellodiscus ignoratus",
-	"ncbi": "142934"
-}
-```
-
-The data specification currently accomodates `ncbi`, `gbif`, `itis` and `bold`
+the identifiers of each taxa is important to leverage the power of
+the new generation of open data tools, such as `taxize` {ref}. The data
+specification currently accomodates `ncbi`, `gbif`, `itis`, `eol` and `bold`
 identifiers. Correspondances between these and other services can be made
-through other tools, such as *e.g.* `taxize`. The structure of `taxa` objects
-can be viewed from within the `R` package (we present an abbreviated view):
-
-
-```r
-whatIs(api, "taxa")[, c("field", "help", "type")]
-```
-
-```
-##         field                                        help    type
-## 1        bold             The BOLD identifier of the taxa integer
-## 2 description             A short description of the taxa  string
-## 3        gbif             The GBIF identifier of the taxa integer
-## 5        itis             The ITIS identifier of the taxa integer
-## 6        name             The scientific name of the taxa  string
-## 7        ncbi    The NCBI Taxonomy identifier of the taxa integer
-## 9  vernacular The vernacular name of the taxa, in English  string
-```
-
+through other tools, such as *e.g.* `taxize`.
 
 ### Population
 
 A `population` is one observed instance of a `taxa` object. If your
 experimental design is replicated through space, then each taxa will have a
-`population` object corresponding to each locality.
+`population` object corresponding to each locality. Populations do not have
+associated meta-data, but serve as "containers" for `item` objects.
 
 ### Item
 
@@ -162,11 +133,10 @@ which can be  either `individual` or `population`; this allows to represent
 both individual-level networks (*i.e.* there are as many `item`s attached to
 a `population` than there were individuals of this `population` sampled),
 and population-level networks. When `item` represents a population, it is
-possible to give a measure of the size of this population.
-
-The notion of `item` is particularly useful for time-replicated designs:
-each observation of a population at a time-point is an `item` with associated
-trait values, and possibly population size.
+possible to give a measure of the size of this population. The notion of
+`item` is particularly useful for time-replicated designs: each observation
+of a population at a time-point is an `item` with associated trait values,
+and possibly population size.
 
 ## Network informations
 
