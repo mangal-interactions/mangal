@@ -55,14 +55,14 @@ on this data specification. We provide some use cases showing how this new
 approach makes complex analyzes simpler, and allows for the integration of
 new tools to manipulate biodiversity resources.
 
-# Why do we need a data specification?
+# Networks need a data specification
 
 Ecological networks are (often) stored as their *adjacency matrix* (or as
 the quantitative link matrix), that is a series of `0` and `1` indicating,
 respectively, the absence and presence of an interaction. This format is
 extremely convenient for *use* (as most network analysis packages, *e.g.*
 `bipartite`, `betalink`, `foodweb`, require data to be presented this way),
-but is extremely inefficient at storing *meta-data*. In most cases, an
+but is extremely inefficient at *storing* meta-data. In most cases, an
 adjacency matrix will inform on the identity of species (in cases where
 rows and columns headers are present), and the presence or absence of
 interactions. If other data about the environment (*e.g.* where the network
@@ -82,21 +82,19 @@ meta-analyses, and will in time increase the impact of data {ref}.
 
 # Elements of the data specification
 
-{complete}The data specification is built around the idea that (ecological)
-networks are collections of relationships between ecological objects, each
-element having particular meta-data associated. In this section, we detail
-highlight the way networks are represented in the `mangal` specification. An
-interactive webpage with the elements of the data specification can be
-found online at `http://mangal.uqar.ca./doc/spec/`. The data specification is
-implemented as a series of `JSON` schemes, *i.e.* documents describing how the
-data should be formatted, and what each element represent. The schemes can be
-downloaded from `https://github.com/mangal-wg/mangal-schemes/releases/tag/1.0`
-{todo}. Rather than giving an exhaustive list of the data specification
-(which is available online at the aforementionned URL), this section will
-propose an overview of each element, and of how they interact. Within the `R`
-package, information about the data format can be viewed using the `whatIs`
-function (*e.g.* `whatIs(api, 'taxa')` will return a table with information
-about how `taxa` objects are formated.
+{complete}The data specification (Fig. **XX**) is built around the idea that
+(ecological) networks are collections of relationships between ecological
+objects, each element having particular meta-data associated. In this
+section, we detail highlight the way networks are represented in the
+`mangal` specification. An interactive webpage with the elements of the data
+specification can be found online at `http://mangal.uqar.ca./doc/spec/`. The
+data specification is available either at the API root (*e.g.*
+`http://mangal.uqar.ca/api/v1/taxa/schema?format=JSON` for `taxa` objects),
+or can be viewed using the `whatIs` function form the `R` package (*e.g.*
+`whatIs(api, 'taxa')` will return a table with information about how `taxa`
+objects are formated). Rather than giving an exhaustive list of the data
+specification (which is available online at the aforementionned URL), this
+section will propose an overview of each element, and of how they interact.
 
 ![An overview of the data specification, and the hierarchy between objects. Each box correspond to a level of the data specification. Grey boxes are nodes, blue boxes are interactions and networks, and green boxes are metadata. The **bold** boxes (`dataset`, `network`, `interaction`, `taxa`) are the minimal elements needed to represent a network.](figure-dataspec.pdf)
 
@@ -213,7 +211,7 @@ graph <- network_as_graph(api, 2)
 plot(graph, layout = layout.circle)
 ```
 
-![Example of network plotting, using the `network_as_graph` function.](figure/getPlotWeb.png) 
+![Example of network plotting, using the `network_as_graph` function.](figure/getPlotWeb.pdf) 
 
 
 ## Network beta-diversity
