@@ -59,14 +59,14 @@ on this data specification. We provide some use cases showing how this new
 approach makes complex analyzes simpler, and allows for the integration of
 new tools to manipulate biodiversity resources.
 
-# Why do we need a data specification?
+# Networks need a data specification
 
 Ecological networks are (often) stored as their *adjacency matrix* (or as
 the quantitative link matrix), that is a series of `0` and `1` indicating,
 respectively, the absence and presence of an interaction. This format is
 extremely convenient for *use* (as most network analysis packages, *e.g.*
 `bipartite`, `betalink`, `foodweb`, require data to be presented this way),
-but is extremely inefficient at storing *meta-data*. In most cases, an
+but is extremely inefficient at *storing* meta-data. In most cases, an
 adjacency matrix will inform on the identity of species (in cases where
 rows and columns headers are present), and the presence or absence of
 interactions. If other data about the environment (*e.g.* where the network
