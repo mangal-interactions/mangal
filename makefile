@@ -1,5 +1,5 @@
 pdf = mangal-draft.pdf
-basefile = data-spec-draft
+basefile = mangal
 rmd = $(basefile).Rmd
 md = $(basefile).md
 refs = mg-refs.bib
