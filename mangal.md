@@ -265,9 +265,7 @@ this final use case, we propose to reproduce a similar figure, using the
 source("usecases/3_spatial.r")
 ```
 
-```
-## Error: $ operator is invalid for atomic vectors
-```
+![Spatial plot of a network, using the `RgoogleMaps` and `rmangal` packages.](figure/useSpace.pdf) 
 
 # Conclusions
 
