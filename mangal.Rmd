@@ -256,6 +256,9 @@ species, to show how species distribution determines biotic interactions. In
 this final use case, we propose to reproduce a similar figure, using the
 `RgoogleMaps` package.
 
+```{r useSpace, fig.cap="Spatial plot of a network, using the `RgoogleMaps` and `rmangal` packages.", dev='pdf', message=FALSE}
+source('usecases/3_spatial.r')
+```
 # Conclusions
 
 In this contribution, we presented `mangal`, a data format for the exchange of

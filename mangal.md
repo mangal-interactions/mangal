@@ -260,6 +260,15 @@ species, to show how species distribution determines biotic interactions. In
 this final use case, we propose to reproduce a similar figure, using the
 `RgoogleMaps` package.
 
+
+```r
+source("usecases/3_spatial.r")
+```
+
+```
+## Error: $ operator is invalid for atomic vectors
+```
+
 # Conclusions
 
 In this contribution, we presented `mangal`, a data format for the exchange of
