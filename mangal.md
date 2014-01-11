@@ -78,11 +78,11 @@ describes how data are *exchanged*. Each group retains the ability to store
 the data in the format that is most convenient for in-house use, and only
 needs to provide export options (*e.g.* through an API) respecting the
 data specification. This approach ensures that *all* data can be used in
-meta-analyses, and will in time increase the impact of data {ref}.
+meta-analyses, and will in time increase the impact of data.
 
 # Elements of the data specification
 
-{complete}The data specification (Fig. **XX**) is built around the idea that
+The data specification (Fig. **XX**) is built around the idea that
 (ecological) networks are collections of relationships between ecological
 objects, each element having particular meta-data associated. In this
 section, we detail highlight the way networks are represented in the
@@ -104,20 +104,20 @@ of the data: a `JSON` file can be matched against a scheme, and one can verify
 that it is correctly formatted. Finally, `JSON` objects are easily and cheaply
 (memory-wise) parsed in the most common programming languages, notably `R`
 (equivalent to `list`) and `python` (equivalent to `dict`). For most users,
-the format in which data are transmitted will be entirely transparent,
-as the interaction will happen within `R`.
+the format in which data are transmitted will be entirely transparent, as the
+interaction will happen within `R` -- as such, knowing how `JSON` objects are
+organised is only useful for those who want to interact with  the API directly.
 
 ## Node informations
 
 ### Taxa
 
-Taxa are a taxonomic entity of any level, identified by their name, vernacular
-name, and their identifiers in a variety of taxonomic services. Associating
-the identifiers of each taxa is important to leverage the power of
-the new generation of open data tools, such as `taxize` {ref}. The data
-specification currently accomodates `ncbi`, `gbif`, `itis`, `eol` and `bold`
-identifiers. Correspondances between these and other services can be made
-through other tools, such as *e.g.* `taxize`.
+Taxa are a taxonomic entity of any level, identified by their name,
+vernacular name, and their identifiers in a variety of taxonomic
+services. Associating the identifiers of each taxa is important to leverage
+the power of the new generation of open data tools, such as `taxize`
+[@chamberlain_taxize:_2013]. The data specification currently accomodates
+`ncbi`, `gbif`, `itis`, `eol` and `bold` identifiers.
 
 ### Population
 
@@ -135,28 +135,55 @@ a `population` than there were individuals of this `population` sampled),
 and population-level networks. When `item` represents a population, it is
 possible to give a measure of the size of this population. The notion of
 `item` is particularly useful for time-replicated designs: each observation
-of a population at a time-point is an `item` with associated trait values,
+of a population at a time-point is an `item` with associated `trait` values,
 and possibly population size.
 
 ## Network informations
 
 ### Interaction
 
+An `interaction` links, *a minima*, two `taxa` objects (but can also link pairs
+of `population`s or `item`s). The most important attributes of `interaction`s
+are the type of interaction (of which we provide a list of possible values,
+see *Supp. Mat. 1*), and its `nature`, *i.e.* how it was observed. This
+field will help differentiate from direct observations, text mining, and
+inference. Note that the `nature` field can also take `absence` as a value;
+this will be useful for, *e.g.*, "cafeteria" experiments in which there is
+high confidence that the interaction did not happen.
+
 ### Network
 
+A `network` is a series of `interaction` object, along with (i) informations
+on its spatial position (provided at the latitude and longitude), (ii) the
+date of sampling, and (iii) references to measures of environmental conditions. 
+
 ### Dataset
+
+A `dataset` is a collection of one or several `network`(s). Datasets also have
+a field for `data` and `papers`, both of which are references to bibliographic
+or web resources describing, respectively, the source of the data, and the
+papers in which these data have been significantly used. Datasets are the
+prefered entry point in the resources.
 
 ## Meta-data
 
 ### Trait value
 
+Objects of type `item` can have associated `trait` values. These consist
+in the description of the trait being measured, the value, and the units in
+which the measure was taken.
+
 ### Environmental condition
 
-### User
-
-paternity {ref}
+Environmental conditions are associated to network. These are defined by
+the environmental property measured, its value, and the units.
 
 ### References
+
+References are associated to datasets. They accomodate the DOI, JSON or
+PubMed identifiers, or a URL. When possible, the DOI should be preferred as
+it offers more potential to interact with other on-line tools, such as the
+*CrossRef* API.
 
 # Use cases
 
@@ -169,9 +196,10 @@ upload data are given in the vignettes and manual of the `rmangal` package. So
 as to save room in the manuscript, we source each example. The complete `r`
 files to reproduce the examples of this section are attached as *Suppl. Mat.*.
 
-The data we use for this example come from {ref}. They were previously
-available on the *InteractionWeb DataBase* as a single `xls` file. We uploaded
-them in the `mangal` database at `http://mangal.uqar.ca/api/v1/dataset/{todo}`.
+The data we use for this example come from @ricciardi_assemblage_2010. These
+were previously available on the *InteractionWeb DataBase* as a
+single `xls` file. We uploaded them in the `mangal` database at
+`http://mangal.uqar.ca/api/v1/dataset/{todo}`.
 
 ## Link-species relationships
 
@@ -210,18 +238,6 @@ when only shared species are considered ($\beta_{OS}$).
 source("usecases/2_beta.r")
 ```
 
-```
-## Installing github repo betalink/master from tpoisot
-## Downloading betalink.zip from https://github.com/tpoisot/betalink/archive/master.zip
-## Installing package from /tmp/Rtmp91U4kX/betalink.zip
-## arguments 'minimized' and 'invisible' are for Windows only
-## Installing betalink
-## '/usr/lib/R/bin/R' --vanilla CMD INSTALL  \
-##   '/tmp/Rtmp91U4kX/devtools50a3776d264/betalink-master'  \
-##   --library='/home/tpoisot/R/i686-pc-linux-gnu-library/3.0'  \
-##   --install-tests
-```
-
 ![Relationships between the geographic distance between two sites, and the species dissimiliarity, network dissimilarity with all, and only shared, species.](figure/useBeta.pdf) 
 
 
@@ -230,9 +246,7 @@ dissimilarity increase when two networks are far apart, this is not the case
 for the way common species interact. This suggests that in this system, network
 dissimilarity over space is primarily driven by species turnover. The ease
 to gather both raw interaction data and associated meta-data make producing
-this analysis extremely straigthforward. We foresse that with an increase
-in the number of deposited datasets, new properties of ecological networks
-will be uncovered.
+this analysis extremely straigthforward.
 
 ## Spatial visualisation of networks
 
@@ -242,5 +256,13 @@ center of mass of its area of occurence; interactions are then drawn between
 species, to show how species distribution determines biotic interactions. In
 this final use case, we propose to reproduce a similar figure, using the
 `RgoogleMaps` package.
+
+# Conclusions
+
+In this contribution, we presented `mangal`, a data format for the exchange of
+ecological networks and associated meta-data. We deployed an online database
+with an associated API, relying on this data specification. Finally, we
+introduced `rmangal`, a `R` package designed to interact with APIs using the
+`mangal` format.
 
 # References
