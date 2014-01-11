@@ -265,7 +265,7 @@ this final use case, we propose to reproduce a similar figure, using the
 source("usecases/3_spatial.r")
 ```
 
-![Spatial plot of a network, using the `RgoogleMaps` and `rmangal` packages.](figure/useSpace.pdf) 
+![Spatial plot of a network, using the `maps` and `rmangal` packages. The circle in the inset map show the location of the sites. Each dot in the main map represents a species, with interactions drawn between them.](figure/useSpace.pdf) 
 
 # Conclusions
 
@@ -274,5 +274,7 @@ ecological networks and associated meta-data. We deployed an online database
 with an associated API, relying on this data specification. Finally, we
 introduced `rmangal`, a `R` package designed to interact with APIs using the
 `mangal` format.
+
+{todo} - <150 wds left for a short conclusion
 
 # References
