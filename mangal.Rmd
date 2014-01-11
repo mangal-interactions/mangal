@@ -25,39 +25,42 @@ api <- mangalapi(mangal_url)
 ```
 # Introduction
 
-Ecological networks enable ecologists to accommodate the complexity of natural
-communities, and to discover mechanisms contributing to their persistence,
-stability, resilience, and functioning. Most of the "early" studies of
-ecological networks were focused on understanding how the structure of
-interactions within one location affected the ecological properties of this
-local community. This led to classical results, such as the buffering impact
-of modularity on species loss {ref}, the increase in robustness along with
-increases in connectance {ref}, and {missing}. More recently, there have been
-new studies introducing the idea that different networks can be meaningfully
-compared, either to understand the importance of environmental gradients
-on the realisation of ecological interactions {ref}, or to understand
-the mechanisms behind variation in the structure of ecological networks
-{refs}. Yet, meta-analyses of a large number of ecological networks are
-still extremely rare, and most of the studies comparing several networks
-do so within the limit of particular systems {refs}. In part, this can be
-attributed to the limited methods allowing to compare networks in which no
-species are in common {ref}. However, the severe shortage of data in the
-field also restricts the power of large-scale analyses. Indeed, most of
-the studies working on several types of interactions focused on comparing
-emerging properties {refs}.
+Ecological networks enable ecologists to accommodate the complexity
+of natural communities, and to discover mechanisms contributing to
+their persistence, stability, resilience, and functioning. Most of the
+"early" studies of ecological networks were focused on understanding
+how the structure of interactions within one location affected the
+ecological properties of this local community. This led to classical
+results, such as the buffering impact of modularity on species loss
+@stouffer_compartmentalization_2011, the increase in robustness along with
+increases in connectance @dunne_network_2002, and {add_example}. More recently,
+new studies introduced the idea that different networks can be meaningfully
+compared, either to understand the importance of environmental gradients on
+the realisation of ecological interactions [@tylianakis_habitat_2007], or
+to understand the mechanisms behind variation in the structure of ecological
+networks [@poisot_dissimilarity_2012]. Yet, meta-analyses of a large number
+of ecological networks are still extremely rare, and most of the studies
+comparing several networks do so within the limit of particular systems
+[@schleuning_specialization_2011;@dalsgaard_historical_2013]. In part, this
+can be attributed to the limited methods allowing to compare networks in
+which no species are in common. However, the severe shortage of data
+in the field also restricts the power of large-scale analyses. Indeed, most
+of the studies working on several types of interactions focused on comparing
+emerging properties [@thebault_does_2008].
 
 An increasing number of approachs are being put forth to *predict* the
-structure of ecological networks, either relying on latent variables {ref}
-or actual traits {ref}. These approaches, so as to be adequately calibrated,
-require easily accessible data. Comparing the efficiency of different methods
-will also be facilitated if there is an homogeneous way of representing
-ecological interactions, and the associated metadata. In this paper, we
-(i) establish the need of a data specification serving as a *lingua franca*
-among network ecologists, (ii) describe this data specification. Finally,
-we (iii) describe `mangal`, a `R` package and compagnon database, relying
-on this data specification. We provide some use cases showing how this new
-approach makes complex analyzes simpler, and allows for the integration of
-new tools to manipulate biodiversity resources.
+structure of ecological networks, either relying on latent variables
+[@rohr_modeling_2010] or actual traits [@gravel_inferring_2013]. These
+approaches, so as to be adequately calibrated, require easily accessible
+data. Comparing the efficiency of different methods will also be facilitated
+if there is an homogeneous way of representing ecological interactions,
+and the associated metadata. In this paper, we (i) establish the need of a
+data specification serving as a *lingua franca* among network ecologists,
+(ii) describe this data specification. Finally, we (iii) describe `rmangal`,
+a `R` package and compagnon database, relying on this data specification. We
+provide some use cases showing how this new approach makes complex analyzes
+simpler, and allows for the integration of new tools to manipulate biodiversity
+resources.
 
 # Networks need a data specification
 
