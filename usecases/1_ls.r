@@ -1,6 +1,6 @@
 library(rmangal)
 
-url <- "http://localhost:8000"
+url <- "http://mangal.uqar.ca"
 DAT_ID <- 1
 api <- mangalapi(url)
 

@@ -11,7 +11,7 @@ library(rmangal)
 DSET_ID <- 1
 
 # We connect to the API
-api <- mangalapi('http://localhost:8000')
+api <- mangalapi('http://mangal.uqar.ca')
 
 # We retrieve the dataset
 dataset <- getDataset(api, DSET_ID)

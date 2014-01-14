@@ -16,7 +16,7 @@ reproducibility of ecological networks studies.
 
 
 ```
-## Error: impossible de trouver la fonction "as"
+## Error: Failed to connect to localhost port 8000: Connexion refusée
 ```
 
 # Introduction
