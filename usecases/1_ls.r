@@ -8,7 +8,7 @@ api <- mangalapi(url)
 dat <- getDataset(api, DAT_ID)
 
 # Get each network in the dataset as a graph object
-graphs <- alply(dat$networks, 1, function(x) network_as_graph(api, x))
+graphs <- alply(dat$networks, 1, function(x) toIgraph(api, x))
 
 # Make a data.frame with the number of links and species
 ls <- ldply(graphs, function(x) c(S = length(V(x)), L = length(E(x))))

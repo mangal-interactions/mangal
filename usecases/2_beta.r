@@ -33,7 +33,7 @@ GeoDist <- as.dist(GeoDist)
 
 # Now, we measure the beta-diversity of the networks
 # First, we get each network as a graph
-Graphs <- llply(Networks, function(x) network_as_graph(api, x$id))
+Graphs <- llply(Networks, function(x) toIgraph(api, x$id))
 names(Graphs) <- aaply(names(Graphs), 1, function(x) Networks[[x]]$name)
 # Next, we convert the graphs in matrices
 Matrices <- llply(Graphs, get.adjacency, sparse=FALSE)
