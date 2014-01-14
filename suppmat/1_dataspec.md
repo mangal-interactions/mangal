@@ -14,6 +14,7 @@ library(rmangal)
 ## Loading required package: igraph
 ## Loading required package: methods
 ## Loading required package: stringr
+## Loading required package: cheddar
 ```
 
 ```r
@@ -46,7 +47,7 @@ kable(whatIs(api, "taxa"), format = "markdown")
 |6   |itis         |The ITIS identifier of the taxa              |integer  |TRUE   | TRUE   |        |
 |7   |name         |The scientific name of the taxa              |string   |FALSE  | TRUE   |        |
 |8   |ncbi         |The NCBI Taxonomy identifier of the taxa     |integer  |TRUE   | TRUE   |        |
-|10  |vernacular   |The vernacular name of the taxa, in English  |string   |FALSE  |FALSE   |        |
+|10  |vernacular   |The vernacular name of the taxa, in English  |string   |TRUE   |FALSE   |        |
 
 
 ## Population
@@ -94,10 +95,10 @@ kable(whatIs(api, "interaction"), format = "markdown")
 |id  |field        |help                                                                       |type     |null   |unique  |values                                                                                                                                                                                                                                                                                                            |
 |:---|:------------|:--------------------------------------------------------------------------|:--------|:------|:-------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |1   |description  |A description of the interaction                                           |string   |TRUE   |FALSE   |                                                                                                                                                                                                                                                                                                                  |
-|2   |ecotype      |The type of interaction                                                    |string   |FALSE  |FALSE   |predation, ectoparasitism, endoparasitism, intra-cellular parasitism, parasitoidism, mycoheterotrophy, antixenosis, teletoxy, amensalism, antibiosis, allelopathy, competition, facilitation, refuge creation, inquilinism, phoresis, epibiosis, pollination, mutualistic symbiosis, zoochory, mutual protection  |
-|4   |item_from    |Identifier (or URI) of the item establishing the interaction.              |related  |TRUE   |FALSE   |                                                                                                                                                                                                                                                                                                                  |
-|5   |item_to      |Identifier (or URI) of the item receiving the interaction.                 |related  |TRUE   |FALSE   |                                                                                                                                                                                                                                                                                                                  |
-|6   |nature       |How the interaction was observed                                           |string   |FALSE  |FALSE   |unspecified, observation, litterature, absence, inferred                                                                                                                                                                                                                                                          |
+|3   |item_from    |Identifier (or URI) of the item establishing the interaction.              |related  |TRUE   |FALSE   |                                                                                                                                                                                                                                                                                                                  |
+|4   |item_to      |Identifier (or URI) of the item receiving the interaction.                 |related  |TRUE   |FALSE   |                                                                                                                                                                                                                                                                                                                  |
+|5   |link_type    |The type of interaction                                                    |string   |FALSE  |FALSE   |predation, ectoparasitism, endoparasitism, intra-cellular parasitism, parasitoidism, mycoheterotrophy, antixenosis, teletoxy, amensalism, antibiosis, allelopathy, competition, facilitation, refuge creation, inquilinism, phoresis, epibiosis, pollination, mutualistic symbiosis, zoochory, mutual protection  |
+|6   |obs_type     |How the interaction was observed                                           |string   |FALSE  |FALSE   |unspecified, observation, litterature, absence, inferred                                                                                                                                                                                                                                                          |
 |8   |pop_from     |Identifier (or URI) of the pop. establishing the interaction.              |related  |TRUE   |FALSE   |                                                                                                                                                                                                                                                                                                                  |
 |9   |pop_to       |Identifier (or URI) of the pop. receiving the interaction.                 |related  |TRUE   |FALSE   |                                                                                                                                                                                                                                                                                                                  |
 |10  |strength_f   |The strength of the interaction for the item ESTABLISHING the interaction  |float    |TRUE   |FALSE   |                                                                                                                                                                                                                                                                                                                  |
@@ -123,8 +124,7 @@ kable(whatIs(api, "network"), format = "markdown")
 |5   |interactions  |List of identifiers (or URIs) of the interactions in the network.                       |related  |FALSE  |FALSE   |        |
 |6   |latitude      |Latitude                                                                                |string   |TRUE   |FALSE   |        |
 |7   |longitude     |Longitude                                                                               |string   |TRUE   |FALSE   |        |
-|8   |metaweb       |Whether the network has been observed (FALSE) or infered (TRUE)                         |boolean  |FALSE  |FALSE   |        |
-|9   |name          |The name of the network                                                                 |string   |FALSE  |FALSE   |        |
+|8   |name          |The name of the network                                                                 |string   |FALSE  |FALSE   |        |
 
 
 ## Dataset
@@ -156,8 +156,8 @@ kable(whatIs(api, "trait"), format = "markdown")
 |:---|:------------|:--------------------------------------|:-------|:------|:-------|:-------|
 |1   |description  |A longer description of the trait      |string  |TRUE   |FALSE   |        |
 |3   |name         |The name of the measured trait         |string  |FALSE  |FALSE   |        |
-|5   |units        |Units in which the trait was measured  |string  |FALSE  |FALSE   |        |
-|6   |value        |The value of the trait                 |float   |FALSE  |FALSE   |        |
+|5   |units        |Units in which the trait was measured  |string  |TRUE   |FALSE   |        |
+|6   |value        |The value of the trait                 |string  |FALSE  |FALSE   |        |
 
 
 ## Environmental value
@@ -171,8 +171,8 @@ kable(whatIs(api, "environment"), format = "markdown")
 |:---|:------------|:----------------------------------------------------------|:-------|:------|:-------|:-------|
 |1   |description  |A description of the environmental property                |string  |TRUE   |FALSE   |        |
 |3   |name         |The environmental property being measured                  |string  |FALSE  |FALSE   |        |
-|5   |units        |The units in which the environmental property is measured  |string  |FALSE  |FALSE   |        |
-|6   |value        |The value of the environmental property                    |float   |FALSE  |FALSE   |        |
+|5   |units        |The units in which the environmental property is measured  |string  |TRUE   |FALSE   |        |
+|6   |value        |The value of the environmental property                    |string  |FALSE  |FALSE   |        |
 
 
 ## Reference
