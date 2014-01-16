@@ -77,6 +77,8 @@ or other observations) are available, they are most either given in other
 files, or as accompanying text. In both cases, making a programmatic link
 between interaction data and relevant meta-data is difficult and error-prone.
 
+%DG: you need to define what is data specification. It is a precise terminology which is likely to be unknown by most readers
+
 By contrast, a data specification provides a common language for network
 ecologists to interact, and ensure that, regardless of their source, data
 can be used in a shared workflow. Most importantly, a data specification
