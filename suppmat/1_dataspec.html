@@ -1,10 +1,9 @@
+<p>This document lists all of the objects in the data specification, and their fields. The <code>NULL</code> column indicates which objects can be empty (<em>i.e.</em> no value is provided). The column <code>values</code> indicates the possible values that this field can take.</p>
+<p>Users are encouraged to contribute to the development of this data specification by suggesting improvements or changes online: <a href="https://github.com/mangal-wg/mangal-api/issues">https://github.com/mangal-wg/mangal-api/issues</a>.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rmangal)</code></pre>
 <pre><code>## Loading required package: rjson
 ## Loading required package: httr
-## Loading required package: plyr
 ## Loading required package: igraph
-## Loading required package: methods
-## Loading required package: stringr
 ## Loading required package: cheddar</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">width =</span> <span class="dv">150</span>)
 url =<span class="st"> &quot;http://localhost:8000&quot;</span>
@@ -92,6 +91,24 @@ api =<span class="st"> </span><span class="kw">mangalapi</span>(url)
 </tr>
 <tr class="even">
 <td align="left">10</td>
+<td align="left">status</td>
+<td align="left">The taxonomic status of the taxa.</td>
+<td align="left">string</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">confirmed, trophic species, morphospecies, nomen dubium, nomen oblitum, nomen nudum, nomen novum, nomen conservandum, species inquirenda</td>
+</tr>
+<tr class="odd">
+<td align="left">11</td>
+<td align="left">traits</td>
+<td align="left">A list of traits values indentifiers (or URIs) that were measured on this taxa. Good for taxa-level traits.</td>
+<td align="left">related</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">12</td>
 <td align="left">vernacular</td>
 <td align="left">The vernacular name of the taxa, in English</td>
 <td align="left">string</td>
@@ -260,9 +277,9 @@ api =<span class="st"> </span><span class="kw">mangalapi</span>(url)
 <td align="left"></td>
 </tr>
 <tr class="even">
-<td align="left">3</td>
-<td align="left">item_from</td>
-<td align="left">Identifier (or URI) of the item establishing the interaction.</td>
+<td align="left">2</td>
+<td align="left">environment</td>
+<td align="left">List of identifiers (or URIs) of the environments associated to the interaction.</td>
 <td align="left">related</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
@@ -270,8 +287,8 @@ api =<span class="st"> </span><span class="kw">mangalapi</span>(url)
 </tr>
 <tr class="odd">
 <td align="left">4</td>
-<td align="left">item_to</td>
-<td align="left">Identifier (or URI) of the item receiving the interaction.</td>
+<td align="left">item_from</td>
+<td align="left">Identifier (or URI) of the item establishing the interaction.</td>
 <td align="left">related</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
@@ -279,6 +296,15 @@ api =<span class="st"> </span><span class="kw">mangalapi</span>(url)
 </tr>
 <tr class="even">
 <td align="left">5</td>
+<td align="left">item_to</td>
+<td align="left">Identifier (or URI) of the item receiving the interaction.</td>
+<td align="left">related</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">6</td>
 <td align="left">link_type</td>
 <td align="left">The type of interaction</td>
 <td align="left">string</td>
@@ -286,8 +312,8 @@ api =<span class="st"> </span><span class="kw">mangalapi</span>(url)
 <td align="left">FALSE</td>
 <td align="left">predation, ectoparasitism, endoparasitism, intra-cellular parasitism, parasitoidism, mycoheterotrophy, antixenosis, teletoxy, amensalism, antibiosis, allelopathy, competition, facilitation, refuge creation, inquilinism, phoresis, epibiosis, pollination, mutualistic symbiosis, zoochory, mutual protection</td>
 </tr>
-<tr class="odd">
-<td align="left">6</td>
+<tr class="even">
+<td align="left">7</td>
 <td align="left">obs_type</td>
 <td align="left">How the interaction was observed</td>
 <td align="left">string</td>
@@ -295,8 +321,8 @@ api =<span class="st"> </span><span class="kw">mangalapi</span>(url)
 <td align="left">FALSE</td>
 <td align="left">unspecified, observation, litterature, absence, inferred</td>
 </tr>
-<tr class="even">
-<td align="left">8</td>
+<tr class="odd">
+<td align="left">9</td>
 <td align="left">pop_from</td>
 <td align="left">Identifier (or URI) of the pop. establishing the interaction.</td>
 <td align="left">related</td>
@@ -304,8 +330,8 @@ api =<span class="st"> </span><span class="kw">mangalapi</span>(url)
 <td align="left">FALSE</td>
 <td align="left"></td>
 </tr>
-<tr class="odd">
-<td align="left">9</td>
+<tr class="even">
+<td align="left">10</td>
 <td align="left">pop_to</td>
 <td align="left">Identifier (or URI) of the pop. receiving the interaction.</td>
 <td align="left">related</td>
@@ -313,8 +339,8 @@ api =<span class="st"> </span><span class="kw">mangalapi</span>(url)
 <td align="left">FALSE</td>
 <td align="left"></td>
 </tr>
-<tr class="even">
-<td align="left">10</td>
+<tr class="odd">
+<td align="left">11</td>
 <td align="left">strength_f</td>
 <td align="left">The strength of the interaction for the item ESTABLISHING the interaction</td>
 <td align="left">float</td>
@@ -322,8 +348,8 @@ api =<span class="st"> </span><span class="kw">mangalapi</span>(url)
 <td align="left">FALSE</td>
 <td align="left"></td>
 </tr>
-<tr class="odd">
-<td align="left">11</td>
+<tr class="even">
+<td align="left">12</td>
 <td align="left">strength_t</td>
 <td align="left">The strength of the interaction for the item RECEVING the interaction</td>
 <td align="left">float</td>
@@ -331,8 +357,8 @@ api =<span class="st"> </span><span class="kw">mangalapi</span>(url)
 <td align="left">FALSE</td>
 <td align="left"></td>
 </tr>
-<tr class="even">
-<td align="left">12</td>
+<tr class="odd">
+<td align="left">13</td>
 <td align="left">taxa_from</td>
 <td align="left">Identifier (or URI) of the taxa establishing the interaction.</td>
 <td align="left">related</td>
@@ -340,8 +366,8 @@ api =<span class="st"> </span><span class="kw">mangalapi</span>(url)
 <td align="left">FALSE</td>
 <td align="left"></td>
 </tr>
-<tr class="odd">
-<td align="left">13</td>
+<tr class="even">
+<td align="left">14</td>
 <td align="left">taxa_to</td>
 <td align="left">Identifier (or URI) of the taxa receiving the interaction.</td>
 <td align="left">related</td>
@@ -349,8 +375,8 @@ api =<span class="st"> </span><span class="kw">mangalapi</span>(url)
 <td align="left">FALSE</td>
 <td align="left"></td>
 </tr>
-<tr class="even">
-<td align="left">14</td>
+<tr class="odd">
+<td align="left">15</td>
 <td align="left">units_f</td>
 <td align="left">Units in which the interaction strength is measured</td>
 <td align="left">string</td>
@@ -358,8 +384,8 @@ api =<span class="st"> </span><span class="kw">mangalapi</span>(url)
 <td align="left">FALSE</td>
 <td align="left"></td>
 </tr>
-<tr class="odd">
-<td align="left">15</td>
+<tr class="even">
+<td align="left">16</td>
 <td align="left">units_t</td>
 <td align="left">Units in which the interaction strength is measured</td>
 <td align="left">string</td>
@@ -483,7 +509,16 @@ api =<span class="st"> </span><span class="kw">mangalapi</span>(url)
 <td align="left"></td>
 </tr>
 <tr class="odd">
-<td align="left">4</td>
+<td align="left">3</td>
+<td align="left">environment</td>
+<td align="left">List of identifiers (or URIs) of the environments associated to the dataset.</td>
+<td align="left">related</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">5</td>
 <td align="left">name</td>
 <td align="left">The name of the dataset</td>
 <td align="left">string</td>
@@ -491,8 +526,8 @@ api =<span class="st"> </span><span class="kw">mangalapi</span>(url)
 <td align="left">FALSE</td>
 <td align="left"></td>
 </tr>
-<tr class="even">
-<td align="left">5</td>
+<tr class="odd">
+<td align="left">6</td>
 <td align="left">networks</td>
 <td align="left">A list of either the id of networks, or their representation in list format</td>
 <td align="left">related</td>
@@ -500,8 +535,8 @@ api =<span class="st"> </span><span class="kw">mangalapi</span>(url)
 <td align="left">FALSE</td>
 <td align="left"></td>
 </tr>
-<tr class="odd">
-<td align="left">7</td>
+<tr class="even">
+<td align="left">8</td>
 <td align="left">papers</td>
 <td align="left">List of identifiers (or URIs) of the references to the papers associated with the dataset.</td>
 <td align="left">related</td>

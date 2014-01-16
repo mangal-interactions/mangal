@@ -2,6 +2,15 @@
 %
 %
 
+This document lists all of the objects in the data specification, and their
+fields. The `NULL` column indicates which objects can be empty (*i.e.* no
+value is provided). The column `values` indicates the possible values that
+this field can take.
+
+Users are encouraged to contribute to the development of this
+data specification by suggesting improvements or changes online:
+<https://github.com/mangal-wg/mangal-api/issues>.
+
 
 ```r
 library(rmangal)
@@ -10,10 +19,7 @@ library(rmangal)
 ```
 ## Loading required package: rjson
 ## Loading required package: httr
-## Loading required package: plyr
 ## Loading required package: igraph
-## Loading required package: methods
-## Loading required package: stringr
 ## Loading required package: cheddar
 ```
 
@@ -38,16 +44,18 @@ print(api$resources)
 kable(whatIs(api, "taxa"), format = "markdown")
 ```
 
-|id  |field        |help                                         |type     |null   |unique  |values  |
-|:---|:------------|:--------------------------------------------|:--------|:------|:-------|:-------|
-|1   |bold         |The BOLD identifier of the taxa              |integer  |TRUE   | TRUE   |        |
-|2   |description  |A short description of the taxa              |string   |TRUE   |FALSE   |        |
-|3   |eol          |The EOL identifier of the taxa               |integer  |TRUE   | TRUE   |        |
-|4   |gbif         |The GBIF identifier of the taxa              |integer  |TRUE   | TRUE   |        |
-|6   |itis         |The ITIS identifier of the taxa              |integer  |TRUE   | TRUE   |        |
-|7   |name         |The scientific name of the taxa              |string   |FALSE  | TRUE   |        |
-|8   |ncbi         |The NCBI Taxonomy identifier of the taxa     |integer  |TRUE   | TRUE   |        |
-|10  |vernacular   |The vernacular name of the taxa, in English  |string   |TRUE   |FALSE   |        |
+|id  |field        |help                                                                                                         |type     |null   |unique  |values                                                                                                                                    |
+|:---|:------------|:------------------------------------------------------------------------------------------------------------|:--------|:------|:-------|:-----------------------------------------------------------------------------------------------------------------------------------------|
+|1   |bold         |The BOLD identifier of the taxa                                                                              |integer  |TRUE   | TRUE   |                                                                                                                                          |
+|2   |description  |A short description of the taxa                                                                              |string   |TRUE   |FALSE   |                                                                                                                                          |
+|3   |eol          |The EOL identifier of the taxa                                                                               |integer  |TRUE   | TRUE   |                                                                                                                                          |
+|4   |gbif         |The GBIF identifier of the taxa                                                                              |integer  |TRUE   | TRUE   |                                                                                                                                          |
+|6   |itis         |The ITIS identifier of the taxa                                                                              |integer  |TRUE   | TRUE   |                                                                                                                                          |
+|7   |name         |The scientific name of the taxa                                                                              |string   |FALSE  | TRUE   |                                                                                                                                          |
+|8   |ncbi         |The NCBI Taxonomy identifier of the taxa                                                                     |integer  |TRUE   | TRUE   |                                                                                                                                          |
+|10  |status       |The taxonomic status of the taxa.                                                                            |string   |FALSE  |FALSE   |confirmed, trophic species, morphospecies, nomen dubium, nomen oblitum, nomen nudum, nomen novum, nomen conservandum, species inquirenda  |
+|11  |traits       |A list of traits values indentifiers (or URIs) that were measured on this taxa. Good for taxa-level traits.  |related  |TRUE   |FALSE   |                                                                                                                                          |
+|12  |vernacular   |The vernacular name of the taxa, in English                                                                  |string   |TRUE   |FALSE   |                                                                                                                                          |
 
 
 ## Population
@@ -92,21 +100,22 @@ kable(whatIs(api, "item"), format = "markdown")
 kable(whatIs(api, "interaction"), format = "markdown")
 ```
 
-|id  |field        |help                                                                       |type     |null   |unique  |values                                                                                                                                                                                                                                                                                                            |
-|:---|:------------|:--------------------------------------------------------------------------|:--------|:------|:-------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|1   |description  |A description of the interaction                                           |string   |TRUE   |FALSE   |                                                                                                                                                                                                                                                                                                                  |
-|3   |item_from    |Identifier (or URI) of the item establishing the interaction.              |related  |TRUE   |FALSE   |                                                                                                                                                                                                                                                                                                                  |
-|4   |item_to      |Identifier (or URI) of the item receiving the interaction.                 |related  |TRUE   |FALSE   |                                                                                                                                                                                                                                                                                                                  |
-|5   |link_type    |The type of interaction                                                    |string   |FALSE  |FALSE   |predation, ectoparasitism, endoparasitism, intra-cellular parasitism, parasitoidism, mycoheterotrophy, antixenosis, teletoxy, amensalism, antibiosis, allelopathy, competition, facilitation, refuge creation, inquilinism, phoresis, epibiosis, pollination, mutualistic symbiosis, zoochory, mutual protection  |
-|6   |obs_type     |How the interaction was observed                                           |string   |FALSE  |FALSE   |unspecified, observation, litterature, absence, inferred                                                                                                                                                                                                                                                          |
-|8   |pop_from     |Identifier (or URI) of the pop. establishing the interaction.              |related  |TRUE   |FALSE   |                                                                                                                                                                                                                                                                                                                  |
-|9   |pop_to       |Identifier (or URI) of the pop. receiving the interaction.                 |related  |TRUE   |FALSE   |                                                                                                                                                                                                                                                                                                                  |
-|10  |strength_f   |The strength of the interaction for the item ESTABLISHING the interaction  |float    |TRUE   |FALSE   |                                                                                                                                                                                                                                                                                                                  |
-|11  |strength_t   |The strength of the interaction for the item RECEVING the interaction      |float    |TRUE   |FALSE   |                                                                                                                                                                                                                                                                                                                  |
-|12  |taxa_from    |Identifier (or URI) of the taxa establishing the interaction.              |related  |FALSE  |FALSE   |                                                                                                                                                                                                                                                                                                                  |
-|13  |taxa_to      |Identifier (or URI) of the taxa receiving the interaction.                 |related  |FALSE  |FALSE   |                                                                                                                                                                                                                                                                                                                  |
-|14  |units_f      |Units in which the interaction strength is measured                        |string   |TRUE   |FALSE   |                                                                                                                                                                                                                                                                                                                  |
-|15  |units_t      |Units in which the interaction strength is measured                        |string   |TRUE   |FALSE   |                                                                                                                                                                                                                                                                                                                  |
+|id  |field        |help                                                                              |type     |null   |unique  |values                                                                                                                                                                                                                                                                                                            |
+|:---|:------------|:---------------------------------------------------------------------------------|:--------|:------|:-------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|1   |description  |A description of the interaction                                                  |string   |TRUE   |FALSE   |                                                                                                                                                                                                                                                                                                                  |
+|2   |environment  |List of identifiers (or URIs) of the environments associated to the interaction.  |related  |TRUE   |FALSE   |                                                                                                                                                                                                                                                                                                                  |
+|4   |item_from    |Identifier (or URI) of the item establishing the interaction.                     |related  |TRUE   |FALSE   |                                                                                                                                                                                                                                                                                                                  |
+|5   |item_to      |Identifier (or URI) of the item receiving the interaction.                        |related  |TRUE   |FALSE   |                                                                                                                                                                                                                                                                                                                  |
+|6   |link_type    |The type of interaction                                                           |string   |FALSE  |FALSE   |predation, ectoparasitism, endoparasitism, intra-cellular parasitism, parasitoidism, mycoheterotrophy, antixenosis, teletoxy, amensalism, antibiosis, allelopathy, competition, facilitation, refuge creation, inquilinism, phoresis, epibiosis, pollination, mutualistic symbiosis, zoochory, mutual protection  |
+|7   |obs_type     |How the interaction was observed                                                  |string   |FALSE  |FALSE   |unspecified, observation, litterature, absence, inferred                                                                                                                                                                                                                                                          |
+|9   |pop_from     |Identifier (or URI) of the pop. establishing the interaction.                     |related  |TRUE   |FALSE   |                                                                                                                                                                                                                                                                                                                  |
+|10  |pop_to       |Identifier (or URI) of the pop. receiving the interaction.                        |related  |TRUE   |FALSE   |                                                                                                                                                                                                                                                                                                                  |
+|11  |strength_f   |The strength of the interaction for the item ESTABLISHING the interaction         |float    |TRUE   |FALSE   |                                                                                                                                                                                                                                                                                                                  |
+|12  |strength_t   |The strength of the interaction for the item RECEVING the interaction             |float    |TRUE   |FALSE   |                                                                                                                                                                                                                                                                                                                  |
+|13  |taxa_from    |Identifier (or URI) of the taxa establishing the interaction.                     |related  |FALSE  |FALSE   |                                                                                                                                                                                                                                                                                                                  |
+|14  |taxa_to      |Identifier (or URI) of the taxa receiving the interaction.                        |related  |FALSE  |FALSE   |                                                                                                                                                                                                                                                                                                                  |
+|15  |units_f      |Units in which the interaction strength is measured                               |string   |TRUE   |FALSE   |                                                                                                                                                                                                                                                                                                                  |
+|16  |units_t      |Units in which the interaction strength is measured                               |string   |TRUE   |FALSE   |                                                                                                                                                                                                                                                                                                                  |
 
 
 ## Network
@@ -138,9 +147,10 @@ kable(whatIs(api, "dataset"), format = "markdown")
 |:---|:------------|:-------------------------------------------------------------------------------------------|:--------|:------|:-------|:-------|
 |1   |data         |A list of the id of references for the data (e.g. data papers, figshare dataset)            |related  |TRUE   |FALSE   |        |
 |2   |description  |A short description of the dataset                                                          |string   |TRUE   |FALSE   |        |
-|4   |name         |The name of the dataset                                                                     |string   |FALSE  |FALSE   |        |
-|5   |networks     |A list of either the id of networks, or their representation in list format                 |related  |FALSE  |FALSE   |        |
-|7   |papers       |List of identifiers (or URIs) of the references to the papers associated with the dataset.  |related  |TRUE   |FALSE   |        |
+|3   |environment  |List of identifiers (or URIs) of the environments associated to the dataset.                |related  |TRUE   |FALSE   |        |
+|5   |name         |The name of the dataset                                                                     |string   |FALSE  |FALSE   |        |
+|6   |networks     |A list of either the id of networks, or their representation in list format                 |related  |FALSE  |FALSE   |        |
+|8   |papers       |List of identifiers (or URIs) of the references to the papers associated with the dataset.  |related  |TRUE   |FALSE   |        |
 
 
 # Meta-data

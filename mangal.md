@@ -15,94 +15,93 @@ data, streamlines the analysis process, and improves replicability and
 reproducibility of ecological networks studies.
 
 
-```
-## Error: Failed to connect to localhost port 8000: Connexion refusée
-```
 
 # Introduction
 
-Ecological networks enable ecologists to accommodate the complexity of natural
-communities, and to discover mechanisms contributing to their persistence,
-stability, resilience, and functioning. Most of the "early" studies of
-ecological networks were focused on understanding how the structure of
-interactions within one location affected the ecological properties of this
-local community. This led to classic results, such as the buffering impact
-of modularity on species loss [@stouffer_compartmentalization_2011], the
-increase in robustness to extinctions along with increases in connectance
-[@dunne_network_2002], and the fact that organisation of interactions
-maximize biodiversity [@bastolla_architecture_2009]. More recently, new
-studies introduced the idea that different networks can be meaningfully
-compared, either to understand the importance of environmental gradients on
-the realisation of ecological interactions [@tylianakis_habitat_2007], or
-to understand the mechanisms behind variation in the structure of ecological
-networks [@poisot_dissimilarity_2012]. Yet, meta-analyses of a large number
-of ecological networks are still extremely rare, and most of the studies
+Ecological networks enable ecologists to accommodate the complexity
+of natural communities, and to discover mechanisms contributing to
+their persistence, stability, resilience, and functioning. Most of the
+"early" studies of ecological networks were focused on understanding
+how the structure of interactions within one location affected the
+ecological properties of this local community. Such analyses revealed the
+contribution of 'average' network properties, such as the buffering impact
+of modularity on species loss [@stouffer_compartmentalization_2011],
+the increase in robustness to extinctions along with increases in
+connectance [@dunne_network_2002], and the fact that organization of
+interactions maximize biodiversity [@bastolla_architecture_2009]. More
+recently, new studies introduced the idea that networks can vary from
+one realization to another. They can be meaningfully compared, either to
+understand the importance of environmental gradients on the realization
+of ecological interactions [@tylianakis_habitat_2007], or to understand
+the mechanisms behind variation in the structure of ecological networks
+[@poisot_dissimilarity_2012]. Yet, meta-analyses of a large number of
+ecological networks are still extremely rare, and most of the studies
 comparing several networks do so within the limit of particular systems
 [@schleuning_specialization_2011;@dalsgaard_historical_2013]. In part,
 this can be attributed to the limited methods allowing to compare networks
 in which no species are in common. However, the severe shortage of data in
-the field also restricts the power of large-scale analyses.
+the field also restricts the scope of large-scale analyses.
 
-An increasing number of approachs are being put forth to *predict* the
+An increasing number of approaches are being put forth to *predict* the
 structure of ecological networks, either relying on latent variables
-[@rohr_modeling_2010] or actual traits [@gravel_inferring_2013]. These
+[@rohr_modeling_2010] or actual traits [@gravel_inferring_2013]. Such
 approaches, so as to be adequately calibrated, require easily accessible
 data. Comparing the efficiency of different methods is also facilitated
 if there is an homogeneous way of representing ecological interactions,
 and the associated metadata. In this paper, we (i) establish the need of a
 data specification serving as a *lingua franca* among network ecologists,
 (ii) describe this data specification. Finally, we (iii) describe `rmangal`,
-a `R` package and compagnon database, relying on this data specification. We
+a `R` package and companion database relying on this data specification. We
 provide some use cases showing how this new approach makes complex analyzes
 simpler, and allows for the integration of new tools to manipulate biodiversity
 resources.
 
 # Networks need a data specification
 
-Ecological networks are (often) stored as their *adjacency matrix* (or as
+Ecological networks are (often) stored as an *adjacency matrix* (or as
 the quantitative link matrix), that is a series of `0` and `1` indicating,
 respectively, the absence and presence of an interaction. This format is
 extremely convenient for *use* (as most network analysis packages, *e.g.*
 `bipartite`, `betalink`, `foodweb`, require data to be presented this way),
 but is extremely inefficient at *storing* meta-data. In most cases, an
-adjacency matrix informs on the identity of species (in cases where
-rows and columns headers are present), and the presence or absence of
-interactions. If other data about the environment (*e.g.* where the network
-wassampled) or the species (*e.g.* the population size, trait distribution,
-or other observations) are available, they are most either given in other
-files, or as accompanying text. In both cases, making a programmatic link
-between interaction data and relevant meta-data is difficult and error-prone.
+adjacency matrix informs on the identity of species (in cases where rows and
+columns headers are present), and the presence or absence of interactions. If
+other data about the environment (*e.g.* where the network was sampled)
+or the species (*e.g.* the population size, trait distribution, or other
+observations) are available, they are most either given in other files,
+or as accompanying text. In both cases, making a programmatic link between
+interaction data and relevant meta-data is difficult and error-prone.
 
-By contrast, a data specification provides a common language for network
-ecologists to interact, and ensure that, regardless of their source, data
-can be used in a shared workflow. Most importantly, a data specification
-describes how data are *exchanged*. Each group retains the ability to
-store the data in the format that is most convenient for in-house use,
-and only needs to provide export options (*e.g.* through an API, that is
-a programmatic interface returning objects in response to pre-determined
-requests) respecting the data specification. This approach ensures that
-*all* data can be used in meta-analyses, and increases the impact of data
-[@piwowar_data_2013;@piwowar_sharing_2007].
+By contrast, a data specification (*i.e.* a set of precise instructions
+detailing how each object should be represented) provides a common language
+for network ecologists to interact, and ensure that, regardless of their
+source, data can be used in a shared workflow. Most importantly, a data
+specification describes how data are *exchanged*. Each group retains the
+ability to store the data in the format that is most convenient for in-house
+use, and only needs to provide export options (*e.g.* through an API, *i.e.*
+a programmatic interface running on a webserver, returning data in  response to
+queries in a pre-determined language) respecting the data specification. This
+approach ensures that *all* data can be used in meta-analyses, and increases
+the impact of data [@piwowar_data_2013;@piwowar_sharing_2007].
 
 # Elements of the data specification
 
-The data specification (Fig. **XX**) is built around the idea that
-(ecological) networks are collections of relationships between ecological
-objects, each element having particular meta-data associated. In this
-section, we detail highlight the way networks are represented in the
-`mangal` specification. An interactive webpage with the elements of the data
-specification can be found online at `http://mangal.uqar.ca./doc/spec/`. The
-data specification is available either at the API root (*e.g.*
-`http://mangal.uqar.ca/api/v1/?format=json`), or can be viewed using the
-`whatIs` function from the `R` package (see *Supp. Mat. 1*). Rather than
-giving an exhaustive list of the data specification (which is available
-online at the aforementionned URL), this section serves as an overview of
-each element, and how they interact.
+The data specification (Fig. **XX**) is built around the idea that (ecological)
+networks are collections of relationships between ecological objects, each
+element having particular meta-data associated. In this section, we detail the
+way networks are represented in the `mangal` specification. An interactive
+webpage with the elements of the data specification can be found online at
+`http://mangal.uqar.ca./doc/spec/`. The data specification is available
+either at the API root (*e.g.* `http://mangal.uqar.ca/api/v1/?format=json`),
+or can be viewed using the `whatIs` function from the `R` package
+(see *Supp. Mat. 1*). Rather than giving an exhaustive list of the data
+specification (which is available online at the aforementionned URL), this
+section serves as an overview of each element, and how they interact.
 
 ![An overview of the data specification, and the hierarchy between objects. Each box correspond to a level of the data specification. Grey boxes are nodes, blue boxes are interactions and networks, and green boxes are metadata. The **bold** boxes (`dataset`, `network`, `interaction`, `taxa`) are the minimal elements needed to represent a network.](figure-dataspec.pdf)
 
 We propose `JSON`, a format equivalent to `XML`, as an efficient way to
-uniformize data representation for two main reasons. First, it has emerged
+uniformise data representation for two main reasons. First, it has emerged
 as a *de facto* standard for web platform serving data, and accepting data
 from users. Second, it allows *validation* of the data: a `JSON` file can be
 matched against a scheme, and one can verify that it is correctly formatted
@@ -111,10 +110,10 @@ depend on available data). Finally, `JSON` objects are easily and cheaply
 (memory-wise) parsed in the most common programming languages, notably `R`
 (equivalent to `list`) and `python` (equivalent to `dict`). For most users,
 the format in which data are transmitted is unimportant, as the interaction
-happens within `R` -- as such, knowing how `JSON` objects are organised is
-only useful for those who want to interact with  the API directly.
+happens within `R` -- as such, knowing how `JSON` objects are organized is
+only useful for those who want to interact with the API directly.
 
-## Node informations
+## Node information
 
 ### Taxa
 
@@ -122,8 +121,10 @@ Taxa are a taxonomic entity of any level, identified by their name,
 vernacular name, and their identifiers in a variety of taxonomic
 services. Associating the identifiers of each taxa is important to leverage
 the power of the new generation of open data tools, such as `taxize`
-[@chamberlain_taxize:_2013]. The data specification currently has fields for
-`ncbi`, `gbif`, `itis`, `eol` and `bold` identifiers.
+[@chamberlain_taxize:_2013]. The data specification currently has fields
+for `ncbi`, `gbif`, `itis`, `eol` and `bold` identifiers. We also provide
+the taxonomic status, *i.e.* whether a taxa is a true taxonomic entity, a
+"trophic species", or a morphospecies.
 
 ### Population
 
@@ -144,7 +145,7 @@ possible to give a measure of the size of this population. The notion of
 of a population at a time-point is an `item` with associated `trait` values,
 and possibly population size.
 
-## Network informations
+## Network information
 
 ### Interaction
 
@@ -169,7 +170,7 @@ A `dataset` is a collection of one or several `network`(s). Datasets also have
 a field for `data` and `papers`, both of which are references to bibliographic
 or web resources describing, respectively, the source of the data, and the
 papers in which these data have been significantly used. Datasets are the
-prefered entry point in the resources.
+preferred entry point in the resources.
 
 ## Meta-data
 
@@ -181,12 +182,13 @@ which the measure was taken.
 
 ### Environmental condition
 
-Environmental conditions are associated to network. These are defined by
-the environmental property measured, its value, and the units.
+Environmental conditions are associated to datasets, networks, and interactions
+objects, to allow for both macro and micro environmental conditions. These
+are defined by the environmental property measured, its value, and the units.
 
 ### References
 
-References are associated to datasets. They accomodate the DOI, JSON or
+References are associated to datasets. They accommodate the DOI, JSON or
 PubMed identifiers, or a URL. When possible, the DOI should be preferred as
 it offers more potential to interact with other on-line tools, such as the
 *CrossRef* API.
@@ -206,7 +208,7 @@ section are attached as *Suppl. Mat.*.
 The data we use for this example come from @ricciardi_assemblage_2010. These
 were previously available on the *InteractionWeb DataBase* as a
 single `xls` file. We uploaded them in the `mangal` database at
-`http://mangal.uqar.ca/api/v1/dataset/{todo}`.
+`http://mangal.uqar.ca/api/v1/dataset/1`.
 
 ## Link-species relationships
 
@@ -225,7 +227,9 @@ source("usecases/1_ls.r")
 Producing this figure requires less than 10 lines of code. The only information
 needed is the identifier of the network or dataset, which we suggest should
 be reported in publications as: "These data were deposited in the `mangal`
-format at `<URL>/api/v1/dataset/<ID>`". This encourages data re-use.
+format at `<URL>/api/v1/dataset/<ID>`", possibly in the acknowledgements. So
+as to encourage data sharing, we encourage users of the database to cite
+the original dataset or publication.
 
 ## Network beta-diversity
 
@@ -245,7 +249,7 @@ when only shared species are considered ($\beta_{OS}$).
 source("usecases/2_beta.r")
 ```
 
-![Relationships between the geographic distance between two sites, and the species dissimiliarity, network dissimilarity with all, and only shared, species.](figure/useBeta.pdf) 
+![Relationships between the geographic distance between two sites, and the species dissimilarity, network dissimilarity with all, and only shared, species.](figure/useBeta.pdf) 
 
 
 As shown in *Fig. XX*, while species dissimilarity and overall network
@@ -253,14 +257,14 @@ dissimilarity increase when two networks are far apart, this is not the case
 for the way common species interact. This suggests that in this system, network
 dissimilarity over space is primarily driven by species turnover. The ease
 to gather both raw interaction data and associated meta-data make producing
-this analysis extremely straigthforward.
+this analysis extremely straightforward.
 
-## Spatial visualisation of networks
+## Spatial visualization of networks
 
-@bascompte_disentangling_2009 proposes an interesting visualisation for
+@bascompte_disentangling_2009 uses an interesting visualization for
 spatialized networks, in which each species is laid out on a map at the
-center of mass of its area of occurence; interactions are then drawn between
-species, to show how species distribution determines biotic interactions. In
+center of mass of its distribution; interactions are then drawn between
+species to show how species distribution determines biotic interactions. In
 this final use case, we propose to reproduce a similar figure, using the
 `RgoogleMaps` package.
 
