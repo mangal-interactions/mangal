@@ -2,6 +2,15 @@
 %
 %
 
+This document lists all of the objects in the data specification, and their
+fields. The `NULL` column indicates which objects can be empty (*i.e.* no
+value is provided). The column `values` indicates the possible values that
+this field can take.
+
+Users are encouraged to contribute to the development of this
+data specification by suggesting improvements or changes online:
+<https://github.com/mangal-wg/mangal-api/issues>.
+
 ```{r getApi}
 library(rmangal)
 options('width' = 150)

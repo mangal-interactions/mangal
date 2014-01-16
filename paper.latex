@@ -1,13 +1,13 @@
 %!TEX TS-program = pdflatex
-\documentclass[12pt]{article}
+\documentclass[11pt]{article}
  
 % The declaration of the document class:
 \usepackage{amsmath}
 \usepackage[english]{babel}
 \usepackage{geometry}
-\geometry{verbose,letterpaper,margin=2cm}
+\geometry{verbose,letterpaper,margin=1.5cm}
 
-\usepackage[sc]{mathpazo}
+\usepackage{mathptmx}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{lineno}
