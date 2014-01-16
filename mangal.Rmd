@@ -1,18 +1,18 @@
 % `mangal` -- making complex ecological network analysis simpler
-% T. Poisot, D. Gravel
+% T. Poisot, B. Baiser, J. Dunne, S. Kéfi, F. Massol, S. Wood, D. Gravel
 % Jan. 2014
 
-> The study of ecological networks is severaly limited by (i) the difficulty
+> The study of ecological networks is severely limited by (i) the difficulty
 to access data, (ii) the lack of a standardized way to link meta-data with
 interactions, and (iii) the disparity of formats in which ecological networks
 themselves are represented. To overcome these limitations, we conceived
 a data specification for ecological networks. We implemented a database
 respecting this standard, and released a R package ( `rmangal`) allowing
 users to programmatically access, curate, and deposit data on ecological
-interactions. In this article, we show how these tools, in conjunctions with
-other frameworks for the programmatic manipulation of open ecological data,
-will streamline the analysis process, and improve reproducibility in studies
-of ecological networks.
+interactions. In this article, we show how these tools, in conjunctions
+with other frameworks for the programmatic manipulation of open ecological
+data, streamlines the analysis process, and improves replicability and
+reproducibility of ecological networks studies.
 
 ```{r loadStuff, echo=FALSE, message=FALSE, warning=FALSE}
 # Prepare the environment
@@ -25,34 +25,33 @@ api <- mangalapi(mangal_url)
 ```
 # Introduction
 
-Ecological networks enable ecologists to accommodate the complexity
-of natural communities, and to discover mechanisms contributing to
-their persistence, stability, resilience, and functioning. Most of the
-"early" studies of ecological networks were focused on understanding
-how the structure of interactions within one location affected the
-ecological properties of this local community. This led to classical
-results, such as the buffering impact of modularity on species loss
-@stouffer_compartmentalization_2011, the increase in robustness along with
-increases in connectance @dunne_network_2002, and {add_example}. More recently,
-new studies introduced the idea that different networks can be meaningfully
+Ecological networks enable ecologists to accommodate the complexity of natural
+communities, and to discover mechanisms contributing to their persistence,
+stability, resilience, and functioning. Most of the "early" studies of
+ecological networks were focused on understanding how the structure of
+interactions within one location affected the ecological properties of this
+local community. This led to classic results, such as the buffering impact
+of modularity on species loss [@stouffer_compartmentalization_2011], the
+increase in robustness to extinctions along with increases in connectance
+[@dunne_network_2002], and the fact that organisation of interactions
+maximize biodiversity [@bastolla_architecture_2009]. More recently, new
+studies introduced the idea that different networks can be meaningfully
 compared, either to understand the importance of environmental gradients on
 the realisation of ecological interactions [@tylianakis_habitat_2007], or
 to understand the mechanisms behind variation in the structure of ecological
 networks [@poisot_dissimilarity_2012]. Yet, meta-analyses of a large number
 of ecological networks are still extremely rare, and most of the studies
 comparing several networks do so within the limit of particular systems
-[@schleuning_specialization_2011;@dalsgaard_historical_2013]. In part, this
-can be attributed to the limited methods allowing to compare networks in
-which no species are in common. However, the severe shortage of data
-in the field also restricts the power of large-scale analyses. Indeed, most
-of the studies working on several types of interactions focused on comparing
-emerging properties [@thebault_does_2008].
+[@schleuning_specialization_2011;@dalsgaard_historical_2013]. In part,
+this can be attributed to the limited methods allowing to compare networks
+in which no species are in common. However, the severe shortage of data in
+the field also restricts the power of large-scale analyses.
 
 An increasing number of approachs are being put forth to *predict* the
 structure of ecological networks, either relying on latent variables
 [@rohr_modeling_2010] or actual traits [@gravel_inferring_2013]. These
 approaches, so as to be adequately calibrated, require easily accessible
-data. Comparing the efficiency of different methods will also be facilitated
+data. Comparing the efficiency of different methods is also facilitated
 if there is an homogeneous way of representing ecological interactions,
 and the associated metadata. In this paper, we (i) establish the need of a
 data specification serving as a *lingua franca* among network ecologists,
@@ -70,7 +69,7 @@ respectively, the absence and presence of an interaction. This format is
 extremely convenient for *use* (as most network analysis packages, *e.g.*
 `bipartite`, `betalink`, `foodweb`, require data to be presented this way),
 but is extremely inefficient at *storing* meta-data. In most cases, an
-adjacency matrix will inform on the identity of species (in cases where
+adjacency matrix informs on the identity of species (in cases where
 rows and columns headers are present), and the presence or absence of
 interactions. If other data about the environment (*e.g.* where the network
 wassampled) or the species (*e.g.* the population size, trait distribution,
@@ -81,11 +80,13 @@ between interaction data and relevant meta-data is difficult and error-prone.
 By contrast, a data specification provides a common language for network
 ecologists to interact, and ensure that, regardless of their source, data
 can be used in a shared workflow. Most importantly, a data specification
-describes how data are *exchanged*. Each group retains the ability to store
-the data in the format that is most convenient for in-house use, and only
-needs to provide export options (*e.g.* through an API) respecting the
-data specification. This approach ensures that *all* data can be used in
-meta-analyses, and will in time increase the impact of data.
+describes how data are *exchanged*. Each group retains the ability to
+store the data in the format that is most convenient for in-house use,
+and only needs to provide export options (*e.g.* through an API, that is
+a programmatic interface returning objects in response to pre-determined
+requests) respecting the data specification. This approach ensures that
+*all* data can be used in meta-analyses, and increases the impact of data
+[@piwowar_data_2013;@piwowar_sharing_2007].
 
 # Elements of the data specification
 
@@ -99,21 +100,23 @@ data specification is available either at the API root (*e.g.*
 `http://mangal.uqar.ca/api/v1/?format=json`), or can be viewed using the
 `whatIs` function from the `R` package (see *Supp. Mat. 1*). Rather than
 giving an exhaustive list of the data specification (which is available
-online at the aforementionned URL), this section will propose an overview
-of each element, and of how they interact.
+online at the aforementionned URL), this section serves as an overview of
+each element, and how they interact.
 
 ![An overview of the data specification, and the hierarchy between objects. Each box correspond to a level of the data specification. Grey boxes are nodes, blue boxes are interactions and networks, and green boxes are metadata. The **bold** boxes (`dataset`, `network`, `interaction`, `taxa`) are the minimal elements needed to represent a network.](figure-dataspec.pdf)
 
-We propose `JSON` as the most efficient data format for the following
-reasons. First, it has emerged as a *de facto* standard for web platform
-serving data, and accepting data from users. Second, it allows *validation*
-of the data: a `JSON` file can be matched against a scheme, and one can verify
-that it is correctly formatted. Finally, `JSON` objects are easily and cheaply
+We propose `JSON`, a format equivalent to `XML`, as an efficient way to
+uniformize data representation for two main reasons. First, it has emerged
+as a *de facto* standard for web platform serving data, and accepting data
+from users. Second, it allows *validation* of the data: a `JSON` file can be
+matched against a scheme, and one can verify that it is correctly formatted
+(this includes the possibility that not all fields are filled, as will
+depend on available data). Finally, `JSON` objects are easily and cheaply
 (memory-wise) parsed in the most common programming languages, notably `R`
 (equivalent to `list`) and `python` (equivalent to `dict`). For most users,
-the format in which data are transmitted will be entirely transparent, as the
-interaction will happen within `R` -- as such, knowing how `JSON` objects are
-organised is only useful for those who want to interact with  the API directly.
+the format in which data are transmitted is unimportant, as the interaction
+happens within `R` -- as such, knowing how `JSON` objects are organised is
+only useful for those who want to interact with  the API directly.
 
 ## Node informations
 
@@ -123,13 +126,13 @@ Taxa are a taxonomic entity of any level, identified by their name,
 vernacular name, and their identifiers in a variety of taxonomic
 services. Associating the identifiers of each taxa is important to leverage
 the power of the new generation of open data tools, such as `taxize`
-[@chamberlain_taxize:_2013]. The data specification currently accomodates
+[@chamberlain_taxize:_2013]. The data specification currently has fields for
 `ncbi`, `gbif`, `itis`, `eol` and `bold` identifiers.
 
 ### Population
 
 A `population` is one observed instance of a `taxa` object. If your
-experimental design is replicated through space, then each taxa will have a
+experimental design is replicated through space, then each taxa have a
 `population` object corresponding to each locality. Populations do not have
 associated meta-data, but serve as "containers" for `item` objects.
 
@@ -152,11 +155,11 @@ and possibly population size.
 An `interaction` links, *a minima*, two `taxa` objects (but can also link pairs
 of `population`s or `item`s). The most important attributes of `interaction`s
 are the type of interaction (of which we provide a list of possible values,
-see *Supp. Mat. 1*), and its `nature`, *i.e.* how it was observed. This
-field will help differentiate from direct observations, text mining, and
-inference. Note that the `nature` field can also take `absence` as a value;
-this will be useful for, *e.g.*, "cafeteria" experiments in which there is
-high confidence that the interaction did not happen.
+see *Supp. Mat. 1*), and its `nature`, *i.e.* how it was observed. This field
+help differentiate direct observations, text mining, and inference. Note
+that the `nature` field can also take `absence` as a value; this is useful
+for, *e.g.*, "cafeteria" experiments in which there is high confidence that
+the interaction did not happen.
 
 ### Network
 
@@ -196,12 +199,13 @@ it offers more potential to interact with other on-line tools, such as the
 
 In this section, we present use cases using the `rmangal` package for `R`,
 to interact with a database implementing this data specification, and serving
-data through a `REST`ful API (`http://mangal.uqar.ca/api/v1/`). It is possible
+data through an API (`http://mangal.uqar.ca/api/v1/`). It is possible
 for users to deposit data into this database, through the `R` package. Data
-are made available under a *CC-0 Waiver*. Detailed informations about how to
-upload data are given in the vignettes and manual of the `rmangal` package. So
-as to save room in the manuscript, we source each example. The complete `r`
-files to reproduce the examples of this section are attached as *Suppl. Mat.*.
+are made available under a *CC-0 Waiver* [@poisot_moving_2013]. Detailed
+informations about how to upload data are given in the vignettes and manual
+of the `rmangal` package. So as to save room in the manuscript, we source
+each example; the complete `r` files to reproduce the examples of this
+section are attached as *Suppl. Mat.*.
 
 The data we use for this example come from @ricciardi_assemblage_2010. These
 were previously available on the *InteractionWeb DataBase* as a
@@ -221,7 +225,7 @@ source('usecases/1_ls.r')
 Producing this figure requires less than 10 lines of code. The only information
 needed is the identifier of the network or dataset, which we suggest should
 be reported in publications as: "These data were deposited in the `mangal`
-format at `<URL>/api/v1/dataset/<ID>`". This will encourage re-use of the data.
+format at `<URL>/api/v1/dataset/<ID>`". This encourages data re-use.
 
 ## Network beta-diversity
 
@@ -265,8 +269,8 @@ In this contribution, we presented `mangal`, a data format for the exchange of
 ecological networks and associated meta-data. We deployed an online database
 with an associated API, relying on this data specification. Finally, we
 introduced `rmangal`, a `R` package designed to interact with APIs using the
-`mangal` format.
-
-{todo} - <150 wds left for a short conclusion
+`mangal` format. We expect that the data specification will evolve based on
+the needs of the community. At the moment, users are welcome to propose such
+changes on the project issue page: <https://github.com/mangal-wg/mangal/issues>.
 
 # References

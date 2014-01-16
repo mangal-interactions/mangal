@@ -1,42 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="Content-Style-Type" content="text/css" />
-  <meta name="generator" content="pandoc" />
-  <title>Data specification</title>
-  <style type="text/css">code{white-space: pre;}</style>
-  <style type="text/css">
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
-  </style>
-</head>
-<body>
-<div id="header">
-<h1 class="title">Data specification</h1>
-</div>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rmangal)</code></pre>
 <pre><code>## Loading required package: rjson
 ## Loading required package: httr
 ## Loading required package: plyr
 ## Loading required package: igraph
 ## Loading required package: methods
-## Loading required package: stringr</code></pre>
+## Loading required package: stringr
+## Loading required package: cheddar</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">width =</span> <span class="dv">150</span>)
 url =<span class="st"> &quot;http://localhost:8000&quot;</span>
 api =<span class="st"> </span><span class="kw">mangalapi</span>(url)
@@ -126,7 +95,7 @@ api =<span class="st"> </span><span class="kw">mangalapi</span>(url)
 <td align="left">vernacular</td>
 <td align="left">The vernacular name of the taxa, in English</td>
 <td align="left">string</td>
-<td align="left">FALSE</td>
+<td align="left">TRUE</td>
 <td align="left">FALSE</td>
 <td align="left"></td>
 </tr>
@@ -291,16 +260,7 @@ api =<span class="st"> </span><span class="kw">mangalapi</span>(url)
 <td align="left"></td>
 </tr>
 <tr class="even">
-<td align="left">2</td>
-<td align="left">ecotype</td>
-<td align="left">The type of interaction</td>
-<td align="left">string</td>
-<td align="left">FALSE</td>
-<td align="left">FALSE</td>
-<td align="left">predation, ectoparasitism, endoparasitism, intra-cellular parasitism, parasitoidism, mycoheterotrophy, antixenosis, teletoxy, amensalism, antibiosis, allelopathy, competition, facilitation, refuge creation, inquilinism, phoresis, epibiosis, pollination, mutualistic symbiosis, zoochory, mutual protection</td>
-</tr>
-<tr class="odd">
-<td align="left">4</td>
+<td align="left">3</td>
 <td align="left">item_from</td>
 <td align="left">Identifier (or URI) of the item establishing the interaction.</td>
 <td align="left">related</td>
@@ -308,8 +268,8 @@ api =<span class="st"> </span><span class="kw">mangalapi</span>(url)
 <td align="left">FALSE</td>
 <td align="left"></td>
 </tr>
-<tr class="even">
-<td align="left">5</td>
+<tr class="odd">
+<td align="left">4</td>
 <td align="left">item_to</td>
 <td align="left">Identifier (or URI) of the item receiving the interaction.</td>
 <td align="left">related</td>
@@ -317,9 +277,18 @@ api =<span class="st"> </span><span class="kw">mangalapi</span>(url)
 <td align="left">FALSE</td>
 <td align="left"></td>
 </tr>
+<tr class="even">
+<td align="left">5</td>
+<td align="left">link_type</td>
+<td align="left">The type of interaction</td>
+<td align="left">string</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">predation, ectoparasitism, endoparasitism, intra-cellular parasitism, parasitoidism, mycoheterotrophy, antixenosis, teletoxy, amensalism, antibiosis, allelopathy, competition, facilitation, refuge creation, inquilinism, phoresis, epibiosis, pollination, mutualistic symbiosis, zoochory, mutual protection</td>
+</tr>
 <tr class="odd">
 <td align="left">6</td>
-<td align="left">nature</td>
+<td align="left">obs_type</td>
 <td align="left">How the interaction was observed</td>
 <td align="left">string</td>
 <td align="left">FALSE</td>
@@ -471,15 +440,6 @@ api =<span class="st"> </span><span class="kw">mangalapi</span>(url)
 </tr>
 <tr class="odd">
 <td align="left">8</td>
-<td align="left">metaweb</td>
-<td align="left">Whether the network has been observed (FALSE) or infered (TRUE)</td>
-<td align="left">boolean</td>
-<td align="left">FALSE</td>
-<td align="left">FALSE</td>
-<td align="left"></td>
-</tr>
-<tr class="even">
-<td align="left">9</td>
 <td align="left">name</td>
 <td align="left">The name of the network</td>
 <td align="left">string</td>
@@ -507,7 +467,7 @@ api =<span class="st"> </span><span class="kw">mangalapi</span>(url)
 <tr class="odd">
 <td align="left">1</td>
 <td align="left">data</td>
-<td align="left">A list of the id of references for the data (e.g. data papers, figshare dataset)</td>
+<td align="left">A list of the id of references for the data (e.g. data papers, figshare dataset)</td>
 <td align="left">related</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
@@ -590,7 +550,7 @@ api =<span class="st"> </span><span class="kw">mangalapi</span>(url)
 <td align="left">units</td>
 <td align="left">Units in which the trait was measured</td>
 <td align="left">string</td>
-<td align="left">FALSE</td>
+<td align="left">TRUE</td>
 <td align="left">FALSE</td>
 <td align="left"></td>
 </tr>
@@ -598,7 +558,7 @@ api =<span class="st"> </span><span class="kw">mangalapi</span>(url)
 <td align="left">6</td>
 <td align="left">value</td>
 <td align="left">The value of the trait</td>
-<td align="left">float</td>
+<td align="left">string</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left"></td>
@@ -643,7 +603,7 @@ api =<span class="st"> </span><span class="kw">mangalapi</span>(url)
 <td align="left">units</td>
 <td align="left">The units in which the environmental property is measured</td>
 <td align="left">string</td>
-<td align="left">FALSE</td>
+<td align="left">TRUE</td>
 <td align="left">FALSE</td>
 <td align="left"></td>
 </tr>
@@ -651,7 +611,7 @@ api =<span class="st"> </span><span class="kw">mangalapi</span>(url)
 <td align="left">6</td>
 <td align="left">value</td>
 <td align="left">The value of the environmental property</td>
-<td align="left">float</td>
+<td align="left">string</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left"></td>
@@ -729,7 +689,7 @@ api =<span class="st"> </span><span class="kw">mangalapi</span>(url)
 <tr class="odd">
 <td align="left">1</td>
 <td align="left">email</td>
-<td align="left">Unicode string data. Ex: “Hello World”</td>
+<td align="left">Unicode string data. Ex: &quot;Hello World&quot;</td>
 <td align="left">string</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
@@ -738,7 +698,7 @@ api =<span class="st"> </span><span class="kw">mangalapi</span>(url)
 <tr class="even">
 <td align="left">2</td>
 <td align="left">first_name</td>
-<td align="left">Unicode string data. Ex: “Hello World”</td>
+<td align="left">Unicode string data. Ex: &quot;Hello World&quot;</td>
 <td align="left">string</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
@@ -747,7 +707,7 @@ api =<span class="st"> </span><span class="kw">mangalapi</span>(url)
 <tr class="odd">
 <td align="left">4</td>
 <td align="left">last_name</td>
-<td align="left">Unicode string data. Ex: “Hello World”</td>
+<td align="left">Unicode string data. Ex: &quot;Hello World&quot;</td>
 <td align="left">string</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
@@ -764,5 +724,3 @@ api =<span class="st"> </span><span class="kw">mangalapi</span>(url)
 </tr>
 </tbody>
 </table>
-</body>
-</html>
