@@ -1,5 +1,5 @@
 % `mangal` -- making complex ecological network analysis simpler
-% T. Poisot, B. Baiser, J. Dunne, S. Kéfi, F. Massol, S. Wood, D. Gravel
+% T. Poisot, B. Baiser, J. Dunne, S. Kéfi, F. Massol, N. Mouquet, T. Romanuk, D. Stouffer, S. Wood, D. Gravel
 % Jan. 2014
 
 > The study of ecological networks is severely limited by (i) the difficulty
@@ -11,7 +11,7 @@ respecting this standard, and released a R package ( `rmangal`) allowing
 users to programmatically access, curate, and deposit data on ecological
 interactions. In this article, we show how these tools, in conjunctions
 with other frameworks for the programmatic manipulation of open ecological
-data, streamlines the analysis process, and improves replicability and
+data, streamlines the analysis process, and improves eplicability and
 reproducibility of ecological networks studies.
 
 
@@ -25,10 +25,10 @@ their persistence, stability, resilience, and functioning. Most of the
 how the structure of interactions within one location affected the
 ecological properties of this local community. Such analyses revealed the
 contribution of 'average' network properties, such as the buffering impact
-of modularity on species loss [@stouffer_compartmentalization_2011],
+of modularity on species loss [@pimm_food_1991, @yodzis_stability_1981],
 the increase in robustness to extinctions along with increases in
 connectance [@dunne_network_2002], and the fact that organization of
-interactions maximize biodiversity [@bastolla_architecture_2009]. More
+interactions maximizes biodiversity [@bastolla_architecture_2009]. More
 recently, new studies introduced the idea that networks can vary from
 one realization to another. They can be meaningfully compared, either to
 understand the importance of environmental gradients on the realization
@@ -37,10 +37,8 @@ the mechanisms behind variation in the structure of ecological networks
 [@poisot_dissimilarity_2012]. Yet, meta-analyses of a large number of
 ecological networks are still extremely rare, and most of the studies
 comparing several networks do so within the limit of particular systems
-[@schleuning_specialization_2011;@dalsgaard_historical_2013]. In part,
-this can be attributed to the limited methods allowing to compare networks
-in which no species are in common. However, the severe shortage of data in
-the field also restricts the scope of large-scale analyses.
+[@schleuning_specialization_2011;@dalsgaard_historical_2013]. The severe
+shortage of data in the field also restricts the scope of large-scale analyses.
 
 An increasing number of approaches are being put forth to *predict* the
 structure of ecological networks, either relying on latent variables
@@ -50,11 +48,12 @@ data. Comparing the efficiency of different methods is also facilitated
 if there is an homogeneous way of representing ecological interactions,
 and the associated metadata. In this paper, we (i) establish the need of a
 data specification serving as a *lingua franca* among network ecologists,
-(ii) describe this data specification. Finally, we (iii) describe `rmangal`,
-a `R` package and companion database relying on this data specification. We
-provide some use cases showing how this new approach makes complex analyzes
-simpler, and allows for the integration of new tools to manipulate biodiversity
-resources.
+(ii) describe this data specification, and (iii) describe `rmangal`, a
+`R` package and companion database relying on this data specification. The
+`rmangal` package allows to easily retrieve, but also deposit, ecological
+interaction networks data from a database. We provide some use cases showing
+how this new approach makes complex analyzes simpler, and allows for the
+integration of new tools to manipulate biodiversity resources.
 
 # Networks need a data specification
 
@@ -86,7 +85,7 @@ the impact of data [@piwowar_data_2013;@piwowar_sharing_2007].
 
 # Elements of the data specification
 
-The data specification (Fig. **XX**) is built around the idea that (ecological)
+The data specification (Fig. 1) is built around the idea that (ecological)
 networks are collections of relationships between ecological objects, each
 element having particular meta-data associated. In this section, we detail the
 way networks are represented in the `mangal` specification. An interactive
@@ -95,7 +94,7 @@ webpage with the elements of the data specification can be found online at
 either at the API root (*e.g.* `http://mangal.uqar.ca/api/v1/?format=json`),
 or can be viewed using the `whatIs` function from the `R` package
 (see *Supp. Mat. 1*). Rather than giving an exhaustive list of the data
-specification (which is available online at the aforementionned URL), this
+specification (which is available online at the aforementioned URL), this
 section serves as an overview of each element, and how they interact.
 
 ![An overview of the data specification, and the hierarchy between objects. Each box correspond to a level of the data specification. Grey boxes are nodes, blue boxes are interactions and networks, and green boxes are metadata. The **bold** boxes (`dataset`, `network`, `interaction`, `taxa`) are the minimal elements needed to represent a network.](figure-dataspec.pdf)
@@ -110,8 +109,10 @@ depend on available data). Finally, `JSON` objects are easily and cheaply
 (memory-wise) parsed in the most common programming languages, notably `R`
 (equivalent to `list`) and `python` (equivalent to `dict`). For most users,
 the format in which data are transmitted is unimportant, as the interaction
-happens within `R` -- as such, knowing how `JSON` objects are organized is
-only useful for those who want to interact with the API directly.
+happens within `R` -- as such, knowing how `JSON` objects are organized
+is only useful for those who want to interact with the API directly. The
+`rmangal` package takes care of converting the data into the correct `JSON`
+format to upload them in the database.
 
 ## Node information
 
@@ -197,13 +198,14 @@ it offers more potential to interact with other on-line tools, such as the
 
 In this section, we present use cases using the `rmangal` package for `R`,
 to interact with a database implementing this data specification, and serving
-data through an API (`http://mangal.uqar.ca/api/v1/`). It is possible
-for users to deposit data into this database, through the `R` package. Data
-are made available under a *CC-0 Waiver* [@poisot_moving_2013]. Detailed
-informations about how to upload data are given in the vignettes and manual
-of the `rmangal` package. So as to save room in the manuscript, we source
-each example; the complete `r` files to reproduce the examples of this
-section are attached as *Suppl. Mat.*.
+data through an API (`http://mangal.uqar.ca/api/v1/`). It is possible for users
+to deposit data into this database, through the `R` package. Data are made
+available under a *CC-0 Waiver* [@poisot_moving_2013]. Detailed informations
+about how to upload data are given in the vignettes and manual of the `rmangal`
+package. So as to save room in the manuscript, we source each example; the
+complete `r` files to reproduce the examples of this section are attached
+as *Suppl. Mat.*. In addition, the `rmangal` package comes with vignettes
+explaining how users can upload their data into the database, through `R`.
 
 The data we use for this example come from @ricciardi_assemblage_2010. These
 were previously available on the *InteractionWeb DataBase* as a
@@ -262,11 +264,10 @@ this analysis extremely straightforward.
 ## Spatial visualization of networks
 
 @bascompte_disentangling_2009 uses an interesting visualization for
-spatialized networks, in which each species is laid out on a map at the
+spatial networks, in which each species is laid out on a map at the
 center of mass of its distribution; interactions are then drawn between
 species to show how species distribution determines biotic interactions. In
-this final use case, we propose to reproduce a similar figure, using the
-`RgoogleMaps` package.
+this final use case, we propose to reproduce a similar figure.
 
 
 ```r
@@ -277,12 +278,14 @@ source("usecases/3_spatial.r")
 
 # Conclusions
 
-In this contribution, we presented `mangal`, a data format for the exchange of
-ecological networks and associated meta-data. We deployed an online database
-with an associated API, relying on this data specification. Finally, we
-introduced `rmangal`, a `R` package designed to interact with APIs using the
-`mangal` format. We expect that the data specification will evolve based on
-the needs of the community. At the moment, users are welcome to propose such
-changes on the project issue page: <https://github.com/mangal-wg/mangal/issues>.
+In this contribution, we presented `mangal`, a data format for the
+exchange of ecological networks and associated meta-data. We deployed
+an online database with an associated API, relying on this data
+specification. Finally, we introduced `rmangal`, a `R` package designed
+to interact with APIs using the `mangal` format. We expect that the data
+specification will evolve based on the needs of the community. At the
+moment, users are welcome to propose such changes on the project issue page:
+<https://github.com/mangal-wg/mangal-schemes/issues>. A `python` wrapper
+for the API is also available at <http://github.com/mangal-wg/pymangal/>.
 
 # References
