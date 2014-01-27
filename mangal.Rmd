@@ -1,6 +1,28 @@
 % `mangal` -- making complex ecological network analysis simpler
-% T. Poisot, B. Baiser, J. Dunne, S. Kéfi, F. Massol, N. Mouquet, T. Romanuk, D. Stouffer, S. Wood, D. Gravel
+% T. Poisot (1,2,*), B. Baiser (3), J. Dunne (4,5), S. Kéfi (6), F. Massol (7,8), N. Mouquet (6), T. Romanuk (9), D. Stouffer (10), S.A. Wood (11,12), D. Gravel (1,2)
 % Jan. 2014
+
+1. Université du Québec à Rimouski, Département de Biologie, 300 Allées des Ursulines, Rimouski (QC) G5L 3A1, Canada
+2. Québec Centre for Biodiversity Sciences, Montréal (QC), Canada
+3. ...?
+4. 
+5. 
+6. Institut des Sciences de l'Évolution, UMR CRNS 5554, Université Montpellier 2, 3405 Montpellier, France
+7. Laboratoire Génétique et Evolution des Populations Végétales, CNRS UMR 8198, Université Lille 1, Bâtiment SN2, F-59655 Villeneuve d’Ascq cedex, France
+8. UMR 5175 CEFE – Centre d'Ecologie Fonctionnelle et Evolutive (CNRS), 1919 Route de Mende, F-34293 Montpellier cedex 05, France
+9. 
+10. University of Canterbury, School of Biological Sciences, ...
+11. Natural Capital Project, School of Environmental and Forest Sciences, University of Washington, Seattle, WA 98195, USA
+12. Department of Biological Sciences, Idaho State University, Pocatello, ID 83209, USA
+
+
+**Author for correspondence**: `t.poisot@gmail.com`.
+
+\clearpage
+
+**Short title**: Automated retrieval of ecological networks data
+
+**Keywords**: R, API, database, open data, ecological networks, species interactions
 
 > The study of ecological networks is severely limited by (i) the difficulty
 to access data, (ii) the lack of a standardized way to link meta-data with
@@ -13,6 +35,8 @@ interactions. In this article, we show how these tools, in conjunctions
 with other frameworks for the programmatic manipulation of open ecological
 data, streamlines the analysis process, and improves eplicability and
 reproducibility of ecological networks studies.
+
+\clearpage
 
 ```{r loadStuff, echo=FALSE, message=FALSE, warning=FALSE}
 # Prepare the environment
