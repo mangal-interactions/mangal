@@ -1,5 +1,5 @@
 %!TEX TS-program = pdflatex
-\documentclass[11pt]{article}
+\documentclass[11pt]{paper}
  
 % The declaration of the document class:
 \usepackage{amsmath}

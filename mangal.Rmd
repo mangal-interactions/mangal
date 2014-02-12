@@ -1,19 +1,21 @@
 % `mangal` -- making complex ecological network analysis simpler
-% T. Poisot (1,2,*), B. Baiser (3), J. Dunne (4,5), S. Kéfi (6), F. Massol (7,8), N. Mouquet (6), T. Romanuk (9), D. Stouffer (10), S.A. Wood (11,12), D. Gravel (1,2)
-% Jan. 2014
+% Timothée Poisot *et al.* (see complete author list below)
+% Feb. 2014
 
-1. Université du Québec à Rimouski, Département de Biologie, 300 Allées des Ursulines, Rimouski (QC) G5L 3A1, Canada
-2. Québec Centre for Biodiversity Sciences, Montréal (QC), Canada
-3. ...?
-4. 
-5. 
-6. Institut des Sciences de l'Évolution, UMR CRNS 5554, Université Montpellier 2, 3405 Montpellier, France
-7. Laboratoire Génétique et Evolution des Populations Végétales, CNRS UMR 8198, Université Lille 1, Bâtiment SN2, F-59655 Villeneuve d’Ascq cedex, France
-8. UMR 5175 CEFE – Centre d'Ecologie Fonctionnelle et Evolutive (CNRS), 1919 Route de Mende, F-34293 Montpellier cedex 05, France
-9. 
-10. University of Canterbury, School of Biological Sciences, ...
-11. Natural Capital Project, School of Environmental and Forest Sciences, University of Washington, Seattle, WA 98195, USA
-12. Department of Biological Sciences, Idaho State University, Pocatello, ID 83209, USA
+**Author list: **Timothée Poisot (1,2,*), Benjamin Baiser (3), Jennifer A. Dunne (4,5), Sonia Kéfi (6), François Massol (7,8), Nicolas Mouquet (6), Tamara N. Romanuk (9), Daniel B. Stouffer (10), Spencer A. Wood (11,12), Dominique Gravel (1,2)
+
+1. Université du Québec à Rimouski, Département de Biologie, 300 Allées des Ursulines, Rimouski (QC) G5L 3A1, Canada  
+2. Québec Centre for Biodiversity Sciences, Montréal (QC), Canada  
+3. Department of Wildlife Ecology and Conservation, University of Florida, Gainesville   
+4. Sante Fe Institute, 1399 Hyde Park Road, Santa Fe NM 87501   
+5. Pacific Ecoinformatics and Computational Ecology Lab, 1604 McGee Ave., Berkeley, CA 94703   
+6. Institut des Sciences de l'Évolution, UMR CRNS 5554, Université Montpellier 2, 3405 Montpellier, France  
+7. Laboratoire Génétique et Evolution des Populations Végétales, CNRS UMR 8198, Université Lille 1, Bâtiment SN2, F-59655 Villeneuve d’Ascq cedex, France    
+8. UMR 5175 CEFE – Centre d'Ecologie Fonctionnelle et Evolutive (CNRS), 1919 Route de Mende, F-34293 Montpellier cedex 05, France    
+9. Department of Biology, Dalhousie University   
+10. University of Canterbury, School of Biological Sciences, Christchurch, New Zealand  
+11. Natural Capital Project, School of Environmental and Forest Sciences, University of Washington, Seattle, WA 98195, USA    
+12. Department of Biological Sciences, Idaho State University, Pocatello, ID 83209, USA    
 
 
 **Author for correspondence**: `t.poisot@gmail.com`.
@@ -153,7 +155,7 @@ Taxa are a taxonomic entity of any level, identified by their name,
 vernacular name, and their identifiers in a variety of taxonomic
 services. Associating the identifiers of each taxa is important to leverage
 the power of the new generation of open data tools, such as `taxize`
-[@chamberlain_taxize:_2013]. The data specification currently has fields
+[@chamberlain_taxize_2013]. The data specification currently has fields
 for `ncbi`, `gbif`, `itis`, `eol` and `bold` identifiers. We also provide
 the taxonomic status, *i.e.* whether a taxa is a true taxonomic entity, a
 "trophic species", or a morphospecies.
