@@ -2,7 +2,7 @@
 % Timothée Poisot *et al.* (see complete author list below)
 % Feb. 2014
 
-**Author list: **Timothée Poisot (1,2,*), Benjamin Baiser (3), Jennifer A. Dunne (4,5), Sonia Kéfi (6), François Massol (7,8), Nicolas Mouquet (6), Tamara N. Romanuk (9), Daniel B. Stouffer (10), Spencer A. Wood (11,12), Dominique Gravel (1,2)
+**Author list: **Timothée Poisot (1,2), Benjamin Baiser (3), Jennifer A. Dunne (4,5), Sonia Kéfi (6), François Massol (7,8), Nicolas Mouquet (6), Tamara N. Romanuk (9), Daniel B. Stouffer (10), Spencer A. Wood (11,12), Dominique Gravel (1,2)
 
 1. Université du Québec à Rimouski, Département de Biologie, 300 Allées des Ursulines, Rimouski (QC) G5L 3A1, Canada  
 2. Québec Centre for Biodiversity Sciences, Montréal (QC), Canada  
@@ -35,7 +35,7 @@ respecting this standard, and released a R package ( `rmangal`) allowing
 users to programmatically access, curate, and deposit data on ecological
 interactions. In this article, we show how these tools, in conjunctions
 with other frameworks for the programmatic manipulation of open ecological
-data, streamlines the analysis process, and improves eplicability and
+data, streamlines the analysis process, and improves replicability and
 reproducibility of ecological networks studies.
 
 \clearpage
@@ -51,24 +51,22 @@ api <- mangalapi(mangal_url)
 ```
 # Introduction
 
-Ecological networks enable ecologists to accommodate the complexity
-of natural communities, and to discover mechanisms contributing to
-their persistence, stability, resilience, and functioning. Most of the
-"early" studies of ecological networks were focused on understanding
-how the structure of interactions within one location affected the
-ecological properties of this local community. Such analyses revealed the
-contribution of 'average' network properties, such as the buffering impact
-of modularity on species loss [@pimm_food_1991, @yodzis_stability_1981],
-the increase in robustness to extinctions along with increases in
-connectance [@dunne_network_2002], and the fact that organization of
-interactions maximizes biodiversity [@bastolla_architecture_2009]. More
-recently, new studies introduced the idea that networks can vary from
-one realization to another. They can be meaningfully compared, either to
-understand the importance of environmental gradients on the realization
-of ecological interactions [@tylianakis_habitat_2007], or to understand
-the mechanisms behind variation in the structure of ecological networks
-[@poisot_dissimilarity_2012]. Yet, meta-analyses of a large number of
-ecological networks are still extremely rare, and most of the studies
+Ecological networks enable ecologists to accommodate the complexity of natural
+communities, and to discover mechanisms contributing to their persistence,
+stability, resilience, and functioning. Most of the "early" studies of
+ecological networks were focused on understanding how the structure of
+interactions within one location affected the ecological properties of
+this local community. Such analyses revealed the contribution of 'average'
+network properties, such as the buffering impact of modularity on species
+loss [@pim91,@yod81], the increase in robustness to extinctions along
+with increases in connectance [@dun02], and the fact that organization
+of interactions maximizes biodiversity [@bas09c]. More recently, new
+studies introduced the idea that networks can vary from one realization to
+another. They can be meaningfully compared, either to understand the importance
+of environmental gradients on the realization of ecological interactions
+[@tyl07], or to understand the mechanisms behind variation in the structure
+of ecological networks [@poi12b]. Yet, meta-analyses of a large number
+of ecological networks are still extremely rare, and most of the studies
 comparing several networks do so within the limit of particular systems
 [@schleuning_specialization_2011;@dalsgaard_historical_2013]. The severe
 shortage of data in the field also restricts the scope of large-scale analyses.
@@ -151,14 +149,14 @@ format to upload them in the database.
 
 ### Taxa
 
-Taxa are a taxonomic entity of any level, identified by their name,
-vernacular name, and their identifiers in a variety of taxonomic
-services. Associating the identifiers of each taxa is important to leverage
-the power of the new generation of open data tools, such as `taxize`
-[@chamberlain_taxize_2013]. The data specification currently has fields
-for `ncbi`, `gbif`, `itis`, `eol` and `bold` identifiers. We also provide
-the taxonomic status, *i.e.* whether a taxa is a true taxonomic entity, a
-"trophic species", or a morphospecies.
+Taxa are a taxonomic entity of any level, identified by their name, vernacular
+name, and their identifiers in a variety of taxonomic services (EOL,
+BGIF, ITIS, NCBI). Associating the identifiers of each taxa is important to
+leverage the power of the new generation of open data tools, such as `taxize`
+[@cha13a]. The data specification currently has fields for `ncbi`, `gbif`,
+`itis`, `eol` and `bold` identifiers. We also provide the taxonomic status,
+*i.e.* whether a taxa is a true taxonomic entity, a "trophic species",
+or a morphospecies.
 
 ### Population
 
