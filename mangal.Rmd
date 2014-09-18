@@ -1,10 +1,10 @@
-% `mangal` -- making complex ecological network analysis simpler
+% `mangal` -- making ecological network analysis simpler
 % Timothée Poisot *et al.* (see complete author list below)
 % Feb. 2014
 
-**Author list: **Timothée Poisot (1,2), Benjamin Baiser (3), Jennifer A. Dunne (4,5), Sonia Kéfi (6), François Massol (7,8), Nicolas Mouquet (6), Tamara N. Romanuk (9), Daniel B. Stouffer (10), Spencer A. Wood (11,12), Dominique Gravel (1,2)
+**Author list: **Timothée Poisot (1,2), Benjamin Baiser (3), Jennifer A. Dunne (4,5), Sonia Kéfi (6), François Massol (7,8), Nicolas Mouquet (6), Tamara N. Romanuk (9), Daniel B. Stouffer (1), Spencer A. Wood (10,11), Dominique Gravel (12,2)
 
-1. Université du Québec à Rimouski, Département de Biologie, 300 Allées des Ursulines, Rimouski (QC) G5L 3A1, Canada  
+1. University of Canterbury, School of Biological Sciences, Christchurch, New Zealand  
 2. Québec Centre for Biodiversity Sciences, Montréal (QC), Canada  
 3. Department of Wildlife Ecology and Conservation, University of Florida, Gainesville   
 4. Sante Fe Institute, 1399 Hyde Park Road, Santa Fe NM 87501   
@@ -13,9 +13,9 @@
 7. Laboratoire Génétique et Evolution des Populations Végétales, CNRS UMR 8198, Université Lille 1, Bâtiment SN2, F-59655 Villeneuve d’Ascq cedex, France    
 8. UMR 5175 CEFE – Centre d'Ecologie Fonctionnelle et Evolutive (CNRS), 1919 Route de Mende, F-34293 Montpellier cedex 05, France    
 9. Department of Biology, Dalhousie University   
-10. University of Canterbury, School of Biological Sciences, Christchurch, New Zealand  
-11. Natural Capital Project, School of Environmental and Forest Sciences, University of Washington, Seattle, WA 98195, USA    
-12. Department of Biological Sciences, Idaho State University, Pocatello, ID 83209, USA    
+10. Natural Capital Project, School of Environmental and Forest Sciences, University of Washington, Seattle, WA 98195, USA    
+11. Department of Biological Sciences, Idaho State University, Pocatello, ID 83209, USA    
+12. Université du Québec à Rimouski, Département de Biologie, 300 Allées des Ursulines, Rimouski (QC) G5L 3A1, Canada  
 
 
 **Author for correspondence**: `t.poisot@gmail.com`.
@@ -61,7 +61,7 @@ network properties, such as the buffering impact of modularity on species
 loss [@pim91,@yod81], the increase in robustness to extinctions along
 with increases in connectance [@dun02], and the fact that organization
 of interactions maximizes biodiversity [@bas09c]. More recently, new
-studies introduced the idea that networks can vary from one realization to
+studies introduced the idea that networks can vary from one locality to
 another. They can be meaningfully compared, either to understand the importance
 of environmental gradients on the realization of ecological interactions
 [@tyl07], or to understand the mechanisms behind variation in the structure
@@ -149,39 +149,35 @@ format to upload them in the database.
 
 ### Taxa
 
-Taxa are a taxonomic entity of any level, identified by their name, vernacular
-name, and their identifiers in a variety of taxonomic services (EOL,
-BGIF, ITIS, NCBI). Associating the identifiers of each taxa is important to
-leverage the power of the new generation of open data tools, such as `taxize`
-[@cha13a]. The data specification currently has fields for `ncbi`, `gbif`,
-`itis`, `eol` and `bold` identifiers. We also provide the taxonomic status,
-*i.e.* whether a taxa is a true taxonomic entity, a "trophic species",
-or a morphospecies.
-
-### Population
-
-A `population` is one observed instance of a `taxa` object. If your
-experimental design is replicated through space, then each taxa have a
-`population` object corresponding to each locality. Populations do not have
-associated meta-data, but serve as "containers" for `item` objects.
+Taxa are a taxonomic entity of any level, identified by their name,
+vernacular name, and their identifiers in a variety of taxonomic services
+(EOL, BGIF, ITIS, NCBI). Associating the identifiers of each taxa is important
+to leverage the power of the new generation of open data tools, such as
+`taxize` [@cha13a]. The data specification currently has fields for `ncbi`
+(National Center for Biotechnology Information), `gbif` (Global Biodiversity
+Information Facility), `itis` (Integrated Taxonomic Information System),
+`eol` (Encyclopedia of Life) and `bold` (Barcode of Life) identifiers. We
+also provide the taxonomic status, *i.e.* whether a taxa is a true taxonomic
+entity, a "trophic species", or a morphospecies. Taxonomic identifiers can
+either be added by the contributors, or will be automatically retrieved
+during the automated curation routine.
 
 ### Item
 
-An `item` is an instance of a population. Items have a `level` argument,
+An `item` is any measured instance of a taxa. Items have a `level` argument,
 which can be  either `individual` or `population`; this allows to represent
-both individual-level networks (*i.e.* there are as many `item`s attached to
-a `population` than there were individuals of this `population` sampled),
-and population-level networks. When `item` represents a population, it is
-possible to give a measure of the size of this population. The notion of
-`item` is particularly useful for time-replicated designs: each observation
-of a population at a time-point is an `item` with associated `trait` values,
-and possibly population size.
+both individual-level networks (*i.e.* there are as many `item`s of a given
+taxa as there were individuals of this sampled), and population-level
+networks. When `item` represents a population, it is possible to give a measure
+of the size of this population. The notion of `item` is particularly useful
+for time-replicated designs: each observation of a population at a time-point
+is an `item` with associated `trait` values, and possibly population size.
 
 ## Network information
 
 ### Interaction
 
-An `interaction` links, *a minima*, two `taxa` objects (but can also link pairs
+An `interaction` links two `taxa` objects (but can also link pairs
 of `population`s or `item`s). The most important attributes of `interaction`s
 are the type of interaction (of which we provide a list of possible values,
 see *Supp. Mat. 1*), and its `nature`, *i.e.* how it was observed. This field
@@ -256,9 +252,10 @@ source('usecases/1_ls.r')
 Producing this figure requires less than 10 lines of code. The only information
 needed is the identifier of the network or dataset, which we suggest should
 be reported in publications as: "These data were deposited in the `mangal`
-format at `<URL>/api/v1/dataset/<ID>`", possibly in the acknowledgements. So
-as to encourage data sharing, we encourage users of the database to cite
-the original dataset or publication.
+format at `<URL>/api/v1/dataset/<ID>`" (where `<URL>` and `<ID>` are replaced
+by the corresponding values), possibly in the acknowledgements. So as to
+encourage data sharing, we encourage users of the database to cite the
+original dataset or publication.
 
 ## Network beta-diversity
 
@@ -292,7 +289,7 @@ center of mass of its distribution; interactions are then drawn between
 species to show how species distribution determines biotic interactions. In
 this final use case, we propose to reproduce a similar figure.
 
-```{r useSpace, fig.cap="Spatial plot of a network, using the `maps` and `rmangal` packages. The circle in the inset map show the location of the sites. Each dot in the main map represents a species, with interactions drawn between them.", dev='pdf', message=FALSE}
+```{r useSpace, fig.cap="Spatial plot of a network, using the `maps` and `rmangal` packages. The circle in the inset map show the location of the sites. Each dot in the main map represents a species, with (symbiontic mutualism) drawn between them. The land is in grey.", dev='pdf', message=FALSE}
 source('usecases/3_spatial.r')
 ```
 # Conclusions
@@ -301,10 +298,13 @@ In this contribution, we presented `mangal`, a data format for the
 exchange of ecological networks and associated meta-data. We deployed
 an online database with an associated API, relying on this data
 specification. Finally, we introduced `rmangal`, a `R` package designed
-to interact with APIs using the `mangal` format. We expect that the data
-specification will evolve based on the needs of the community. At the
-moment, users are welcome to propose such changes on the project issue page:
-<https://github.com/mangal-wg/mangal-schemes/issues>. A `python` wrapper
-for the API is also available at <http://github.com/mangal-wg/pymangal/>.
+to interact with APIs using the `mangal` format. We expect that the
+data specification will evolve based on the needs of the community. At
+the moment, users are welcome to propose such changes on the project
+issue page: <https://github.com/mangal-wg/mangal-schemes/issues>. A
+`python` wrapper for the API is also available at
+<http://github.com/mangal-wg/pymangal/>. Additionally, there are plans to
+integrate this database with *GLOBI*, so that data can be accessed from
+multiple sources **REF**.
 
 # References

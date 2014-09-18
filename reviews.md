@@ -32,7 +32,7 @@ could discuss and describe this here.
 In short, I am very positive about this contribution, but think that the
 presentation of user accessibility could be improved.
 
-Michael K. Borregaard -
+Michael K. Borregaard
 
 # Reviewer(s)' Comments to Author: Reviewer: 1
 
@@ -70,22 +70,35 @@ and “population” is whether the sampling unit is individuals or whether
 individuals have been pooled into populations of the same species? If that
 is the case, then the description has to be a bit more precise.
 
+> We agree entirely. Following this remark, and feedback from other users of
+the project, we decided to remove the `Population` objects, and link `Items`
+directly to the `Taxa`. We feel that this will make the overall specification
+-- no to mention the data upload process -- easier.
+
+
 Also, the taxonomic identifier option under the heading “Item” (page 7),
 is that something contributors have to enter themselves, or is that information
 gathered automatically by rmangal once the taxonomic name has been entered?
 
 > We are not sure what is being refered to, as the sub-heading on Items does
 not mention taxonomic information. Taxonomic information is associated to
-`taxa` objects. Contributors can give values when they upload the `taxa`
-object, or can alter them at a later time. In addition, we run bi-monthly
-checks on the database and try to automate the retrieval of all taxonomic
-identifiers given the taxonomic name.
+`taxa` objects, so we will assume that this is what the referee had in
+mind. Contributors can give values when they upload the `taxa` object, or
+can alter them at a later time. In addition, we run bi-monthly checks on
+the database and try to automate the retrieval of all taxonomic identifiers
+given the taxonomic name. We updaed the paper to make this clear.
 
 Finally, it is not completely clear to me if contributors have to enter all
 the data fields mentioned in the appendix. You mention that that rmangal
 can create the correct format, but which format does the data need to be in,
 so that rmangal can interpret it? Importantly, to me it was not completely
 clear how one could contribute with data, i.e. how the data fields are filled.
+
+> As mentionned in the text, the `whatIs` function will return a table with a
+field saying whether the fields are mandatory. The data should be presented as
+`list`s objects, and the users have to prepare these lists themselves. There
+is a vignette in the package documentation that presents the upload process
+in detail.
 
 As stated earlier I think this can potentially be very useful way of sharing
 interaction networks. My only concern is that it may be too complicated and
@@ -95,6 +108,9 @@ to explain exactly how it is done. Maybe I’m misunderstanding it and maybe
 it is really simple to contribute data. If that is the case it should be
 stated clearly in the manuscript.
 
+> We agree entirely. To this end, we have updated the vignette on uploading
+data. The upload process was designed to be as simple as possible, and early
+users of the package reported no trouble uploading datasets.
 
 Other information your could consider including: Your “obs_type” field
 could be expanded to include more specific details about the sampling protocol
@@ -117,7 +133,7 @@ Page 4 Line 8: I’m not sure I understand the sentence:
 “….can vary from one realization to another”. What do you mean with
 realization?
 
-> **TODO**
+> Replaced with "locality"
 
 Line 10: The reference looks a bit weird
 
@@ -125,16 +141,23 @@ Line 10: The reference looks a bit weird
 
 Page 5 Line 3: Vernacular names --> Common name? 
 
-> We think this is a matter of preference, and ours is to "vernacular". No changes.
+> We think this is a matter of preference, and ours is to "vernacular". No
+changes.
 
 Line 5: Reference looks weird
 
 Line 5-6. ncbi, gbif, itis, eol and bold. Should these words be explained or
 is that fully understandable abbreviations?
 
+> We gave the full version.
+
 Line 14: “…than there…” --> “….as there….”?
 
+> Corrected.
+
 Line 21: Remove “a minima”
+
+> Corrected.
 
 Page 8 Line 21: Hyperlink does not work
 
@@ -144,8 +167,12 @@ Line 9-11: I’m not sure I understand this. Is the identifier
 given as: “These data were deposited in the mangal format at
 <URL>/api/v1/dataset/<ID>”?
 
+> This is correct - the API code has been modified so that the ID is directly
+given to the user.
+
 Line 20: Fig. XX --> Fig. 3?
 
+> TODO
 
 Fig. 1 I think it is a bit difficult to see which are written in Bold. Maybe
 it is just the font type. However you could consider making it more clear which
@@ -177,12 +204,15 @@ of data to EML (ecological metadata language). The EML R packge in development
 (https://github.com/ropensci/EML) may make this easy. Would be an easy way
 for users to submit to repositories that require EML specification.
 
+> Ref to GLOBI paper
+
 References: Wouldn’t it be possible to have different references for
 individual interactions in a food web? Seems references are only possible
 at the dataset level now?  Maybe I’m wrong.
 
 > This is one of the issues raised by early users while the paper was under
-review. We have now added a `references` field for individual interactions.
+review. We have now added a `references` field for both interactions *and*
+networks.
 
 Licenses: What is the process if someone does not want the CC0
 license on their network data? Are they forced to use CC0?  Just
@@ -192,7 +222,7 @@ https://github.com/mangal-wg/rmangal/blob/master/vignettes/rmangal_upload.Rmd#L8
 -- perhaps there can be a vignette just on this topic.
 
 > We think that *CC0* is emerging as a community standard for data sharing,
-being used by figshare and dara dryad most notably. Authors are free to upload
+being used by figshare and data dryad most notably. Authors are free to upload
 *private* datasets, that won't appear either through the web or API listings,
 as long as they release them when they are first used in a paper.
 
@@ -207,7 +237,7 @@ to be exposed to the user directly?
 
 -pg3, line 9: eplicability to applicability
 
-> Fixed (to *replicabiliy*)
+> Fixed (to *replicability*)
 
 -Some references are still in `@ref` format, perhaps missing entry in the bibtex file
 
