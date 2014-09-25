@@ -1,10 +1,10 @@
-% `mangal` -- making complex ecological network analysis simpler
+% `mangal` -- making ecological network analysis simpler
 % Timothée Poisot *et al.* (see complete author list below)
 % Feb. 2014
 
-**Author list: **Timothée Poisot (1,2,*), Benjamin Baiser (3), Jennifer A. Dunne (4,5), Sonia Kéfi (6), François Massol (7,8), Nicolas Mouquet (6), Tamara N. Romanuk (9), Daniel B. Stouffer (10), Spencer A. Wood (11,12), Dominique Gravel (1,2)
+**Author list: **Timothée Poisot (1,2), Benjamin Baiser (3), Jennifer A. Dunne (4,5), Sonia Kéfi (6), François Massol (7,8), Nicolas Mouquet (6), Tamara N. Romanuk (9), Daniel B. Stouffer (1), Spencer A. Wood (10,11), Dominique Gravel (12,2)
 
-1. Université du Québec à Rimouski, Département de Biologie, 300 Allées des Ursulines, Rimouski (QC) G5L 3A1, Canada  
+1. University of Canterbury, School of Biological Sciences, Christchurch, New Zealand  
 2. Québec Centre for Biodiversity Sciences, Montréal (QC), Canada  
 3. Department of Wildlife Ecology and Conservation, University of Florida, Gainesville   
 4. Sante Fe Institute, 1399 Hyde Park Road, Santa Fe NM 87501   
@@ -13,9 +13,9 @@
 7. Laboratoire Génétique et Evolution des Populations Végétales, CNRS UMR 8198, Université Lille 1, Bâtiment SN2, F-59655 Villeneuve d’Ascq cedex, France    
 8. UMR 5175 CEFE – Centre d'Ecologie Fonctionnelle et Evolutive (CNRS), 1919 Route de Mende, F-34293 Montpellier cedex 05, France    
 9. Department of Biology, Dalhousie University   
-10. University of Canterbury, School of Biological Sciences, Christchurch, New Zealand  
-11. Natural Capital Project, School of Environmental and Forest Sciences, University of Washington, Seattle, WA 98195, USA    
-12. Department of Biological Sciences, Idaho State University, Pocatello, ID 83209, USA    
+10. Natural Capital Project, School of Environmental and Forest Sciences, University of Washington, Seattle, WA 98195, USA    
+11. Department of Biological Sciences, Idaho State University, Pocatello, ID 83209, USA    
+12. Université du Québec à Rimouski, Département de Biologie, 300 Allées des Ursulines, Rimouski (QC) G5L 3A1, Canada  
 
 
 **Author for correspondence**: `t.poisot@gmail.com`.
@@ -31,55 +31,50 @@ to access data, (ii) the lack of a standardized way to link meta-data with
 interactions, and (iii) the disparity of formats in which ecological networks
 themselves are represented. To overcome these limitations, we conceived
 a data specification for ecological networks. We implemented a database
-respecting this standard, and released a R package ( `rmangal`) allowing
+respecting this standard, and released a R package (`rmangal`) allowing
 users to programmatically access, curate, and deposit data on ecological
 interactions. In this article, we show how these tools, in conjunctions
 with other frameworks for the programmatic manipulation of open ecological
-data, streamlines the analysis process, and improves eplicability and
+data, streamlines the analysis process, and improves replicability and
 reproducibility of ecological networks studies.
 
 \clearpage
 
-
-
 # Introduction
 
-Ecological networks enable ecologists to accommodate the complexity
-of natural communities, and to discover mechanisms contributing to
-their persistence, stability, resilience, and functioning. Most of the
-"early" studies of ecological networks were focused on understanding
-how the structure of interactions within one location affected the
-ecological properties of this local community. Such analyses revealed the
-contribution of 'average' network properties, such as the buffering impact
-of modularity on species loss [@pimm_food_1991, @yodzis_stability_1981],
-the increase in robustness to extinctions along with increases in
-connectance [@dunne_network_2002], and the fact that organization of
-interactions maximizes biodiversity [@bastolla_architecture_2009]. More
-recently, new studies introduced the idea that networks can vary from
-one realization to another. They can be meaningfully compared, either to
-understand the importance of environmental gradients on the realization
-of ecological interactions [@tylianakis_habitat_2007], or to understand
-the mechanisms behind variation in the structure of ecological networks
-[@poisot_dissimilarity_2012]. Yet, meta-analyses of a large number of
-ecological networks are still extremely rare, and most of the studies
-comparing several networks do so within the limit of particular systems
-[@schleuning_specialization_2011;@dalsgaard_historical_2013]. The severe
-shortage of data in the field also restricts the scope of large-scale analyses.
+Ecological networks enable ecologists to accommodate the complexity of natural
+communities, and to discover mechanisms contributing to their persistence,
+stability, resilience, and functioning. Most of the "early" studies of
+ecological networks were focused on understanding how the structure of
+interactions within one location affected the ecological properties of
+this local community. Such analyses revealed the contribution of 'average'
+network properties, such as the buffering impact of modularity on species
+loss [@pimm91,@yodz81], the increase in robustness to extinctions along
+with increases in connectance [@dunn02], and the fact that organization
+of interactions maximizes biodiversity [@bast09]. More recently, new
+studies introduced the idea that networks can vary from one locality
+to another. They can be meaningfully compared, either to understand the
+importance of environmental gradients on the realization of ecological
+interactions [@tyli07], or to understand the mechanisms behind variation in
+the structure of ecological networks [@pois12c;@pois14]. Yet, meta-analyses of
+a large number of ecological networks are still extremely rare, and most of
+the studies comparing several networks do so within the limit of particular
+systems [@schl11;@dals13;@pois13;@cham14;@olit14]. The severe shortage of data in
+the field also restricts the scope of large-scale analyses.
 
-An increasing number of approaches are being put forth to *predict* the
-structure of ecological networks, either relying on latent variables
-[@rohr_modeling_2010] or actual traits [@gravel_inferring_2013]. Such
-approaches, so as to be adequately calibrated, require easily accessible
-data. Comparing the efficiency of different methods is also facilitated
-if there is an homogeneous way of representing ecological interactions,
-and the associated metadata. In this paper, we (i) establish the need of a
-data specification serving as a *lingua franca* among network ecologists,
-(ii) describe this data specification, and (iii) describe `rmangal`, a
-`R` package and companion database relying on this data specification. The
-`rmangal` package allows to easily retrieve, but also deposit, ecological
-interaction networks data from a database. We provide some use cases showing
-how this new approach makes complex analyzes simpler, and allows for the
-integration of new tools to manipulate biodiversity resources.
+An increasing number of approaches are being put forth to *predict*
+the structure of ecological networks, either relying on latent variables
+[@rohr10;@eklo13a] or actual traits [@grav13]. Such approaches, so as to be
+adequately calibrated, require easily accessible data. Comparing the efficiency
+of different methods is also facilitated if there is an homogeneous way of
+representing ecological interactions, and the associated metadata. In this
+paper, we (i) establish the need of a data specification serving as a *lingua
+franca* among network ecologists, (ii) describe this data specification, and
+(iii) describe `rmangal`, a `R` package and companion database relying on this
+data specification. The `rmangal` package allows to easily retrieve, but also
+deposit, ecological interaction networks data from a database. We provide some
+use cases showing how this new approach makes complex analyzes simpler, and
+allows for the integration of new tools to manipulate biodiversity resources.
 
 # Networks need a data specification
 
@@ -98,16 +93,21 @@ or as accompanying text. In both cases, making a programmatic link between
 interaction data and relevant meta-data is difficult and error-prone.
 
 By contrast, a data specification (*i.e.* a set of precise instructions
-detailing how each object should be represented) provides a common language
-for network ecologists to interact, and ensure that, regardless of their
-source, data can be used in a shared workflow. Most importantly, a data
-specification describes how data are *exchanged*. Each group retains the
-ability to store the data in the format that is most convenient for in-house
-use, and only needs to provide export options (*e.g.* through an API, *i.e.*
-a programmatic interface running on a webserver, returning data in  response to
-queries in a pre-determined language) respecting the data specification. This
-approach ensures that *all* data can be used in meta-analyses, and increases
-the impact of data [@piwowar_data_2013;@piwowar_sharing_2007].
+detailing how each object should be represented) provides a common language for
+network ecologists to interact, and ensure that, regardless of their source,
+data can be used in a shared workflow. Most importantly, a data specification
+describes how data are *exchanged*. Each group retains the ability to store
+the data in the format that is most convenient for in-house use, and only
+needs to provide export options (*e.g.* through an API, *i.e.* a programmatic
+interface running on a webserver, returning data in  response to queries in
+a pre-determined language) respecting the data specification. This approach
+ensures that *all* data can be used in meta-analyses, and increases the
+impact of data [@piwo13]. Data archival also offers additional advantages for
+ecology. The aggregation of local observation can reveal large-scale phenomenon
+[@reic11], which would be unattainable in the absence of a collaborative
+effort. Data archival in databases also prevents data rot and data loss
+[@vine14], thus ensuring that data on interaction networks -- which are
+typically hard and costly to produce -- continue to be available and usable.
 
 # Elements of the data specification
 
@@ -145,59 +145,60 @@ format to upload them in the database.
 ### Taxa
 
 Taxa are a taxonomic entity of any level, identified by their name,
-vernacular name, and their identifiers in a variety of taxonomic
-services. Associating the identifiers of each taxa is important to leverage
-the power of the new generation of open data tools, such as `taxize`
-[@chamberlain_taxize_2013]. The data specification currently has fields
-for `ncbi`, `gbif`, `itis`, `eol` and `bold` identifiers. We also provide
-the taxonomic status, *i.e.* whether a taxa is a true taxonomic entity, a
-"trophic species", or a morphospecies.
-
-### Population
-
-A `population` is one observed instance of a `taxa` object. If your
-experimental design is replicated through space, then each taxa have a
-`population` object corresponding to each locality. Populations do not have
-associated meta-data, but serve as "containers" for `item` objects.
+vernacular name, and their identifiers in a variety of taxonomic services
+(EOL, BGIF, ITIS, NCBI). Associating the identifiers of each taxa is
+important to leverage the power of the new generation of open data tools,
+such as `taxize` [@cham13a]. The data specification currently has fields
+for `ncbi` (National Center for Biotechnology Information), `gbif` (Global
+Biodiversity Information Facility), `tsn` (Taxonomic Serial Number, used by
+the Integrated Taxonomic Information System), `eol` (Encyclopedia of Life) and
+`bold` (Barcode of Life) identifiers. We also provide the taxonomic status,
+*i.e.* whether a taxa is a true taxonomic entity, a "trophic species", or a
+morphospecies. Taxonomic identifiers can either be added by the contributors,
+or will be automatically retrieved during the automated curation routine.
 
 ### Item
 
-An `item` is an instance of a population. Items have a `level` argument,
+An `item` is any measured instance of a taxon. Items have a `level` argument,
 which can be  either `individual` or `population`; this allows to represent
-both individual-level networks (*i.e.* there are as many `item`s attached to
-a `population` than there were individuals of this `population` sampled),
-and population-level networks. When `item` represents a population, it is
-possible to give a measure of the size of this population. The notion of
-`item` is particularly useful for time-replicated designs: each observation
-of a population at a time-point is an `item` with associated `trait` values,
-and possibly population size.
+both individual-level networks (*i.e.* there are as many `item`s of a
+given taxa as there were individuals of this sampled), and population-level
+networks. When `item` represents a population, it is possible to give a measure
+of the size of this population. The notion of `item` is particularly useful
+for time-replicated designs: each observation of a population at a time-point
+is an `item` with associated `trait` values, and possibly population size.
 
 ## Network information
 
+All objects described in this sub-section can have a spatial position,
+information on the date of sampling, and references to both papers and
+datasets.
+
 ### Interaction
 
-An `interaction` links, *a minima*, two `taxa` objects (but can also link pairs
-of `population`s or `item`s). The most important attributes of `interaction`s
-are the type of interaction (of which we provide a list of possible values,
-see *Supp. Mat. 1*), and its `nature`, *i.e.* how it was observed. This field
+An `interaction` links two `taxa` objects (but can also link pairs
+of `item`s). The most important attributes of `interaction`s are the
+type of interaction (of which we provide a list of possible values, see
+*Supp. Mat. 1*), and its `ob_type`, *i.e.* how it was observed. This field
 help differentiate direct observations, text mining, and inference. Note
-that the `nature` field can also take `absence` as a value; this is useful
-for, *e.g.*, "cafeteria" experiments in which there is high confidence that
-the interaction did not happen.
+that the `obs_type` field can also take `confirmed absence` as a value;
+this is useful for, *e.g.*, "cafeteria" experiments in which there is high
+confidence that the interaction did not happen.
 
 ### Network
 
 A `network` is a series of `interaction` object, along with (i) informations
 on its spatial position (provided at the latitude and longitude), (ii) the
-date of sampling, and (iii) references to measures of environmental conditions. 
+date of sampling, and (iii) references to measures of environmental conditions.
 
 ### Dataset
 
 A `dataset` is a collection of one or several `network`(s). Datasets also have
 a field for `data` and `papers`, both of which are references to bibliographic
 or web resources describing, respectively, the source of the data, and the
-papers in which these data have been significantly used. Datasets are the
-preferred entry point in the resources.
+papers in which these data have been significantly used. Datasets or networks
+are the prefered entry point into the resources, although in some cases it
+can be meaningful to get a list of interactions only.
 
 ## Meta-data
 
@@ -226,46 +227,73 @@ In this section, we present use cases using the `rmangal` package for `R`,
 to interact with a database implementing this data specification, and serving
 data through an API (`http://mangal.uqar.ca/api/v1/`). It is possible for users
 to deposit data into this database, through the `R` package. Data are made
-available under a *CC-0 Waiver* [@poisot_moving_2013]. Detailed informations
+available under a *CC-0 Waiver* [@pois13d]. Detailed informations
 about how to upload data are given in the vignettes and manual of the `rmangal`
-package. So as to save room in the manuscript, we source each example; the
-complete `r` files to reproduce the examples of this section are attached
-as *Suppl. Mat.*. In addition, the `rmangal` package comes with vignettes
-explaining how users can upload their data into the database, through `R`.
+package. In addition, the `rmangal` package comes with vignettes explaining
+how users can upload their data into the database, through `R`.
 
-The data we use for this example come from @ricciardi_assemblage_2010. These
+The data we use for this example come from @ricc10. These
 were previously available on the *InteractionWeb DataBase* as a
 single `xls` file. We uploaded them in the `mangal` database at
-`http://mangal.uqar.ca/api/v1/dataset/1`.
+`http://mangal.uqar.ca/api/v1/dataset/1`. Before running the examples,
+users need to install the relevant packages and connect to the database:
+
+
 
 ## Link-species relationships
 
 In the first example, we visualize the relationship between the number of
-species and the number of interactions, which @martinez_constant_1992 propose
-to be linear (in food webs).
+species and the number of interactions, which @mart92 proposed to be linear
+(in food webs).
 
 
 ```r
-source("usecases/1_ls.r")
+# Pull the dataset of interest
+dataset <- getDataset(api, DSET_ID)
+
+# Get each network in the dataset as a graph object
+graphs <- alply(dataset$networks, 1, function(x) toIgraph(api, x))
+
+# Make a data.frame with the number of links and species
+ls <- ldply(graphs, function(x) c(S = length(V(x)), L = length(E(x))))
+ls$X1 <- aaply(as.numeric(as.vector(ls$X1)), 1,
+               function(x) getNetwork(api, x)$name)
+colnames(ls)[1] <- 'Network'
+
+# Now plot this dataset
+plot(jitter(L)~jitter(S), ls, log='xy', pch=22, bg='lightgrey',
+     lwd=1.5, cex=1.5, xlab='Species richness', ylab='Number of interactions')
+# Constant connectance
+X <- c(1:max(ls$S))
+Y <- X^2 * mean(ls$L/ls$S^2)
+lines(X, Y, lty=2)
+# Best fit
+bfit <- lm(L~S, ls)
+Yf <- X * bfit$coefficients[2] + bfit$coefficients[1]
+lines(X, Yf)
+legend('bottomright',pch=c(22, NA, NA), lty=c(NA, 2, 1),
+       pt.cex=c(1.5, 1, 1), lwd=c(1.5, 1, 1), pt.bg=c('lightgrey', NA, NA),
+       legend=c('Data', 'Constant connectance', 'Best fit (linear model)'), bty='n')
 ```
 
-![Relationship between the number of species and number of interactions in the anemonefish-fish dataset.](figure/getLS.pdf) 
+![Relationship between the number of species and number of interactions in the anemonefish-fish dataset. Constant connectance refers to the hypothesis that there exist a quadratic relationship between these two quantities.](figure/getLS.pdf) 
 
-
-Producing this figure requires less than 10 lines of code. The only information
-needed is the identifier of the network or dataset, which we suggest should
-be reported in publications as: "These data were deposited in the `mangal`
-format at `<URL>/api/v1/dataset/<ID>`", possibly in the acknowledgements. So
-as to encourage data sharing, we encourage users of the database to cite
-the original dataset or publication.
+Getting the data to produce this figure requires less than 10 lines of
+code. The only information needed is the identifier of the network or dataset,
+which we suggest should be reported in publications as: "These data were
+deposited in the `mangal` format at `<URL>/api/v1/dataset/<ID>`" (where
+`<URL>` and `<ID>` are replaced by the corresponding values), preferably
+in the methods, possibly in the acknowledgements. So as to encourage data
+sharing and its recognition, we encourage users of the database to cite the
+original dataset or publication.
 
 ## Network beta-diversity
 
 In the second example, we use the framework of network $\beta$-diversity
-[@poisot_dissimilarity_2012] to measure the extent to which networks that are
-far apart in space have different interactions. Each network in the dataset
-has a latitude and longitude, meaning that it is possible to measure the
-geographic distance between two networks.
+[@pois12c] to measure the extent to which networks that are far apart in space
+have different interactions. Each network in the dataset has a latitude and
+longitude, meaning that it is possible to measure the geographic distance
+between two networks.
 
 For each pair of network, we measure the geographic distance (in km.),
 the species dissimilarity ($\beta_S$), the network dissimilarity when all
@@ -274,13 +302,44 @@ when only shared species are considered ($\beta_{OS}$).
 
 
 ```r
-source("usecases/2_beta.r")
+# We first retrieve all informations about the networks
+Networks <- alply(dataset$networks, 1, function(x) getNetwork(api, x))
+
+# Extract the lat/lon data
+LatLon <- ldply(Networks, function(x) c(name = x$name, lat = x$latitude, lon = x$longitude))
+rownames(LatLon) <- LatLon$name
+LatLon$lat <- as.numeric(LatLon$lat)
+LatLon$lon <- as.numeric(LatLon$lon)
+LatLon <- LatLon[,c('lat', 'lon')]
+
+# Then we measure the distances between all pairs of sites
+GeoDist <- spDists(as.matrix(LatLon, latlon=TRUE))
+colnames(GeoDist) <- rownames(GeoDist) <- rownames(LatLon)
+GeoDist <- as.dist(GeoDist)
+
+# Now, we measure the beta-diversity of the networks
+names(graphs) <- aaply(names(graphs), 1, function(x) Networks[[x]]$name)
+# Finally, we measure the beta-diversity
+BetaDiv <- network_betadiversity(graphs)
+
+# We add the geographic distance
+BetaDiv$GEO <- GeoDist
+
+# And we do some plots
+par(mfrow=c(2,2), pty='s')
+with(BetaDiv,{
+     plot(GEO, S, pch=22, bg='lightgrey', cex=1.5, lwd=1.5,
+          xlab="Geographic distance", ylab="Species composition dissimilarity")
+     plot(GEO, WN, pch=22, bg='lightgrey', cex=1.5, lwd=1.5,
+          xlab="Geographic distance", ylab="Network dissimilarity (all species)")
+     plot(GEO, OS, pch=22, bg='lightgrey', cex=1.5, lwd=1.5,
+          xlab="Geographic distance", ylab="Network dissimilarity (shared species)")
+})
 ```
 
 ![Relationships between the geographic distance between two sites, and the species dissimilarity, network dissimilarity with all, and only shared, species.](figure/useBeta.pdf) 
 
-
-As shown in *Fig. XX*, while species dissimilarity and overall network
+As shown in *Fig. 3*, while species dissimilarity and overall network
 dissimilarity increase when two networks are far apart, this is not the case
 for the way common species interact. This suggests that in this system, network
 dissimilarity over space is primarily driven by species turnover. The ease
@@ -289,18 +348,60 @@ this analysis extremely straightforward.
 
 ## Spatial visualization of networks
 
-@bascompte_disentangling_2009 uses an interesting visualization for
-spatial networks, in which each species is laid out on a map at the
-center of mass of its distribution; interactions are then drawn between
-species to show how species distribution determines biotic interactions. In
-this final use case, we propose to reproduce a similar figure.
+@basc09a uses an interesting visualization for spatial networks, in which
+each species is laid out on a map at the center of mass of its distribution;
+interactions are then drawn between species to show how species distribution
+determines biotic interactions. In this final use case, we propose to
+reproduce a similar figure.
 
 
 ```r
-source("usecases/3_spatial.r")
+# We fill a community data matrix
+sp_by_site <- llply(graphs, function(x) unlist(V(x)$name))
+sp_list <- unique(unlist(sp_by_site))
+M <- matrix(0, ncol = length(sp_list), nrow = length(sp_by_site))
+colnames(M) <- sp_list
+rownames(M) <- names(sp_by_site)
+for (site in c(1:length(sp_by_site))) M[names(sp_by_site)[site], sp_by_site[[site]]] = 1
+
+# Next, we get the center position for each species
+# (i.e. the mean position of the sites it occurs at)
+sp_center <- adply(M, 2, function(x) colMeans(LatLon[names(x)[x > 0], ]))
+rownames(sp_center) <- sp_center[, 1]
+sp_center <- sp_center[, -1]
+
+# We now create a regional network using betalink::metaweb
+Mw <- metaweb(graphs)
+
+# Plot a map
+center_point <- colMeans(sp_center)
+vcolors <- c(brewer.pal(9, "Set1"), brewer.pal(8, "Set2"))
+
+Layout <- matrix(c(1,2,2,2), 2, 2)
+colSize <- c(1.3, 2.0)
+rowSize <- c(1.2, 2)
+layout(Layout, colSize, rowSize)
+
+# Inset map is number 1
+par(mar=c(4.5, 1, 1, 4))
+map("worldHires", xlim=c(90,136), ylim=c(-15,15), col="gray90",
+      fill=TRUE, resolution=0)
+points(center_point[2], center_point[1], pch=1, cex=2, lwd=2)
+box()
+
+par(mar=c(4.1, 4.1, 4.1, 4.1))
+map("worldHires", xlim=c(124.0,125.1), ylim=c(1.2,1.9), col="gray90",
+      fill=TRUE, resolution = 0)
+plot(Mw, layout = jitter(as.matrix(LatLon[,c('lon','lat')])),
+      rescale = FALSE, add = TRUE, vertex.color = vcolors, vertex.size = 1,
+      vertex.label = NA, edge.arrow.size = 0.25, edge.color = 1)
+axis(1)
+axis(4)
+legend("bottomleft", fill = vcolors, legend = V(Mw)$name, inset = 0.02,
+      cex = 0.7, bty = "n", ncol=2)
 ```
 
-![Spatial plot of a network, using the `maps` and `rmangal` packages. The circle in the inset map show the location of the sites. Each dot in the main map represents a species, with interactions drawn between them.](figure/useSpace.pdf) 
+![Spatial plot of a network, using the `maps` and `rmangal` packages. The circle in the inset map show the location of the sites. Each dot in the main map represents a species, with (symbiontic mutualism) drawn between them. The land is in grey.](figure/useSpace.pdf) 
 
 # Conclusions
 
@@ -308,10 +409,13 @@ In this contribution, we presented `mangal`, a data format for the
 exchange of ecological networks and associated meta-data. We deployed
 an online database with an associated API, relying on this data
 specification. Finally, we introduced `rmangal`, a `R` package designed
-to interact with APIs using the `mangal` format. We expect that the data
-specification will evolve based on the needs of the community. At the
-moment, users are welcome to propose such changes on the project issue page:
-<https://github.com/mangal-wg/mangal-schemes/issues>. A `python` wrapper
-for the API is also available at <http://github.com/mangal-wg/pymangal/>.
+to interact with APIs using the `mangal` format. We expect that the
+data specification will evolve based on the needs of the community. At
+the moment, users are welcome to propose such changes on the project
+issue page: <https://github.com/mangal-wg/mangal-schemes/issues>. A
+`python` wrapper for the API is also available at
+<http://github.com/mangal-wg/pymangal/>. Additionally, there are plans to
+integrate this database with *GLOBI*, so that data can be accessed from
+multiple sources [@poel14].
 
 # References

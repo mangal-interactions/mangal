@@ -20,7 +20,7 @@ $(md): $(rmd)
 	Rscript -e "library(knitr); knit(input='$(rmd)', output='$(md)');"
 
 $(refs): bib.keys
-	python2 extractbib.py bib.keys /home/tpoisot/texmf/bibtex/bib/local/library.bib $(refs)
+	python2 extractbib.py bib.keys /home/tp/.pandoc/default.bib $(refs)
 
 bib.keys: $(md)
 	grep @[-:_a-zA-Z0-9]* $(md) -oh --color=never | sort | uniq | sed 's/@//g' > bib.keys

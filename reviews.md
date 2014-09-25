@@ -86,7 +86,7 @@ not mention taxonomic information. Taxonomic information is associated to
 mind. Contributors can give values when they upload the `taxa` object, or
 can alter them at a later time. In addition, we run bi-monthly checks on
 the database and try to automate the retrieval of all taxonomic identifiers
-given the taxonomic name. We updaed the paper to make this clear.
+given the taxonomic name. We updated the paper to make this clear.
 
 Finally, it is not completely clear to me if contributors have to enter all
 the data fields mentioned in the appendix. You mention that that rmangal
@@ -94,11 +94,11 @@ can create the correct format, but which format does the data need to be in,
 so that rmangal can interpret it? Importantly, to me it was not completely
 clear how one could contribute with data, i.e. how the data fields are filled.
 
-> As mentionned in the text, the `whatIs` function will return a table with a
-field saying whether the fields are mandatory. The data should be presented as
-`list`s objects, and the users have to prepare these lists themselves. There
-is a vignette in the package documentation that presents the upload process
-in detail.
+> As mentionned in the text, the `whatIs` function will return a table with
+a field saying whether the fields are mandatory. The data should be presented
+as `list`s objects, and the users have to prepare these lists themselves. We
+have prepared a detailed help page, with examples, on the website (a copy
+of which is attached to this revision).
 
 As stated earlier I think this can potentially be very useful way of sharing
 interaction networks. My only concern is that it may be too complicated and
@@ -108,9 +108,9 @@ to explain exactly how it is done. Maybe I’m misunderstanding it and maybe
 it is really simple to contribute data. If that is the case it should be
 stated clearly in the manuscript.
 
-> We agree entirely. To this end, we have updated the vignette on uploading
-data. The upload process was designed to be as simple as possible, and early
-users of the package reported no trouble uploading datasets.
+> We agree entirely. To this end, we have added a documentation on how to
+upload data. The upload process was designed to be as simple as possible,
+and early users of the package reported no trouble uploading datasets.
 
 Other information your could consider including: Your “obs_type” field
 could be expanded to include more specific details about the sampling protocol
@@ -137,7 +137,7 @@ realization?
 
 Line 10: The reference looks a bit weird
 
-> **TODO**
+> All references have been fixed.
 
 Page 5 Line 3: Vernacular names --> Common name? 
 
@@ -146,10 +146,13 @@ changes.
 
 Line 5: Reference looks weird
 
+> Same as above.
+
 Line 5-6. ncbi, gbif, itis, eol and bold. Should these words be explained or
 is that fully understandable abbreviations?
 
-> We gave the full version.
+> We gave the full version. `itis` was replaced by `tsn`, notably for
+consistency with other tools such as `taxize`.
 
 Line 14: “…than there…” --> “….as there….”?
 
@@ -161,29 +164,38 @@ Line 21: Remove “a minima”
 
 Page 8 Line 21: Hyperlink does not work
 
+> Will work in the final version of the paper.
+
 Page 9 Line 5: Hyperlink does not work
+
+> Same as above.
 
 Line 9-11: I’m not sure I understand this. Is the identifier
 given as: “These data were deposited in the mangal format at
 <URL>/api/v1/dataset/<ID>”?
 
-> This is correct - the API code has been modified so that the ID is directly
-given to the user.
+> This is correct -- we added a clarification.
 
 Line 20: Fig. XX --> Fig. 3?
 
-> TODO
+> Fixed.
 
 Fig. 1 I think it is a bit difficult to see which are written in Bold. Maybe
 it is just the font type. However you could consider making it more clear which
 data that are the minimal elements needed. For example by underlining the text,
 using a different colour or something else.  Why are some written in italic?
 
+> **TODO**
+
 Fig. 2 What does “Constant connectance” refer to?
+
+> **TODO**
 
 Fig. 4 I think some more details are required in the figure legend. For
 instance, what does the axis represent, and what is the grey (=land?) and
 white (=water?) area. What is the interactions between the species.
+
+> We added these clarifications.
 
 References Gómez, J.M. & Perfectti, F. (2012) Fitness consequences of
 centrality in mutualistic individual-based networks. Proceedings of the
