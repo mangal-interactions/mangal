@@ -12,6 +12,7 @@ all: $(pdf) suppmat/1_dataspec.html
 suppmat/1_dataspec.html: suppmat/1_dataspec.Rmd
 	Rscript -e "library(knitr); knit('suppmat/1_dataspec.Rmd', output='suppmat/1_dataspec.md')"
 	pandoc suppmat/1_dataspec.md -o suppmat/1_dataspec.html
+	pandoc suppmat/1_dataspec.md -o suppmat/1_dataspec.pdf
 
 $(pdf): $(md) $(refs)
 	pandoc $(md) -o $(pdf) --bibliography=$(refs) --csl=mee.csl --template=paper.latex

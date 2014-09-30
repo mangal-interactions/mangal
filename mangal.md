@@ -114,7 +114,7 @@ costly to produce -- continue to be available and usable.
 
 # Elements of the data specification
 
-The data specification (Fig. 1) is built around the idea that (ecological)
+The data specification (*Fig. 1*) is built around the idea that (ecological)
 networks are collections of relationships between ecological objects,
 each element having particular meta-data associated. In this section, we
 detail the way networks are represented in the `mangal` specification. An
@@ -283,14 +283,13 @@ legend('bottomright',pch=c(22, NA, NA), lty=c(NA, 2, 1),
 
 ![Relationship between the number of species and number of interactions in the anemonefish-fish dataset. Constant connectance refers to the hypothesis that there exist a quadratic relationship between these two quantities.](figure/getLS.pdf) 
 
-Getting the data to produce this figure requires less than 10 lines of
-code. The only information needed is the identifier of the network or dataset,
-which we suggest should be reported in publications as: "These data were
-deposited in the `mangal` format at `<URL>/api/v1/dataset/<ID>`" (where
-`<URL>` and `<ID>` are replaced by the corresponding values), preferably
-in the methods, possibly in the acknowledgements. So as to encourage data
-sharing and its recognition, we encourage users of the database to cite the
-original dataset or publication.
+Getting the data to produce *Fig. 2* requires less than 10 lines of code. The
+only information needed is the identifier of the network or dataset, which we
+suggest should be reported in publications as: "These data were deposited in
+the `mangal` format at `<URL>/api/v1/dataset/<ID>`" (where `<URL>` and `<ID>`
+are replaced by the corresponding values), preferably in the methods, possibly
+in the acknowledgements. So as to encourage data sharing and its recognition,
+we encourage users of the database to cite the original dataset or publication.
 
 ## Network beta-diversity
 
@@ -357,7 +356,7 @@ this analysis extremely straightforward.
 each species is laid out on a map at the center of mass of its distribution;
 interactions are then drawn between species to show how species distribution
 determines biotic interactions. In this final use case, we propose to
-reproduce a similar figure.
+reproduce a similar figure (*Fig. 4*).
 
 
 ```r
