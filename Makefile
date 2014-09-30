@@ -16,8 +16,11 @@ suppmat/1_dataspec.html: suppmat/1_dataspec.Rmd
 $(pdf): $(md) $(refs)
 	pandoc $(md) -o $(pdf) --bibliography=$(refs) --csl=mee.csl --template=paper.latex
 
-$(md): $(rmd)
+$(md): $(rmd) fig_dataspec.pdf
 	Rscript -e "library(knitr); knit(input='$(rmd)', output='$(md)');"
+
+fig_dataspec.pdf: dataspec.dot
+	dot $< -Tpdf > $@
 
 $(refs): bib.keys
 	python2 extractbib.py bib.keys /home/tp/.pandoc/default.bib $(refs)
