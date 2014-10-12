@@ -141,6 +141,8 @@ knowing how `JSON` objects are organized is only useful for those who want to
 interact with the API directly. The `rmangal` package takes care of converting
 the data into the correct `JSON` format to upload them in the database.
 
+All of the objects in Fig. 1 have four associated functions: `list*` (get a list of all objects), `get*` (get a single object of known ID), `add*` (create a new object), and `patch*` (modify a new object of known ID), where `*` is replaced by the name of the object. For example, one gets a list of all `taxa`  with `listTaxa(api)`, and gets informations on taxa number 3 with `getTaxa(api, 3)`.
+
 ## Node information
 
 ### Taxa
@@ -434,10 +436,6 @@ issue page: <https://github.com/mangal-wg/mangal-schemes/issues>. A
 <http://github.com/mangal-wg/pymangal/>. Additionally, there are plans to
 integrate this database with *GLOBI*, so that data can be accessed from
 multiple sources [@poel14].
-
-Object        see all objects     get one object    add one object     edit one object
-------------  -----------------   ----------------  ----------------   -----------------
-`taxa`        `listTaxa(api)`
 
 **Acknowledgements** This paper was developped during a workshop hosted at the
 *Santa Fe Institute*. TP, DBS, and DG acknowledge funding from the Canadian
