@@ -243,17 +243,19 @@ single `xls` file. We uploaded them in the `mangal` database at
 `http://mangal.uqar.ca/api/v1/dataset/1`. Before running the examples,
 users need to install the relevant packages and connect to the database:
 
-```{r loadStuff, echo=FALSE, message=FALSE, warning=FALSE}
+```{r loadStuff, echo=TRUE, message=FALSE, warning=FALSE}
 # Prepare the environment
 library(devtools)
+# This line is needed on some linux distributions
 if(getOption('unzip')=='') options('unzip' = 'unzip')
+# This installs the rmangal package
 install_github(repo='rmangal',username='mangal-wg', ref="dev")
 install_github(repo='betalink', username='tpoisot', ref="newdoc")
-# The sp package is needed for distance measures
 library(betalink)
 library(rmangal)
 mangal_url <- 'http://localhost:8000/'
 api <- mangalapi(mangal_url)
+# This packages are required to execute the given examples
 library(igraph)
 library(plyr)
 library(sp)
@@ -432,6 +434,10 @@ issue page: <https://github.com/mangal-wg/mangal-schemes/issues>. A
 <http://github.com/mangal-wg/pymangal/>. Additionally, there are plans to
 integrate this database with *GLOBI*, so that data can be accessed from
 multiple sources [@poel14].
+
+Object        see all objects     get one object    add one object     edit one object
+============  ================    ===============   ===============    ================
+`taxa`        `listTaxa(api)`
 
 **Acknowledgements** This paper was developped during a workshop hosted at the
 *Santa Fe Institute*. TP, DBS, and DG acknowledge funding from the Canadian
