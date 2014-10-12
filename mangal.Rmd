@@ -141,7 +141,7 @@ knowing how `JSON` objects are organized is only useful for those who want to
 interact with the API directly. The `rmangal` package takes care of converting
 the data into the correct `JSON` format to upload them in the database.
 
-All of the objects in Fig. 1 have four associated functions: `list*` (get a list of all objects), `get*` (get a single object of known ID), `add*` (create a new object), and `patch*` (modify a new object of known ID), where `*` is replaced by the name of the object. For example, one gets a list of all `taxa`  with `listTaxa(api)`, and gets informations on taxa number 3 with `getTaxa(api, 3)`.
+All of the objects in Fig. 1 have four associated functions: `list*` (get a list of all objects), `get*` (get a single object of known ID), `add*` (create a new object), and `patch*` (modify a new object of known ID), where `*` is replaced by the name of the object. For example, one gets a list of all `taxa`  with `listTaxa(api)`, and gets informations on taxa number 3 with `getTaxa(api, 3)`. Because these functions manipulate single records from the database, the typical workflow will be to combine or chain them using packages such as ` plyr`. We provide several examples of how this is done in the sections below. In addition to these functions, the package also implelemts `toIgraph`, which will take one  network, extract all associated metadata, and return it as an `igraph` directed graph object. Note that the packages comes with a full documentation and several vignettes documenting all aspects of its functioning.
 
 ## Node information
 
