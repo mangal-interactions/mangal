@@ -436,7 +436,7 @@ integrate this database with *GLOBI*, so that data can be accessed from
 multiple sources [@poel14].
 
 Object        see all objects     get one object    add one object     edit one object
-============  ================    ===============   ===============    ================
+------------  -----------------   ----------------  ----------------   -----------------
 `taxa`        `listTaxa(api)`
 
 **Acknowledgements** This paper was developped during a workshop hosted at the
