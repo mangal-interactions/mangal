@@ -11,7 +11,7 @@ More care should be taken, especially with the examples.
 
 2. It should be clear which functions belong to the rmangal package, and which functions are simply imported from other packages, such as 'plyr'. In many examples, only few functions are actually new and derive from rmangal. In the case of 'plyr' functions, they are loaded by rmangal, and seem integral to working with the data structure. Describe this relationship.
 
-> TODO
+> The fact that the `rmangal` package exposes few functions is on purpose. A lot of planning and programming went into making the package usable, which we achieved through implementing all of the core functionalities in a reduced number of function sharing a common interface. We have added a table listing them to the manuscript.
 
 3. Some functions in the examples are not defined at all. E.g. the 'metaweb' function does not exist in rmangal (I installed it from github on my R-3.1.1. installation), nor in any other package I know of.
 
