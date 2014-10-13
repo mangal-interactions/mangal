@@ -94,11 +94,12 @@ can create the correct format, but which format does the data need to be in,
 so that rmangal can interpret it? Importantly, to me it was not completely
 clear how one could contribute with data, i.e. how the data fields are filled.
 
-> As mentionned in the text, the `whatIs` function will return a table with
-a field saying whether the fields are mandatory. The data should be presented
-as `list`s objects, and the users have to prepare these lists themselves. We
-have prepared a detailed help page, with examples, on the website (a copy
-of which is attached to this revision).
+> As mentionned in the text, the `whatIs` function will return a table with a
+field saying whether the fields are mandatory. The data should be presented as
+`list`s objects, and the users have to prepare these lists themselves. We have
+prepared a detailed help page, with examples, on the website (a *tentative*
+copy of which is attached to this revision; it is still undergoing editing
+at the moment as feedback from users accumulate).
 
 As stated earlier I think this can potentially be very useful way of sharing
 interaction networks. My only concern is that it may be too complicated and
@@ -185,11 +186,11 @@ it is just the font type. However you could consider making it more clear which
 data that are the minimal elements needed. For example by underlining the text,
 using a different colour or something else.  Why are some written in italic?
 
-> **TODO**
+> We re-drew the figure entirely.
 
 Fig. 2 What does “Constant connectance” refer to?
 
-> **TODO**
+> We updated the legend to make it stand-alone.
 
 Fig. 4 I think some more details are required in the figure legend. For
 instance, what does the axis represent, and what is the grey (=land?) and
@@ -216,7 +217,11 @@ of data to EML (ecological metadata language). The EML R packge in development
 (https://github.com/ropensci/EML) may make this easy. Would be an easy way
 for users to submit to repositories that require EML specification.
 
-> Ref to GLOBI paper
+> We agree with the endgoal, but we do not think this should be done at
+the database level. The purpose of an API is that it also allows to write
+converters from different formats. As of now, and as stated in the paper,
+we are working on exporting data into the *Darwin Core Archive* format to
+create interactions with the GLOBI initiative.
 
 References: Wouldn’t it be possible to have different references for
 individual interactions in a food web? Seems references are only possible
@@ -266,7 +271,7 @@ attributes. Maybe this should be admitted so reader doesn’t think there
 is no way to store metadata with a matrix. Or metadata can be stored as part
 of a S3/S4/RC class in R along with the matrix but in different slots.
 
-> This is corect. **TODO**
+> This is corect. We have added some information in the text.
 
 -It seems vignettes are not in the pkg when installed right now. The line
 https://github.com/mangal-wg/rmangal/blob/master/DESCRIPTION#L19 is commented
@@ -282,17 +287,20 @@ license choice.
 -The authors don’t reference the output figures in the
 examples section. 
 
-> **TODO**
+> This has been fixed.
 
 -The appropriate places for tests is now in the root dir
 `tests/`. See https://github.com/hadley/testthat#integration-with-r-cmd-check
 
-> **TODO**
+> This is being worked on at the moment. The complete test suite will most
+likely not be released, as the upload function will result in the creation
+of garbage records in the database.
 
 -A few tests are included in the pkg, Would be nice to see a more complete
 test suite down the road.
 
-> On it.
+> As mentionned above, we will upload the test suite in future releases if
+we end up depositing the package into CRAN.
 
 Example scripts: All worked, but I had to install from a branch
 

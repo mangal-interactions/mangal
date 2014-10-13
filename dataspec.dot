@@ -1,0 +1,35 @@
+digraph specification{
+   rankdir=LR;
+   subgraph cluster_core{
+      style=filled;
+      color=grey90;
+      node[style=filled, color=white];
+      label="Core elements";
+      taxa;
+      item;
+      interaction;
+   };
+   subgraph cluster_network{
+      style=filled;
+      color=grey90;
+      node[style=filled, color=white];
+      label="Network information";
+      dataset;
+      network;
+   };
+   subgraph cluster_metadata{
+      style=filled;
+      color=grey98;
+      label="Metadata";
+      node[color=grey40];
+      reference;
+      trait;
+      environment;
+   };
+   interaction -> {taxa item} [weight=10];
+   taxa -> item [weight=40];
+   dataset -> network -> interaction [weight=100];
+   {dataset network interaction trait} -> reference;
+   {network interaction} -> environment;
+   item -> trait;
+}

@@ -14,7 +14,7 @@ data specification by suggesting improvements or changes online:
 ```{r getApi}
 library(rmangal)
 options('width' = 150)
-url = "http://mangal.uqar.ca"
+url = "http://localhost:8000/"
 api = mangalapi(url)
 print(api$resources)
 ```
