@@ -22,21 +22,21 @@
 
 \clearpage
 
-**Short title**: Automated retrieval of ecological networks data
+**Short title**: Automated retrieval of ecological network data
 
 **Keywords**: R, API, database, open data, ecological networks, species interactions
 
 > The study of ecological networks is severely limited by (i) the difficulty
 to access data, (ii) the lack of a standardized way to link meta-data with
 interactions, and (iii) the disparity of formats in which ecological networks
-themselves are represented. To overcome these limitations, we conceived
+themselves are stored and represented. To overcome these limitations, we have designed
 a data specification for ecological networks. We implemented a database
 respecting this standard, and released a R package (`rmangal`) allowing
 users to programmatically access, curate, and deposit data on ecological
-interactions. In this article, we show how these tools, in conjunctions
+interactions. In this article, we show how these tools, in conjunction
 with other frameworks for the programmatic manipulation of open ecological
-data, streamlines the analysis process, and improves replicability and
-reproducibility of ecological networks studies.
+data, streamlines the analysis process and improves replicability and
+reproducibility of ecological network studies.
 
 \clearpage
 
@@ -79,69 +79,66 @@ new tools to manipulate biodiversity resources.
 # Networks need a data specification
 
 Ecological networks are (often) stored as an *adjacency matrix* (or as
-the quantitative link matrix), that is a series of `0` and `1` indicating,
+the quantitative link matrix), that is a series of `0`s and `1`s indicating,
 respectively, the absence and presence of an interaction. This format is
 extremely convenient for *use* (as most network analysis packages, *e.g.*
 `bipartite`, `betalink`, `foodweb`, require data to be presented this way),
-but is extremely inefficient at *storing* meta-data (this can be done
-by adding attributes to the matrix objects in the language that support
-it). In most cases, an adjacency matrix informs on the identity of species
-(in cases where rows and columns are named), and the presence or absence of
-interactions. If other data about the environment (*e.g.* where the network
-was sampled) or the species (*e.g.* the population size, trait distribution,
-or other observations) are available, they are most either given in other
-files, or as accompanying text. In both cases, making a programmatic link
-between interaction data and relevant meta-data is difficult, time-consuming,
-and error-prone. Because of the lack of a common structure for these data,
-the process cannot be automated when different datasets needs to be processed.
+but is extremely inefficient at *storing* meta-data. In most cases, an
+adjacency matrix provides information about the identity of species (in the cases where rows and
+columns headers are present) and the presence or absence of interactions. If
+other data about the environment (*e.g.* where the network was sampled)
+or the species (*e.g.* the population size, trait distribution, or other
+observations) are available, they are often either given in other files
+or as accompanying text. In both cases, making a programmatic link between
+interaction data and relevant meta-data is difficult and, more importatnly, error-prone.
 
 By contrast, a data specification (*i.e.* a set of precise instructions
 detailing how each object should be represented) provides a common language for
-network ecologists to interact, and ensure that, regardless of their source,
+network ecologists to interact, and ensures that, regardless of their source,
 data can be used in a shared workflow. Most importantly, a data specification
-describes how data are *exchanged*. Each group retains the ability to store the
-data in the format that is most convenient for in-house use, and only needs to
-provide export options (*e.g.* through an API, a programmatic interface running
-on a webserver, returning data in response to queries in a pre-determined
-language) respecting the data specification. This approach ensures that *all*
-data can be used in meta-analyses, thus increasing their long-term impact
-[@piwo13]. Data archival also offers additional advantages for ecology. The
-aggregation of local observation can reveal large-scale phenomenon [@reic11],
-which would be unattainable in the absence of a collaborative effort. Data
-archival in databases also prevents data rot and data loss [@vine14], thus
-ensuring that data on interaction networks -- which are typically hard and
-costly to produce -- continue to be available and usable.
+describes how data are *exchanged*. Each group retains the ability to store
+the data in the format that is most convenient for in-house use, and only
+needs to provide export options (*e.g.* through an API, *i.e.* a programmatic
+interface running on a webserver, returning data in response to queries in
+a pre-determined language) respecting the data specification. This approach
+ensures that *all* data can be used in meta-analyses, and increases the
+impact of data [@piwo13]. Data archival also offers additional advantages for
+ecology. The aggregation of local observations can reveal large-scale phenomenon
+[@reic11], which would be unattainable in the absence of a collaborative
+effort. Data archival in databases also prevents data rot and data loss
+[@vine14], thus ensuring that data on interaction networks -- which are
+typically hard and costly to produce -- continue to be available and usable.
 
 # Elements of the data specification
 
-The data specification (*Fig. 1*) is built around the idea that (ecological)
-networks are collections of relationships between ecological objects,
-each element having particular meta-data associated. In this section, we
-detail the way networks are represented in the `mangal` specification. An
-interactive webpage with the complete data specification can be found online
-at `http://mangal.uqar.ca./doc/spec/`. The data specification is available
+The data specification introduced here (Fig. 1) is built around the idea that (ecological)
+networks are collections of relationships between ecological objects, and each
+element has particular meta-data associated with it. In this section, we detail the
+way networks are represented in the `mangal` specification. An interactive
+webpage with the elements of the data specification can be found online at
+`http://mangal.uqar.ca/doc/spec/`. The data specification is available
 either at the API root (*e.g.* `http://mangal.uqar.ca/api/v1/?format=json`),
 or can be viewed using the `whatIs` function from the `R` package
 (see *Supp. Mat. 1*). Rather than giving an exhaustive list of the data
-specification, this section serves as an overview of each element, and how
-they interact.
+specification (which is available online at the aforementioned URL), this
+section serves as an overview of each element, and how they interact.
 
-![An overview of the data specification, and the hierarchy between objects. Each box correspond to a level of the data specification, and arrows represent a relationship between objects. For example, `taxa` have associated `item`s, and `interactions` have associated `taxa`, `item`s, `reference`s. Not all relationships are mandatory, as we detail below.](fig_dataspec.pdf)
+![An overview of the data specification, and the hierarchy between objects. Each box correspond to a level of the data specification. Grey boxes are nodes, blue boxes are interactions and networks, and green boxes are metadata. The **bold** boxes (`dataset`, `network`, `interaction`, `taxa`) are the minimal elements needed to represent a network.](figure-dataspec.pdf)
 
-We propose `JSON` as an efficient way to uniformise data representation for
-two main reasons. First, it has emerged as a *de facto* standard for web
-platforms serving data, and accepting data from users. Second, it allows
-*validation* of the data: a `JSON` file can be matched against a scheme,
-and one can verify that it is correctly formatted. Finally, `JSON` objects
-representing individual items are easily and cheaply (memory-wise) parsed in
-the most common programming languages, notably `R` (equivalent to `list`) and
-`python` (equivalent to `dict`). For most users, the format in which data are
-transmitted is unimportant, as the interaction happens within `R` -- as such,
-knowing how `JSON` objects are organized is only useful for those who want to
-interact with the API directly. The `rmangal` package takes care of converting
-the data into the correct `JSON` format to upload them in the database.
-
-All of the objects in Fig. 1 have four associated functions: `list*` (get a list of all objects), `get*` (get a single object of known ID), `add*` (create a new object), and `patch*` (modify a new object of known ID), where `*` is replaced by the name of the object. For example, one gets a list of all `taxa`  with `listTaxa(api)`, and gets informations on taxa number 3 with `getTaxa(api, 3)`. Because these functions manipulate single records from the database, the typical workflow will be to combine or chain them using packages such as ` plyr`. We provide several examples of how this is done in the sections below. In addition to these functions, the package also implelemts `toIgraph`, which will take one  network, extract all associated metadata, and return it as an `igraph` directed graph object. Note that the packages comes with a full documentation and several vignettes documenting all aspects of its functioning.
+We propose `JSON`, a user-friendly format equivalent to `XML`, as an efficient way to
+standardise data representation for two main reasons. First, it has emerged
+as a *de facto* standard for web platform serving data, and accepting data
+from users. Second, it allows strict *validation* of the data: a `JSON` file can be
+matched against a scheme, and one can verify that it is correctly formatted
+(this includes the possibility that not all fields are filled, as will
+depend on available data). Finally, `JSON` objects are easily and cheaply
+(memory-wise) parsed in the most commonly-used programming languages, notably `R`
+(equivalent to `list`) and `python` (equivalent to `dict`). For most users,
+the format in which data are transmitted is unimportant, as the interaction
+happens within `R` -- as such, knowing how `JSON` objects are organized
+is only useful for those who want to interact with the API directly. As such, the
+`rmangal` package takes care of converting the data into the correct `JSON`
+format to upload them in the database.
 
 ## Node information
 
@@ -165,7 +162,7 @@ or will be automatically retrieved during the automated curation routine.
 An `item` is any measured instance of a taxon. Items have a `level` argument,
 which can be  either `individual` or `population`; this allows to represent
 both individual-level networks (*i.e.* there are as many `item`s of a
-given taxa as there were individuals of this sampled), and population-level
+given taxa as there were individuals of this taxa sampled), and population-level
 networks. When `item` represents a population, it is possible to give a measure
 of the size of this population. The notion of `item` is particularly useful
 for time-replicated designs: each observation of a population at a time-point
@@ -183,14 +180,14 @@ An `interaction` links two `taxa` objects (but can also link pairs
 of `item`s). The most important attributes of `interaction`s are the
 type of interaction (of which we provide a list of possible values, see
 *Supp. Mat. 1*), and its `ob_type`, *i.e.* how it was observed. This field
-help differentiate direct observations, text mining, and inference. Note
+helps differentiate direct observations, text mining, and inference. Note
 that the `obs_type` field can also take `confirmed absence` as a value;
 this is useful for, *e.g.*, "cafeteria" experiments in which there is high
 confidence that the interaction did not happen.
 
 ### Network
 
-A `network` is a series of `interaction` object, along with (i) informations
+A `network` is a series of `interaction` objects, along with (i) information
 on its spatial position (provided at the latitude and longitude), (ii) the
 date of sampling, and (iii) references to measures of environmental conditions.
 
@@ -198,9 +195,9 @@ date of sampling, and (iii) references to measures of environmental conditions.
 
 A `dataset` is a collection of one or several `network`(s). Datasets also have
 a field for `data` and `papers`, both of which are references to bibliographic
-or web resources describing, respectively, the source of the data, and the
-papers in which these data have been significantly used. Datasets or networks
-are the prefered entry point into the resources, although in some cases it
+or web resources that describe, respectively, the source of the data and the
+papers in which these data have been studied. Datasets or networks
+are the preferred entry point into the resources, although in some cases it
 can be meaningful to get a list of interactions only.
 
 ## Meta-data
@@ -225,8 +222,8 @@ references to original publication and original datasets.
 ### References
 
 References are associated to datasets. They accommodate the DOI, JSON or
-PubMed identifiers, or a URL. When possible, the DOI should be preferred as
-it offers more potential to interact with other on-line tools, such as the
+PubMed identifiers, or a URL. When possible, the DOI is preferred as
+it offers more potential to interact with other online tools, such as the
 *CrossRef* API.
 
 # Use cases
@@ -234,12 +231,13 @@ it offers more potential to interact with other on-line tools, such as the
 In this section, we present use cases using the `rmangal` package for `R`,
 to interact with a database implementing this data specification, and serving
 data through an API (`http://mangal.uqar.ca/api/v1/`). It is possible for users
-to deposit data into this database, through the `R` package. Data are made
-available under a *CC-0 Waiver* [@pois13d]. Detailed informations
+to deposit data into this database through the `R` package. Note that data are made
+available under a *CC-0 Waiver* [@pois13d]. Detailed information
 about how to upload data are given in the vignettes and manual of the `rmangal`
-package.
+package. In addition, the `rmangal` package comes with vignettes explaining
+how users can upload their data into the database through `R`.
 
-The data we use for this example come from @ricc10. These
+The data we use for this example come from @ricc10. These data
 were previously available on the *InteractionWeb DataBase* as a
 single `xls` file. We uploaded them in the `mangal` database at
 `http://mangal.uqar.ca/api/v1/dataset/1`. Before running the examples,
@@ -274,8 +272,8 @@ In the first example, we visualize the relationship between the number of
 species and the number of interactions, which @mart92 proposed to be linear
 (in food webs).
 
-```{r getLS, fig.cap = "Relationship between the number of species and number of interactions in the anemonefish-fish dataset. Constant connectance refers to the hypothesis that there exist a quadratic relationship between these two quantities.", dev='pdf', results='asis'}
-# Pull the dataset of interest
+```{r getLS, fig.cap = "Relationship between the number of species and number of interactions in the anemonefish-fish dataset. Constant connectance refers to the hypothesis that there is a quadratic relationship between these two quantities.", dev='pdf', results='asis'}
+# Retrieve the dataset of interest
 dataset <- getDataset(api, DSET_ID)
 
 # Get each network in the dataset as a graph object
@@ -303,13 +301,14 @@ legend('bottomright',pch=c(22, NA, NA), lty=c(NA, 2, 1),
        legend=c('Data', 'Constant connectance', 'Best fit (linear model)'), bty='n')
 ```
 
-Getting the data to produce *Fig. 2* requires less than 10 lines of code. The
-only information needed is the identifier of the network or dataset, which we
-suggest should be reported in publications as: "These data were deposited in
-the `mangal` format at `<URL>/api/v1/dataset/<ID>`" (where `<URL>` and `<ID>`
-are replaced by the corresponding values), preferably in the methods, possibly
-in the acknowledgements. So as to encourage data sharing and its recognition,
-we encourage users of the database to cite the original dataset or publication.
+Getting the data to produce this figure requires less than 10 lines of
+code. The only information needed is the identifier of the network or dataset,
+which we suggest should be reported in publications as: "These data were
+deposited in the `mangal` format at `<URL>/api/v1/dataset/<ID>`" (where
+`<URL>` and `<ID>` are replaced by the corresponding values), preferably
+in the methods, possibly in the acknowledgements. So as to encourage data
+sharing and its recognition, we encourage users of the database to always cite the
+original datasets or publications.
 
 ## Network beta-diversity
 
@@ -319,13 +318,13 @@ have different interactions. Each network in the dataset has a latitude and
 longitude, meaning that it is possible to measure the geographic distance
 between two networks.
 
-For each pair of network, we measure the geographic distance (in km.),
+For each pair of networks, we measure the geographic distance (in km),
 the species dissimilarity ($\beta_S$), the network dissimilarity when all
 species are present ($\beta_{WN}$), and finally, the network dissimilarity
 when only shared species are considered ($\beta_{OS}$).
 
-```{r useBeta, fig.cap="Relationships between the geographic distance between two sites, and the species dissimilarity, network dissimilarity with all, and only shared, species.", dev='pdf', message=FALSE}
-# We first retrieve all informations about the networks
+```{r useBeta, fig.cap="Relationships between the geographic distance between two sites, and the species dissimilarity, network dissimilarity with all species, and network dissimilarity with only shared species.", dev='pdf', message=FALSE}
+# We first retrieve all information about the networks
 Networks <- alply(dataset$networks, 1, function(x) getNetwork(api, x))
 
 # Extract the lat/lon data
@@ -364,7 +363,7 @@ As shown in *Fig. 3*, while species dissimilarity and overall network
 dissimilarity increase when two networks are far apart, this is not the case
 for the way common species interact. This suggests that in this system, network
 dissimilarity over space is primarily driven by species turnover. The ease
-to gather both raw interaction data and associated meta-data make producing
+to gather both raw interaction data and associated meta-data make conducting
 this analysis extremely straightforward.
 
 ## Spatial visualization of networks
@@ -375,7 +374,7 @@ interactions are then drawn between species to show how species distribution
 determines biotic interactions. In this final use case, we propose to
 reproduce a similar figure (*Fig. 4*).
 
-```{r useSpace, fig.cap="Spatial plot of a network, using the `maps` and `rmangal` packages. The circle in the inset map show the location of the sites. Each dot in the main map represents a species, with (symbiontic mutualism) drawn between them. The land is in grey.", dev='pdf', message=FALSE}
+```{r useSpace, fig.cap="Spatial plot of a network, using the `maps` and `rmangal` packages. The circles in the inset map show the location of the sites. Each dot in the main map represents a species, with symbiotic mutualisms drawn between them. The land is in grey.", dev='pdf', message=FALSE}
 # We fill a community data matrix
 sp_by_site <- llply(graphs, function(x) unlist(V(x)$name))
 sp_list <- unique(unlist(sp_by_site))
