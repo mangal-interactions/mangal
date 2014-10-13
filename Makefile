@@ -28,3 +28,10 @@ $(refs): bib.keys
 
 bib.keys: $(md)
 	grep @[-:_a-zA-Z0-9]* $(md) -oh --color=never | sort | uniq | sed 's/@//g' > bib.keys
+
+diff.pdf: old_mangal.md $(md)
+	pandoc $(md) -o revised.tex --template=paper.latex --bibliography=$(refs) --csl=mee.csl 
+	pandoc old_mangal.md -o orig.tex --template=paper.latex
+	latexdiff orig.tex revised.tex > diff.tex
+	pdflatex diff
+	rm {revised,orig,diff}.tex
