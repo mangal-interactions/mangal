@@ -43,11 +43,11 @@ reproducibility of ecological network studies.
 # Introduction
 
 Ecological networks are efficient representations of the complexity of
-natural communities, and help discovering mechanisms contributing to
-their persistence, stability, resilience, and functioning. Most of the
-"early" studies of ecological networks were focused on understanding how
-the structure of interactions within one location affected the ecological
-properties of this local community. They revealed the contribution of 'average'
+natural communities, and help discover mechanisms contributing to their
+persistence, stability, resilience, and functioning. Most of the "early"
+studies of ecological networks were focused on understanding how the structure
+of interactions within one location affected the ecological properties
+of this local community. They revealed the contribution of 'average'
 network properties, such as the buffering impact of modularity on species
 loss [@pimm91,@yodz81], the increase in robustness to extinctions along
 with increases in connectance [@dunn02], and the fact that organization of
@@ -55,8 +55,8 @@ interactions maximizes biodiversity [@bast09]. New studies introduced the idea
 that networks can vary from one locality to another. They can be meaningfully
 compared, either to understand the importance of environmental gradients
 on the presence of ecological interactions [@tyli07], or to understand the
-mechanisms behind variation itself [@pois12c;@pois14]. Yet, meta-analyses of a
-large number of ecological networks are still extremely rare, and most of the
+mechanisms behind variation itself [@pois12c;@pois14]. Yet, meta-analyses
+of numerous ecological networks are still extremely rare, and most of the
 studies comparing several networks do so within the limit of particular systems
 [@schl11;@dals13;@pois13;@cham14;@olit14]. The severe shortage of publicly
 shared data in the field also restricts the scope of large-scale analyses.
@@ -65,7 +65,7 @@ It is possible to predict the structure of ecological networks, either using
 latent variables [@rohr10;@eklo13a] or actual trait values [@grav13]. The
 calibration of these approaches require accessible data, not only about
 the interactions, but about the traits of the species involved. Comparing
-the efficiency of different methods is also facilitated if there is an
+the efficiency of different methods is also facilitated if there is a
 homogeneous way of representing ecological interactions, and the associated
 metadata. In this paper, we (i) establish the need of a data specification
 serving as a common language among network ecologists, (ii) describe this
@@ -123,7 +123,7 @@ or can be viewed using the `whatIs` function from the `R` package
 specification (which is available online at the aforementioned URL), this
 section serves as an overview of each element, and how they interact.
 
-![An overview of the data specification, and the hierarchy between objects. Each box correspond to a level of the data specification. Grey boxes are nodes, blue boxes are interactions and networks, and green boxes are metadata. The **bold** boxes (`dataset`, `network`, `interaction`, `taxa`) are the minimal elements needed to represent a network.](figure-dataspec.pdf)
+![An overview of the data specification, and the hierarchy between objects. Every box corresponds to a level of the data specification. Grey boxes are nodes, blue boxes are interactions and networks, and green boxes are metadata. The **bold** boxes (`dataset`, `network`, `interaction`, `taxa`) are the minimal elements needed to represent a network.](figure-dataspec.pdf)
 
 We propose `JSON`, a user-friendly format equivalent to `XML`, as an efficient way to
 standardise data representation for two main reasons. First, it has emerged
@@ -153,16 +153,16 @@ for `ncbi` (National Center for Biotechnology Information), `gbif` (Global
 Biodiversity Information Facility), `tsn` (Taxonomic Serial Number, used by
 the Integrated Taxonomic Information System), `eol` (Encyclopedia of Life) and
 `bold` (Barcode of Life) identifiers. We also provide the taxonomic status,
-*i.e.* whether a taxa is a true taxonomic entity, a "trophic species", or a
+*i.e.* whether the taxon is a true taxonomic entity, a "trophic species", or a
 morphospecies. Taxonomic identifiers can either be added by the contributors,
 or will be automatically retrieved during the automated curation routine.
 
 ### Item
 
 An `item` is any measured instance of a taxon. Items have a `level` argument,
-which can be  either `individual` or `population`; this allows to represent
+which can be  either `individual` or `population`; this allows representing
 both individual-level networks (*i.e.* there are as many `item`s of a
-given taxa as there were individuals of this taxa sampled), and population-level
+given taxa as there were individuals of this taxon sampled), and population-level
 networks. When `item` represents a population, it is possible to give a measure
 of the size of this population. The notion of `item` is particularly useful
 for time-replicated designs: each observation of a population at a time-point
@@ -216,8 +216,8 @@ datasets.
 Environmental conditions are associated to datasets, networks, and interactions
 objects, to allow for both macro and micro environmental conditions. These
 are defined by the environmental property measured, its value, and the units.
-Similarly to traits, they have fields for time, latitude and longitude, and
-references to original publication and original datasets.
+As traits, they have fields for time, latitude and longitude, and references
+to original publication and original datasets.
 
 ### References
 
@@ -266,6 +266,66 @@ library(RColorBrewer)
 DSET_ID <- 2
 ```
 
+## Create taxa and add an interaction
+
+In the first use-case, we will create an interaction between two taxa. We
+ask of readers *not* to execute this code as it is, but rather to use it as a
+template for their own analyses. A complete, step-by-step guide to upload is
+given in the vignettes of the `rmangal` package. Uploading anything require
+to have an username and API key, which can be obtained at the following URL:
+<http:/mangal.uqar.ca/dashboard/login>. Your API key be generated automatically
+after registration. You can use it to connect to the database securely:
+
+~~~ R
+api_secure <- mangalapi("http://mangal.io", usr="MyUserName", key="AbcDefIjkL1234")
+~~~
+
+The first step is to create two taxa objects, with the species that we
+observed interacting:
+
+~~~ R
+seal <- list(
+   name = "Hydrurga leptonix",
+   vernacular = "Leopard seal",
+   eol = 328637
+)
+cod <- list(
+   name = "Gadus morhua",
+   vernacular = "Atlantic cod"
+)
+~~~
+
+Now, we will send these two objects in the remote database:
+
+~~~ R
+seal <- addTaxa(api_secure, seal)
+cod <- addTaxa(api_secure, cod)
+~~~
+
+Note that it is suggested to overwrite the local copy of the object, because
+the database will *always* send back the remote copy. This makes the syntax
+of further addition considerably easier, as we show below. Once the two
+objects are created, we can create an interaction between them:
+
+~~~ R
+seal_eats_cod  <- list(
+   taxa_from = seal,
+   taxa_to = cod,
+   int_type = "predation",
+   obs_type = "observed"
+)
+~~~
+
+Then using the same approach, we can send this information in the remote
+database:
+
+~~~ R
+seal_eats_cod <- addInteraction(api_secure, seal_eats_cod)
+~~~
+
+To create networks, datasets, etc, one needs follow the same procedure,
+as is explained in the vignettes and in the online help.
+
 ## Link-species relationships
 
 In the first example, we visualize the relationship between the number of
@@ -306,7 +366,7 @@ code. The only information needed is the identifier of the network or dataset,
 which we suggest should be reported in publications as: "These data were
 deposited in the `mangal` format at `<URL>/api/v1/dataset/<ID>`" (where
 `<URL>` and `<ID>` are replaced by the corresponding values), preferably
-in the methods, possibly in the acknowledgements. So as to encourage data
+in the methods, possibly in the acknowledgements. To encourage data
 sharing and its recognition, we encourage users of the database to always cite the
 original datasets or publications.
 
@@ -423,7 +483,7 @@ legend("bottomleft", fill = vcolors, legend = V(Mw)$name, inset = 0.02,
 # Conclusions
 
 The `mangal` data format will allow researchers to put together dataset
-with species interactions and rich meta-data, that are needed to adress
+with species interactions and rich meta-data, that are needed to address
 emerging questions about the structure of ecological networks. We
 deployed an online database with an associated API, relying on this data
 specification. Finally, we introduced `rmangal`, a `R` package designed
@@ -436,9 +496,9 @@ issue page: <https://github.com/mangal-wg/mangal-schemes/issues>. A
 integrate this database with *GLOBI*, so that data can be accessed from
 multiple sources [@poel14].
 
-**Acknowledgements** This paper was developped during a workshop hosted at the
+**Acknowledgements** This paper was developed during a workshop hosted at the
 *Santa Fe Institute*. TP, DBS, and DG acknowledge funding from the Canadian
-Institute of Ecology and Evolution. We thanks James Caveen for setting up
+Institute of Ecology and Evolution. We thank James Caveen for setting up
 the database and web server on which the data are hosted. We thank Scott
 Chamberlain and one anonymous reviewer for comments on the manuscript.
 
