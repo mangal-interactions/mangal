@@ -75,3 +75,7 @@ have added informations about the documentation and vignettes in the package.
 
 <!--DBS: I again don't think the above is the right strategy. Let's discuss
 this in person too. -->
+
+> Deus meus, ex toto corde paenitet me omnium meorum peccatorum   
+> On behalf of the authors
+> ...
