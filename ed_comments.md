@@ -24,14 +24,7 @@ examples, only few functions are actually new and derive from rmangal. In
 the case of 'plyr' functions, they are loaded by rmangal, and seem integral
 to working with the data structure. Describe this relationship.
 
-> The fact that the `rmangal` package exposes few functions is on purpose. A
-lot of planning and programming went into making the package usable, which we
-achieved through implementing all of the core functionalities in a reduced
-number of function sharing a common interface. We have added a paragraph
-listing the main functions, and why we choose plyr to interface them together.
-
-<!--DBS: I don't think the above is the right strategy. Let's discuss this
-in person. -->
+> We agree with this comment. We have added a paragraph at **xxxx** to explain which functions rmangal exports, and the rationale for their names. We also followed your suggestion to re-work the use cases, and move all non-rmangal commands outside of the text an into sourced files. We have also added a justification of why plyr is a good way to simplify a lot of the operations related to rmangal use.
 
 3. Some functions in the examples are not defined at all. E.g. the 'metaweb'
 function does not exist in rmangal (I installed it from github on my
@@ -63,18 +56,7 @@ should detail which kinds of functions the package contains, and what
 they do. Try to to look at some recent software notes, such as this one:
 http://onlinelibrary.wiley.com/doi/10.1111/j.1600-0587.2013.00695.x/abstract.
 
-> As we mention above, the packages only comes with a reduced number of
-user-exposed functions by design. Most of the heavy-lifting is done by hidden
-functions that the user is shielded from having to interacting with. We believe
-that, since we wrote a complete documentation AND vignettes giving a broader
-perspective on the package, it is better to show use-cases instead of running
-down what each function does. The uses-cases we wrote are real examples of
-problems we or early testers of the package wanted to adress, and we think
-that they are important in showing people what can be done with rmangal. We
-have added informations about the documentation and vignettes in the package.
-
-<!--DBS: I again don't think the above is the right strategy. Let's discuss
-this in person too. -->
+> As we have explained above, we have re-worked the use cases. In particular, we have added an example of how an user can create taxa and interaction objects, along with information about the documentation and vignettes. That being said, while the paper was being prepared and reviewed, we distributed the package to several colleagues. They expressed interest in the paper focusing more on how to use rmangal in the context of practical examples, rather than it being a list of functions. In this perspective, we respectfully submit that you allow us to keep the use cases as they now are; we and early users feel like they give an accurate representation of how rmangal would be used in actual projects.
 
 > Deus meus, ex toto corde paenitet me omnium meorum peccatorum   
 > On behalf of the authors
