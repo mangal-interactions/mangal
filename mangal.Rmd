@@ -116,8 +116,8 @@ networks are collections of relationships between ecological objects, and each
 element has particular meta-data associated with it. In this section, we detail the
 way networks are represented in the `mangal` specification. An interactive
 webpage with the elements of the data specification can be found online at
-`http://mangal.uqar.ca/doc/spec/`. The data specification is available
-either at the API root (*e.g.* `http://mangal.uqar.ca/api/v1/?format=json`),
+`http://mangal.io/doc/spec/`. The data specification is available
+either at the API root (*e.g.* `http://mangal.io/api/v1/?format=json`),
 or can be viewed using the `whatIs` function from the `R` package
 (see *Supp. Mat. 1*). Rather than giving an exhaustive list of the data
 specification (which is available online at the aforementioned URL), this
@@ -230,7 +230,7 @@ it offers more potential to interact with other online tools, such as the
 
 In this section, we present use cases using the `rmangal` package for `R`,
 to interact with a database implementing this data specification, and serving
-data through an API (`http://mangal.uqar.ca/api/v1/`). It is possible for users
+data through an API (`http://mangal.io/api/v1/`). It is possible for users
 to deposit data into this database through the `R` package. Note that data are made
 available under a *CC-0 Waiver* [@pois13d]. Detailed information
 about how to upload data are given in the vignettes and manual of the `rmangal`
@@ -240,8 +240,7 @@ how users can upload their data into the database through `R`.
 The data we use for this example come from @ricc10. These data
 were previously available on the *InteractionWeb DataBase* as a
 single `xls` file. We uploaded them in the `mangal` database at
-`http://mangal.uqar.ca/api/v1/dataset/1`. Before running the examples,
-users need to install the relevant packages and connect to the database:
+`http://mangal.io/api/v1/dataset/1`. The `rmangal` package can be installed this way:
 
 ```{r loadStuff, echo=TRUE, message=FALSE, warning=FALSE}
 # Prepare the environment
@@ -249,21 +248,15 @@ library(devtools)
 # This line is needed on some linux distributions
 if(getOption('unzip')=='') options('unzip' = 'unzip')
 # This installs the rmangal package
-install_github(repo='rmangal',username='mangal-wg', ref="dev")
-install_github(repo='betalink', username='tpoisot', ref="newdoc")
-library(betalink)
+install_github(repo='rmangal',username='mangal-wg')
 library(rmangal)
+```
+
+Once `rmangal` is installed and loaded, users can establish a connection to the database this way:
+
+```{r connect}
 mangal_url <- 'http://localhost:8000/'
 api <- mangalapi(mangal_url)
-# This packages are required to execute the given examples
-library(igraph)
-library(plyr)
-library(sp)
-library(maps)
-library(mapdata)
-library(RColorBrewer)
-# Dataset ID
-DSET_ID <- 2
 ```
 
 ## Create taxa and add an interaction
@@ -273,7 +266,7 @@ ask of readers *not* to execute this code as it is, but rather to use it as a
 template for their own analyses. A complete, step-by-step guide to upload is
 given in the vignettes of the `rmangal` package. Uploading anything require
 to have an username and API key, which can be obtained at the following URL:
-<http:/mangal.uqar.ca/dashboard/login>. Your API key be generated automatically
+<http:/mangal.io/dashboard/login>. Your API key be generated automatically
 after registration. You can use it to connect to the database securely:
 
 ~~~ R
@@ -333,8 +326,11 @@ species and the number of interactions, which @mart92 proposed to be linear
 (in food webs).
 
 ```{r getLS, fig.cap = "Relationship between the number of species and number of interactions in the anemonefish-fish dataset. Constant connectance refers to the hypothesis that there is a quadratic relationship between these two quantities.", dev='pdf', results='asis'}
+library(plyr)
+library(igraph)
+
 # Retrieve the dataset of interest
-dataset <- getDataset(api, DSET_ID)
+dataset <- getDataset(api, 2)
 
 # Get each network in the dataset as a graph object
 graphs <- alply(dataset$networks, 1, function(x) toIgraph(api, x))
@@ -372,6 +368,14 @@ species are present ($\beta_{WN}$), and finally, the network dissimilarity
 when only shared species are considered ($\beta_{OS}$).
 
 ```{r useBeta, fig.cap="Relationships between the geographic distance between two sites, and the species dissimilarity, network dissimilarity with all species, and network dissimilarity with only shared species.", dev='pdf', message=FALSE}
+# We need the betalink package to measure network beta-diversity
+install_github(repo='betalink', username='tpoisot')
+library(betalink)
+
+library(plyr)
+library(igraph)
+library(sp)
+
 # We first retrieve all information about the networks
 Networks <- alply(dataset$networks, 1, function(x) getNetwork(api, x))
 
@@ -415,6 +419,13 @@ determines biotic interactions. In this final use case, we propose to
 reproduce a similar figure (*Fig. 4*).
 
 ```{r useSpace, fig.cap="Spatial plot of a network, using the `maps` and `rmangal` packages. The circles in the inset map show the location of the sites. Each dot in the main map represents a species, with symbiotic mutualisms drawn between them. The land is in grey.", dev='pdf', message=FALSE}
+library(maps)
+library(mapdata)
+library(RColorBrewer)
+library(sp)
+library(plyr)
+library(igraph)
+
 # We fill a community data matrix
 sp_by_site <- llply(graphs, function(x) unlist(V(x)$name))
 sp_list <- unique(unlist(sp_by_site))
@@ -432,32 +443,8 @@ sp_center <- sp_center[, -1]
 # We now create a regional network using betalink::metaweb
 Mw <- metaweb(graphs)
 
-# Plot a map
-center_point <- colMeans(sp_center)
-vcolors <- c(brewer.pal(9, "Set1"), brewer.pal(8, "Set2"))
-
-Layout <- matrix(c(1,2,2,2), 2, 2)
-colSize <- c(1.3, 2.0)
-rowSize <- c(1.2, 2)
-layout(Layout, colSize, rowSize)
-
-# Inset map is number 1
-par(mar=c(4.5, 1, 1, 4))
-map("worldHires", xlim=c(90,136), ylim=c(-15,15), col="gray90",
-      fill=TRUE, resolution=0)
-points(center_point[2], center_point[1], pch=1, cex=2, lwd=2)
-box()
-
-par(mar=c(4.1, 4.1, 4.1, 4.1))
-map("worldHires", xlim=c(124.0,125.1), ylim=c(1.2,1.9), col="gray90",
-      fill=TRUE, resolution = 0)
-plot(Mw, layout = jitter(as.matrix(LatLon[,c('lon','lat')])),
-      rescale = FALSE, add = TRUE, vertex.color = vcolors, vertex.size = 1,
-      vertex.label = NA, edge.arrow.size = 0.25, edge.color = 1)
-axis(1)
-axis(4)
-legend("bottomleft", fill = vcolors, legend = V(Mw)$name, inset = 0.02,
-      cex = 0.7, bty = "n", ncol=2)
+# Plotting
+source("suppmat/usecase_map.r")
 ```
 
 # Conclusions
