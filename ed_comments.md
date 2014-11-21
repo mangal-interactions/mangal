@@ -57,7 +57,7 @@ should detail which kinds of functions the package contains, and what
 they do. Try to to look at some recent software notes, such as this one:
 http://onlinelibrary.wiley.com/doi/10.1111/j.1600-0587.2013.00695.x/abstract.
 
-> As we have explained above, we have re-worked the use cases. In particular, we have added an example of how an user can create taxa and interaction objects, along with information about the documentation and vignettes. We would like to mention that while the paper was being prepared and reviewed, we distributed the package to several colleagues. They expressed interest in the paper focusing more on how to use rmangal in the context of practical examples, rather than it being a list of functions. In this perspective, we respectfully submit that you allow us to keep the use cases as they now are; we and early users feel like they give an accurate representation of how rmangal would be used in actual projects.
+> As we have explained above, we have re-worked the use cases. In particular, we have added an example of how an user can create taxa and interaction objects, along with information about the documentation and vignettes. We would like to mention that while the paper was being prepared and reviewed, we distributed the package to several colleagues. They expressed interest in the paper focusing more on how to use rmangal in the context of practical examples, rather than it being a list of functions.
 > 
 > On behalf of the authors
 > T. Poisot
