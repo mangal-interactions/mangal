@@ -32,7 +32,8 @@ R-3.1.1. installation), nor in any other package I know of.
 
 > As above, this issue has been fixed by our including the previously missing
 code box. The metaweb function is defined in the betalink package, which we released
-as part of a previous project.
+as part of a previous project. We have added clear installation instructions in the code box where it
+first appears.
 
 4. The examples start with stating that users should make contact with the
 database first. How is that done? Could be relegated to the supp mat or
@@ -40,13 +41,15 @@ there could be a reference, but it should be described.
 
 > As above, this issue has been fixed by our including the previously missing
 code box. The part of the original code box has been commented to make these steps very clear.
+How to make contact with the database is a unavoidable step to use the package, and so we think it is important
+that it appears in the main text.
 
 5. Also, the first function uses objects 'api' and 'DSET_ID' that are
 undefined, which means that the example is not usable for readers. Please
 make sure that examples in the code can be run out-of-the-box.
 
 > As above, this issue has been fixed by our including the previously missing
-code box. We additionalty removed the DSET_ID object, and just use the plain value in each of the code boxes.
+code box. We additionalty removed the DSET_ID object, and just use the plain value in each of the code boxes. This last change renders all code boxes independent, so that users can run a single use-case if they are not interested in the others.
 
 6. Whereas the examples contain too little information on how to use the
 package, they contain a lot of unneccessary information such as how to plot
